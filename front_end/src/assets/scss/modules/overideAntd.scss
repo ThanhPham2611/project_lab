@@ -1,0 +1,15 @@
+//stringer
+.ant-layout-sider-trigger {
+  background: #060a52;
+}
+
+//menu antd
+.ant-menu-item-selected {
+  background-color: #060a52 !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+.ant-menu-inline .ant-menu-item::after {
+  border-right: 3px solid rgb(212, 14, 14);
+}
