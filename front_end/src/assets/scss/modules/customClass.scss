@@ -34,3 +34,33 @@
     min-height: 80vh;
   }
 }
+
+// ---- BTN WEBSITE ---
+.btnLogin {
+  border-radius: 20px;
+  height: 44px;
+  width: 10vw;
+  color: #060a52;
+  border: 1px solid #060a52;
+  &:hover {
+    width: 24vw;
+    background-color: #060a52;
+    color: whitesmoke;
+    font-weight: bold;
+    border: 1px solid transparent;
+  }
+}
+
+.btnChangePass {
+  border-radius: 20px;
+  height: 44px;
+  width: 10vw;
+  color: white;
+  background-color: #060a52;
+  border: 1px solid transparent;
+  &:hover {
+    width: 20vw;
+    background-color: rgb(165, 14, 14);
+    border: 1px solid transparent;
+  }
+}

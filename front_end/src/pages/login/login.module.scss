@@ -1,0 +1,96 @@
+.wrapperLogin {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+.textHeader {
+  color: #1890ff !important;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.bg_img_login {
+  background-image: url("https://thanglong.edu.vn/sites/default/files/2020-05/facilities-top-01.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+.form_login {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border: 1px solid transparent;
+  box-shadow: 10px 10px 10px #666;
+  background-color: whitesmoke;
+  height: 65vh;
+  width: 35vw;
+  border-radius: 20px;
+}
+
+.form_item {
+  width: 25vw;
+}
+
+.title_form {
+  font-weight: 800;
+  color: rgb(64, 169, 255);
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item_input_form {
+  height: 44px;
+  border-radius: 20px !important;
+}
+
+.form_option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selectOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 20vw;
+}
+
+.wrapperLoading {
+  z-index: 10;
+  position: relative;
+}
+
+.logo {
+  height: 15vh;
+}
+
+.textLink {
+  color: #060a52;
+  &:hover {
+    color: #03052b;
+    opacity: 0.9;
+  }
+}
