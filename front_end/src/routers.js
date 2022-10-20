@@ -11,6 +11,7 @@ import Login from "./pages/login";
 import Home from "./pages/home";
 import PageNotFound from "./pages/404";
 import NewPassword from "./pages/newpassword";
+import Profile from "./pages/profile";
 
 export const appRouter = [
   {
@@ -39,6 +40,17 @@ export const appRouter = [
     name: "Home",
     path: "/dashboard",
     component: Home,
+    meta: {
+      role: "*",
+      isPrivate: true,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "Profile",
+    path: "/profile",
+    component: Profile,
     meta: {
       role: "*",
       isPrivate: true,

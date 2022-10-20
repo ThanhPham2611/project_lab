@@ -80,7 +80,7 @@ const NewPassword = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button className="btnChangePass" type="primary" htmlType="submit">
+            <Button className="btn changePass" type="primary" htmlType="submit">
               Change password
             </Button>
           </Form.Item>

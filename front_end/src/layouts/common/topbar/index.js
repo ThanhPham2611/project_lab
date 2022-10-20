@@ -26,7 +26,7 @@ const Topbar = () => {
   //redux
   const { userData } = useSelector((state) => state.userInfo);
 
-  // translation\
+  // translation
   const { language } = { ...i18n };
   const { t } = useTranslation("common");
 

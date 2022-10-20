@@ -4,5 +4,36 @@
     "change_password": "Đổi mật khẩu",
     "logout": "Đăng xuất",
     "welcome": "Chào mừng"
+  },
+  "sidebar": {
+    "dashboard": "Trang chủ",
+    "my_profile": "Thông tin của tôi",
+    "user": "Người dùng",
+    "devices": "Thiết bị",
+    "devices_list": "Danh sách thiết bị",
+    "devices_register": "Đăng ký thiết bị",
+    "file": "Tệp"
+  },
+  "my_profile": {
+    "user_info": "Thông tin người dùng",
+    "btn_edit_profile": "Chỉnh sửa thông tin",
+    "email": "Email",
+    "student_code": "Mã sinh viên",
+    "phone": "Số điện thoại",
+    "class": "Lớp",
+    "role": "Vị trí",
+    "office": "Chức vụ",
+    "info_social": "Thông tin mạng xã hội",
+    "facebook": "Facebook",
+    "tiktok": "Tiktok",
+    "instagram": "Instagram"
+  },
+  "modal_change_pass": {
+    "title_change_password": "Đổi mật khẩu",
+    "old_password": "Mật khẩu cũ",
+    "new_password": "Mật khẩu mới",
+    "confirm_password": "Xác nhận lại mật khẩu",
+    "btn_change_pass": "Đổi mật khẩu",
+    "btn_cancel": "Hủy"
   }
 }
