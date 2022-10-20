@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec babel-node server.js",
     "start": "node index.js",
-    "start-server": "pm2 start npm --name lab_management -- start --watch",
-    "restart-server": "pm2 restart lab_management --watch"
+    "start-server": "pm2 start npm --name project_lab_backend -- start --watch",
+    "restart-server": "pm2 restart project_lab_backend --watch"
   },
   "keywords": [],
   "author": "",
