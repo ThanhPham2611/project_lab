@@ -4,5 +4,36 @@
     "change_password": "Change password",
     "logout": "Log out",
     "welcome": "Welcome"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "my_profile": "My profile",
+    "user": "User",
+    "devices": "Devices",
+    "devices_list": "Rental list",
+    "devices_register": "Register",
+    "file": "File"
+  },
+  "my_profile": {
+    "user_info": "User info",
+    "btn_edit_profile": "Edit profile",
+    "email": "Email",
+    "student_code": "Student code",
+    "phone": "Phone",
+    "class": "Class",
+    "role": "Role",
+    "office": "Office",
+    "info_social": "Info social",
+    "facebook": "Facebook",
+    "tiktok": "Tiktok",
+    "instagram": "Instagram"
+  },
+  "modal_change_pass": {
+    "title_change_password": "Change password",
+    "old_password": "Old password",
+    "new_password": "New password",
+    "confirm_password": "Confirm password",
+    "btn_change_pass": "Change password",
+    "btn_cancel": "Cancel"
   }
 }

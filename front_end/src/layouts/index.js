@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Layout, Menu, Breadcrumb } from "antd";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
+import { useHistory, NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 //local
 import { STORAGEKEY } from "../services/cookies";
 import { userInfo } from "../store/modules/usersSlices";
@@ -31,18 +34,10 @@ const getItem = (label, key, icon, children) => {
   };
 };
 
-const itemMenu = [
-  getItem("Dashboard", "1", <PieChartOutlined />),
-  getItem("My profile", "2", <DesktopOutlined />),
-  getItem("User", "3", <UserOutlined />),
-  getItem("Devices", "sub2", <TeamOutlined />, [
-    getItem("Register", "6"),
-    getItem("Rental list", "8"),
-  ]),
-  getItem("Files", "9", <FileOutlined />),
-];
-
 const App = (props) => {
+  //translation
+  const { t } = useTranslation("common");
+
   //components render
   const { renderRouter } = props;
 
@@ -56,15 +51,56 @@ const App = (props) => {
   //cookies
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
 
+  //redirect
+  const history = useHistory();
+
   useEffect(() => {
     const isChangePW = localStorage.getItem("isChangePW");
-    if (cookies[STORAGEKEY.ACCESS_TOKEN] && isChangePW === "true") {
-      setDisplayMenu(true);
-      dispatch(userInfo());
+    if (cookies[STORAGEKEY.ACCESS_TOKEN]) {
+      if (isChangePW === "true") {
+        setDisplayMenu(true);
+        dispatch(userInfo());
+        history.push("/dashboard");
+      } else {
+        history.push("/new-password");
+      }
     } else {
-      setDisplayMenu(false);
+      history.push("/login");
     }
   }, []);
+
+  const itemMenu = [
+    getItem(
+      <NavLink to="/dashboard">{t("sidebar.dashboard")}</NavLink>,
+      "1",
+      <PieChartOutlined />
+    ),
+    getItem(
+      <NavLink to="/profile">{t("sidebar.my_profile")}</NavLink>,
+      "2",
+      <DesktopOutlined />
+    ),
+    getItem(
+      <NavLink to="/dashboard">{t("sidebar.user")}</NavLink>,
+      "3",
+      <UserOutlined />
+    ),
+    getItem(t("sidebar.devices"), "sub2", <TeamOutlined />, [
+      getItem(
+        <NavLink to="/dashboard">{t("sidebar.devices_register")}</NavLink>,
+        "6"
+      ),
+      getItem(
+        <NavLink to="/dashboard">{t("sidebar.devices_list")}</NavLink>,
+        "8"
+      ),
+    ]),
+    getItem(
+      <NavLink to="/dashboard">{t("sidebar.file")}</NavLink>,
+      "9",
+      <FileOutlined />
+    ),
+  ];
 
   return (
     <Layout

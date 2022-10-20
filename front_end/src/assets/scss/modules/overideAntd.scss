@@ -8,6 +8,12 @@
   background-color: #060a52 !important;
   color: white !important;
   font-weight: bold;
+  a {
+    color: white;
+    &:hover {
+      color: white;
+    }
+  }
 }
 
 .ant-menu-inline .ant-menu-item::after {

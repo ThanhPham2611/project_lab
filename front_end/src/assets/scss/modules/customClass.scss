@@ -51,16 +51,27 @@
   }
 }
 
-.btnChangePass {
+.btn {
   border-radius: 20px;
   height: 44px;
-  width: 10vw;
-  color: white;
-  background-color: #060a52;
-  border: 1px solid transparent;
-  &:hover {
-    width: 20vw;
-    background-color: rgb(165, 14, 14);
+  &.changePass {
+    width: 10vw;
+    color: white;
+    background-color: #060a52;
     border: 1px solid transparent;
+    &:hover {
+      width: 20vw;
+      background-color: #a50e0e;
+      border: 1px solid transparent;
+    }
+  }
+  &.edit {
+    color: white;
+    background-color: #060a52;
+    &:hover {
+      border: 1px solid transparent;
+      background-color: #a50e0e;
+      color: white;
+    }
   }
 }

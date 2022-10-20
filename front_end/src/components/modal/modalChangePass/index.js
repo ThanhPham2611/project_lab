@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, Form, Input, Button, Space, Spin } from "antd";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 //local
 import { patch } from "../../../services/axios/baseAPI";
@@ -9,6 +10,9 @@ import { patch } from "../../../services/axios/baseAPI";
 import styles from "./changePass.module.scss";
 
 const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
+  //translation
+  const { t } = useTranslation("common");
+
   const [form] = Form.useForm();
 
   const handleOk = () => {
@@ -42,7 +46,7 @@ const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
   return (
     <>
       <Modal
-        title="Change Password"
+        title={t("modal_change_pass.title_change_password")}
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -63,7 +67,7 @@ const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
             autoComplete="off"
           >
             <Form.Item
-              label="Old password"
+              label={t("modal_change_pass.old_password")}
               name="oldPassword"
               rules={[
                 {
@@ -76,7 +80,7 @@ const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
             </Form.Item>
 
             <Form.Item
-              label="New password"
+              label={t("modal_change_pass.new_password")}
               name="newPassword"
               dependencies={["oldPassword"]}
               rules={[
@@ -102,7 +106,7 @@ const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
             </Form.Item>
 
             <Form.Item
-              label="Confirm Password"
+              label={t("modal_change_pass.confirm_password")}
               name="confirmPassword"
               dependencies={["newPassword"]}
               rules={[
@@ -135,14 +139,14 @@ const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
                   type="primary"
                   htmlType="submit"
                 >
-                  Change Password
+                  {t("modal_change_pass.btn_change_pass")}
                 </Button>
                 <Button
                   className={styles.btn}
                   key="cancel"
                   onClick={handleCancel}
                 >
-                  Cancel
+                  {t("modal_change_pass.btn_cancel")}
                 </Button>
               </Space>
             </Form.Item>
