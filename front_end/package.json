@@ -30,7 +30,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-server": "pm2 start npm --name project_lab_frontend -- start --watch",
+    "restart-server": "pm2 restart project_lab_frontend --watch"
   },
   "eslintConfig": {
     "extends": [
