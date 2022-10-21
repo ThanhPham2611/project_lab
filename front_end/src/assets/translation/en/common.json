@@ -12,6 +12,10 @@
     "devices": "Devices",
     "devices_list": "Rental list",
     "devices_register": "Register",
+    "devices_management": "Devices managment",
+    "devices_add_new_one": "Add devices",
+    "devices_inventory": "Inventory",
+    "devices_list_register": "List request",
     "file": "File"
   },
   "my_profile": {
