@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Breadcrumb } from "antd";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
-import { useHistory, NavLink } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+// import { useTranslation } from "react-i18next";
 
 //local
 import { STORAGEKEY } from "../services/cookies";
 import { userInfo } from "../store/modules/usersSlices";
 import Topbar from "./common/topbar";
+import MenuAdmin from "./common/leftbar/sidebarAdmin";
 
 //icon
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import iconLogo from "../assets/images/img/logoTLU.png";
 import iconLogoVerital from "../assets/images/img/logoVertical.png";
 
@@ -25,18 +19,9 @@ import iconLogoVerital from "../assets/images/img/logoVertical.png";
 
 const { Sider, Header, Content } = Layout;
 
-const getItem = (label, key, icon, children) => {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-};
-
 const App = (props) => {
   //translation
-  const { t } = useTranslation("common");
+  // const { t } = useTranslation("common");
 
   //components render
   const { renderRouter } = props;
@@ -69,39 +54,6 @@ const App = (props) => {
     }
   }, []);
 
-  const itemMenu = [
-    getItem(
-      <NavLink to="/dashboard">{t("sidebar.dashboard")}</NavLink>,
-      "1",
-      <PieChartOutlined />
-    ),
-    getItem(
-      <NavLink to="/profile">{t("sidebar.my_profile")}</NavLink>,
-      "2",
-      <DesktopOutlined />
-    ),
-    getItem(
-      <NavLink to="/dashboard">{t("sidebar.user")}</NavLink>,
-      "3",
-      <UserOutlined />
-    ),
-    getItem(t("sidebar.devices"), "sub2", <TeamOutlined />, [
-      getItem(
-        <NavLink to="/dashboard">{t("sidebar.devices_register")}</NavLink>,
-        "6"
-      ),
-      getItem(
-        <NavLink to="/dashboard">{t("sidebar.devices_list")}</NavLink>,
-        "8"
-      ),
-    ]),
-    getItem(
-      <NavLink to="/dashboard">{t("sidebar.file")}</NavLink>,
-      "9",
-      <FileOutlined />
-    ),
-  ];
-
   return (
     <Layout
       style={{
@@ -122,7 +74,7 @@ const App = (props) => {
               <img src={iconLogo} alt="logo tlu" className="logo" />
             )}
           </div>
-          <Menu defaultSelectedKeys={["1"]} mode="inline" items={itemMenu} />
+          <MenuAdmin />
         </Sider>
       )}
 
