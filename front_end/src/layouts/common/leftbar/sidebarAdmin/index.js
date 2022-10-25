@@ -43,7 +43,7 @@ const MenuAdmin = () => {
     ),
     getItem(t("sidebar.devices"), "sub1", <TeamOutlined />, [
       getItem(
-        <NavLink to="/dashboard">{t("sidebar.devices_management")}</NavLink>,
+        <NavLink to="/devices-management">{t("sidebar.devices_management")}</NavLink>,
         "4"
       ),
       getItem(

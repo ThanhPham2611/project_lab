@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Breadcrumb } from "antd";
+import { Layout } from "antd";
 import { useCookies } from "react-cookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 // import { useTranslation } from "react-i18next";
 
@@ -10,6 +10,7 @@ import { STORAGEKEY } from "../services/cookies";
 import { userInfo } from "../store/modules/usersSlices";
 import Topbar from "./common/topbar";
 import MenuAdmin from "./common/leftbar/sidebarAdmin";
+import BreadCrumb from "./common/breadcrumb";
 
 //icon
 import iconLogo from "../assets/images/img/logoTLU.png";
@@ -28,6 +29,7 @@ const App = (props) => {
 
   //redux
   const dispatch = useDispatch();
+  const { userData } = useSelector(state => state.userInfo)
 
   //state
   const [collapsed, setCollapsed] = useState(false);
@@ -87,10 +89,7 @@ const App = (props) => {
 
         <Content className={displayMenu && "content"}>
           {displayMenu && (
-            <Breadcrumb className="breadcumb">
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
+            <BreadCrumb userRole={userData.role} />
           )}
 
           <div className={displayMenu && "contentchildren"}>

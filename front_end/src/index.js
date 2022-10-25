@@ -16,7 +16,7 @@ import common_en from "./assets/translation/en/common.json";
 import common_vi from "./assets/translation/vi/common.json";
 
 //scss
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "./assets/scss/main.scss";
 
 const queryClient = new QueryClient();
