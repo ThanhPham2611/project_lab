@@ -13,5 +13,6 @@ router.post("/register", UserController.registerAuthen);
 
 //patch
 router.patch("/updatePassword", UserController.updatePassword);
+router.patch("/updateInfo", UserController.updateInfo);
 
 export default router;
