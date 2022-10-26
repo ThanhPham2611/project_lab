@@ -24,7 +24,7 @@ const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
     form.resetFields();
   };
 
-  const patchChangePassword = (data) => patch(`api/updatePassword`, data);
+  const patchChangePassword = (data) => patch(`updatePassword`, data);
 
   const { mutate: patchPassword, isLoading: isPatchingPassword } = useMutation(
     patchChangePassword,

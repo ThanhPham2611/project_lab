@@ -41,6 +41,9 @@ const adminSchema = mongoose.Schema({
     default: false,
   },
   avatarUrl: String,
+  facebook: String,
+  tiktok: String,
+  instagram: String,
 });
 
 module.exports = mongoose.model("User", adminSchema);
