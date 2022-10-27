@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 //icon
@@ -25,42 +25,46 @@ const MenuUser = () => {
   // translation
   const { t } = useTranslation("common");
 
+  const { pathname } = useLocation();
+
   const itemMenu = [
     getItem(
       <NavLink to="/dashboard">{t("sidebar.dashboard")}</NavLink>,
-      "1",
+      "/dashboard",
       <PieChartOutlined />
     ),
     getItem(
       <NavLink to="/profile">{t("sidebar.my_profile")}</NavLink>,
-      "2",
+      "/profile",
       <DesktopOutlined />
     ),
     getItem(
-      <NavLink to="/dashboard">{t("sidebar.user")}</NavLink>,
-      "3",
+      <NavLink to="/user">{t("sidebar.user")}</NavLink>,
+      "/user",
       <UserOutlined />
     ),
     getItem(t("sidebar.devices"), "sub2", <TeamOutlined />, [
       getItem(
-        <NavLink to="/dashboard">{t("sidebar.devices_register")}</NavLink>,
-        "6"
+        <NavLink to="/devices-register">
+          {t("sidebar.devices_register")}
+        </NavLink>,
+        "/devices-register"
       ),
       getItem(
-        <NavLink to="/dashboard">{t("sidebar.devices_list")}</NavLink>,
-        "8"
+        <NavLink to="/devices-list">{t("sidebar.devices_list")}</NavLink>,
+        "/devices-list"
       ),
     ]),
     getItem(
-      <NavLink to="/dashboard">{t("sidebar.file")}</NavLink>,
-      "9",
+      <NavLink to="/file">{t("sidebar.file")}</NavLink>,
+      "/file",
       <FileOutlined />
     ),
   ];
 
   return (
-    <Menu defaultSelectedKeys={["1"]} mode="inline" items={itemMenu} />
-  )
-}
+    <Menu defaultSelectedKeys={[pathname]} mode="inline" items={itemMenu} />
+  );
+};
 
-export default MenuUser
+export default MenuUser;

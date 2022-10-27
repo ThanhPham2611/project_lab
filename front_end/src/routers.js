@@ -16,6 +16,17 @@ import ForgotPassword from "./pages/forget_password";
 
 export const appRouter = [
   {
+    name: "something",
+    path: "/",
+    component: Login,
+    meta: {
+      role: "*",
+      isPrivate: false,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
     name: "Login",
     path: "/login",
     component: Login,
@@ -101,6 +112,7 @@ const WhiteListRoute = (props) => {
   const isWhiteList = (path) =>
     !cookies[STORAGEKEY.ACCESS_TOKEN] && whiteList.indexOf(path) >= 0;
 
+  console.log("isWhiteList", isWhiteList);
   return (
     <Route
       path={props.path}
