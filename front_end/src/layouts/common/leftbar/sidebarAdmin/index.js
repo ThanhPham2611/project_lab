@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 //icon
@@ -25,50 +25,58 @@ const MenuAdmin = () => {
   // translation
   const { t } = useTranslation("common");
 
+  const { pathname } = useLocation();
+
   const itemMenu = [
     getItem(
       <NavLink to="/dashboard">{t("sidebar.dashboard")}</NavLink>,
-      "1",
+      "/dashboard",
       <PieChartOutlined />
     ),
     getItem(
       <NavLink to="/profile">{t("sidebar.my_profile")}</NavLink>,
-      "2",
+      "/profile",
       <DesktopOutlined />
     ),
     getItem(
-      <NavLink to="/dashboard">{t("sidebar.user")}</NavLink>,
-      "3",
+      <NavLink to="/user">{t("sidebar.user")}</NavLink>,
+      "/user",
       <UserOutlined />
     ),
     getItem(t("sidebar.devices"), "sub1", <TeamOutlined />, [
       getItem(
-        <NavLink to="/devices-management">{t("sidebar.devices_management")}</NavLink>,
-        "4"
+        <NavLink to="/devices-management">
+          {t("sidebar.devices_management")}
+        </NavLink>,
+        "/devices-management"
       ),
       getItem(
-        <NavLink to="/dashboard">{t("sidebar.devices_add_new_one")}</NavLink>,
-        "5"
+        <NavLink to="/add-devices">{t("sidebar.devices_add_new_one")}</NavLink>,
+        "/add-devices"
       ),
       getItem(
-        <NavLink to="/dashboard">{t("sidebar.devices_inventory")}</NavLink>,
-        "6"
+        <NavLink to="/devices_inventory">
+          {t("sidebar.devices_inventory")}
+        </NavLink>,
+        "/devices_inventory"
       ),
       getItem(
-        <NavLink to="/dashboard">{t("sidebar.devices_list_register")}</NavLink>,
-        "7"
+        <NavLink to="/devices-list">
+          {t("sidebar.devices_list_register")}
+        </NavLink>,
+        "/devices-list"
       ),
     ]),
     getItem(
-      <NavLink to="/dashboard">{t("sidebar.file")}</NavLink>,
-      "9",
+      <NavLink to="/file">{t("sidebar.file")}</NavLink>,
+      "/file",
       <FileOutlined />
     ),
   ];
 
   return (
-    <Menu defaultSelectedKeys={["1"]} mode="inline" items={itemMenu} />
-  )
-}
+    <Menu defaultSelectedKeys={[pathname]} mode="inline" items={itemMenu} />
+  );
+};
 
-export default MenuAdmin
+export default MenuAdmin;

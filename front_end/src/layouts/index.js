@@ -35,9 +35,6 @@ const App = (props) => {
   //cookies
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
 
-  //redirect
-  const history = useHistory();
-
   useEffect(() => {
     i18n.changeLanguage(localStorage.getItem("language"));
     const isChangePW = localStorage.getItem("isChangePW");
@@ -45,9 +42,6 @@ const App = (props) => {
       if (isChangePW === "true") {
         setDisplayMenu(true);
         dispatch(userInfo());
-        history.push("/dashboard");
-      } else {
-        history.push("/new-password");
       }
     }
   }, []);
