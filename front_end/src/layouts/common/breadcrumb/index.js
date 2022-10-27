@@ -18,15 +18,25 @@ const BreadCrumb = (props) => {
         if (name.includes("-")) {
           const newName = name.split("-").join(" ");
           return isLast ? (
-            <Breadcrumb.Item>{`${newName[0].toUpperCase()}${newName.slice(1)}`}</Breadcrumb.Item>
+            <Breadcrumb.Item>{`${newName[0].toUpperCase()}${newName.slice(
+              1
+            )}`}</Breadcrumb.Item>
           ) : (
-            <Breadcrumb.Item href={`/${name}`}>{`${newName[0].toUpperCase()}${newName.slice(1)}`}</Breadcrumb.Item>
+            <Breadcrumb.Item
+              href={`/${name}`}
+            >{`${newName[0].toUpperCase()}${newName.slice(
+              1
+            )}`}</Breadcrumb.Item>
           );
         } else {
           return isLast ? (
-            <Breadcrumb.Item>{`${name[0].toUpperCase()}${name.slice(1)}`}</Breadcrumb.Item>
+            <Breadcrumb.Item>{`${name[0].toUpperCase()}${name.slice(
+              1
+            )}`}</Breadcrumb.Item>
           ) : (
-            <Breadcrumb.Item href={`/${name}`}>{`${name[0].toUpperCase()}${name.slice(1)}`}</Breadcrumb.Item>
+            <Breadcrumb.Item
+              href={`/${name}`}
+            >{`${name[0].toUpperCase()}${name.slice(1)}`}</Breadcrumb.Item>
           );
         }
       })}

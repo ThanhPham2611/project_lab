@@ -3,7 +3,7 @@ import { Layout } from "antd";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-// import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 //local
 import { STORAGEKEY } from "../services/cookies";
@@ -21,15 +21,12 @@ import iconLogoVerital from "../assets/images/img/logoVertical.png";
 const { Sider, Header, Content } = Layout;
 
 const App = (props) => {
-  //translation
-  // const { t } = useTranslation("common");
-
   //components render
   const { renderRouter } = props;
 
   //redux
   const dispatch = useDispatch();
-  const { userData } = useSelector(state => state.userInfo)
+  const { userData } = useSelector((state) => state.userInfo);
 
   //state
   const [collapsed, setCollapsed] = useState(false);
@@ -42,6 +39,7 @@ const App = (props) => {
   const history = useHistory();
 
   useEffect(() => {
+    i18n.changeLanguage(localStorage.getItem("language"));
     const isChangePW = localStorage.getItem("isChangePW");
     if (cookies[STORAGEKEY.ACCESS_TOKEN]) {
       if (isChangePW === "true") {
@@ -88,9 +86,7 @@ const App = (props) => {
         )}
 
         <Content className={displayMenu && "content"}>
-          {displayMenu && (
-            <BreadCrumb userRole={userData.role} />
-          )}
+          {displayMenu && <BreadCrumb userRole={userData.role} />}
 
           <div className={displayMenu && "contentchildren"}>
             {renderRouter()}

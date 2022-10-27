@@ -39,5 +39,16 @@
     "confirm_password": "Xác nhận lại mật khẩu",
     "btn_change_pass": "Đổi mật khẩu",
     "btn_cancel": "Hủy"
+  },
+  "modal_edit_profile": {
+    "title_edit_profile": "Chỉnh sửa hồ sơ",
+    "btn_change_edit": "Thay đổi",
+    "btn_cancel": "Hủy ",
+    "edit_image": "Chỉnh sửa hình ảnh",
+    "btn_save_change": "Lưu thay đổi",
+    "btn_cancel_drop": "Hủy ảnh",
+    "loading_change": "Đang thay đổi ảnh....",
+    "mess_image_format": "Ảnh cần có định dạng là jpg hoặc png",
+    "mess_image_size": "Kích thước tối đa của ảnh là < 5mb"
   }
 }

@@ -39,5 +39,16 @@
     "confirm_password": "Confirm password",
     "btn_change_pass": "Change password",
     "btn_cancel": "Cancel"
+  },
+  "modal_edit_profile": {
+    "title_edit_profile": "Edit profile",
+    "btn_change_edit": "Change edit",
+    "btn_cancel": "Cancel",
+    "edit_image": "Edit image",
+    "btn_save_change": "Save change",
+    "btn_cancel_drop": "Cancel",
+    "loading_change": "loading change....",
+    "mess_image_format": "The image needs to be in jpg or png format",
+    "mess_image_size": "Maximum image size is < 5mb"
   }
 }
