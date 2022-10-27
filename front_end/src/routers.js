@@ -12,12 +12,24 @@ import Home from "./pages/home";
 import PageNotFound from "./pages/404";
 import NewPassword from "./pages/newpassword";
 import Profile from "./pages/profile";
+import ForgotPassword from "./pages/forget_password";
 
 export const appRouter = [
   {
     name: "Login",
     path: "/login",
     component: Login,
+    meta: {
+      role: "*",
+      isPrivate: false,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "Forget-password",
+    path: "/forget-password",
+    component: ForgotPassword,
     meta: {
       role: "*",
       isPrivate: false,
@@ -116,6 +128,7 @@ const renderRouter = (routes) => {
       />
     ) : (
       <WhiteListRoute
+        exact
         path={route.path}
         component={route.component}
         key={route.name}

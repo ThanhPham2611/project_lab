@@ -171,6 +171,12 @@ export const updatePassword = async (req, res) => {
   }
 };
 
+/**
+ * get info
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
 export const getMyInfo = async (req, res, next) => {
   let token = null;
   if (
@@ -190,6 +196,12 @@ export const getMyInfo = async (req, res, next) => {
   });
 };
 
+/**
+ * update edit info
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
 export const updateInfo = async (req, res) => {
   let token = null;
   if (
@@ -216,5 +228,58 @@ export const updateInfo = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(401).send({ message: "id not exist !" });
+  }
+};
+
+/**
+ * forget password
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+
+export const resetPassword = async (req, res) => {
+  try {
+    const existEmail = await User.findOne(
+      {
+        email: req.body.emailVerify,
+      },
+      "_id email"
+    );
+    if (!existEmail) {
+      return res.status(401).send({ message: "Email not exist !" });
+    }
+    const passwordRandom = randomstring.generate(8);
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "thanh.pt2611@gmail.com",
+        pass: process.env.PASSWORD_MAIL_SECRET,
+      },
+    });
+
+    await transporter.sendMail({
+      from: "adminTLU@gmail.com",
+      to: `thanhpt@relipasoft.com`,
+      subject: "Password reset notification",
+      text: "Testing send email",
+      html: `Account <b>${req.body.emailVerify},</b> is reinstalled the password is <b>${passwordRandom}</b>, this password is the password's ban start and will be change after 24h `,
+    });
+    const hash = await bcrypt.hashSync(passwordRandom, saltRounds);
+    await User.findByIdAndUpdate(
+      { _id: existEmail._id },
+      {
+        password: hash,
+        isChangePassword: false,
+      }
+    );
+    return res.json({
+      message: "Successfully sent the password to your email",
+    });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(401)
+      .send({ message: "Error sent the password to your email" });
   }
 };

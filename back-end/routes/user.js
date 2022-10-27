@@ -10,6 +10,7 @@ router.get("/myInfo", verifyToken, UserController.getMyInfo);
 //post
 router.post("/login", UserController.loginAuthen);
 router.post("/register", UserController.registerAuthen);
+router.post("/resetPassword", UserController.resetPassword);
 
 //patch
 router.patch("/updatePassword", UserController.updatePassword);
