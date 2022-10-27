@@ -21,6 +21,7 @@ const Profile = () => {
 
   //translation
   const { t } = useTranslation("common");
+
   return (
     <>
       <Spin tip="Loading....." spinning={loading}>

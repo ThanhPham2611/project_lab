@@ -12,6 +12,7 @@ import { storage } from "../../../services/firebase";
 //scss
 import styles from "./editProfile.module.scss";
 import { userInfo } from "../../../store/modules/usersSlices";
+import { useTranslation } from "react-i18next";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -27,6 +28,9 @@ const ModalEditProfile = ({
   //redux
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.userInfo);
+
+  //translation
+  const { t } = useTranslation("common");
 
   //form
   const [form] = Form.useForm();
@@ -94,13 +98,13 @@ const ModalEditProfile = ({
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
 
     if (!isJpgOrPng) {
-      message.error("The image needs to be in jpg or png format");
+      message.error(t("modal_edit_profile.mess_image_format"));
     }
 
     const isLt1M = file.size / 1024 / 1024 < 5;
 
     if (!isLt1M) {
-      message.error("Maximum image size is < 5mb");
+      message.error(t("modal_edit_profile.mess_image_size"));
     }
 
     return isJpgOrPng && isLt1M;
@@ -117,22 +121,25 @@ const ModalEditProfile = ({
 
   return (
     <Modal
-      title="Edit profile"
+      title={t("modal_edit_profile.title_edit_profile")}
       open={isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
       footer={null}
     >
-      <Spin tip="Change profile......" spinning={isPatchingInfo}>
+      <Spin
+        tip={t("modal_edit_profile.loading_change")}
+        spinning={isPatchingInfo}
+      >
         <div className={styles.wrapperImg}>
           <ImgCrop
             beforeCrop={beforeUploadThumb}
             modalClassName="cropImg"
             maxZoom={5}
             aspect={1 / 1}
-            modalTitle={"Edit image"}
-            modalOk={"Save change"}
-            modalCancel={"Cancel"}
+            modalTitle={t("modal_edit_profile.edit_image")}
+            modalOk={t("modal_edit_profile.btn_save_change")}
+            modalCancel={t("modal_edit_profile.btn_cancel_drop")}
           >
             <Upload
               beforeCrop={beforeUploadThumb}
@@ -160,10 +167,10 @@ const ModalEditProfile = ({
           <Form.Item>
             <Space className={styles.btnGroup}>
               <Button className="btn editProfile" htmlType="submit">
-                Change edit
+                {t("modal_edit_profile.btn_change_edit")}
               </Button>
               <Button className="btn cancel" onClick={handleCancel}>
-                Cancel
+                {t("modal_edit_profile.btn_cancel")}
               </Button>
             </Space>
           </Form.Item>

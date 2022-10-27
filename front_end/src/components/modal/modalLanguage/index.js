@@ -13,6 +13,7 @@ const ModalLanguage = ({ isModalVisible, setIsModalVisible }) => {
   };
 
   const changeLangage = (value) => {
+    localStorage.setItem("language", value);
     i18n.changeLanguage(value);
     setIsModalVisible(false);
   };
