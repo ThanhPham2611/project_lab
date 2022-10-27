@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.f37c7609.css",
-    "main.js": "/static/js/main.ce28783a.js",
+    "main.css": "/static/css/main.f013de2b.css",
+    "main.js": "/static/js/main.eb944a89.js",
     "static/media/logoTLU.png": "/static/media/logoTLU.282ee3d1fbfc195200ad.png",
     "static/media/united-kingdom.png": "/static/media/united-kingdom.b9a2ba74e5f8a55977e7.png",
     "static/media/vietnam.png": "/static/media/vietnam.a7a251f3ce4a10a7fd18.png",
     "static/media/logoVertical.png": "/static/media/logoVertical.3301896206d5b35e7cd2.png",
     "index.html": "/index.html",
-    "main.f37c7609.css.map": "/static/css/main.f37c7609.css.map",
-    "main.ce28783a.js.map": "/static/js/main.ce28783a.js.map"
+    "main.f013de2b.css.map": "/static/css/main.f013de2b.css.map",
+    "main.eb944a89.js.map": "/static/js/main.eb944a89.js.map"
   },
   "entrypoints": [
-    "static/css/main.f37c7609.css",
-    "static/js/main.ce28783a.js"
+    "static/css/main.f013de2b.css",
+    "static/js/main.eb944a89.js"
   ]
 }

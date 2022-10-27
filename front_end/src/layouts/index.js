@@ -49,8 +49,6 @@ const App = (props) => {
       } else {
         history.push("/new-password");
       }
-    } else {
-      history.push("/login");
     }
   }, []);
 
