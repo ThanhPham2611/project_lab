@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "antd";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import i18n from "i18next";
+import { io } from "socket.io-client";
 
 //local
 import { STORAGEKEY } from "../services/cookies";
@@ -19,6 +19,11 @@ import iconLogoVerital from "../assets/images/img/logoVertical.png";
 //scss
 
 const { Sider, Header, Content } = Layout;
+
+// socket
+const socket = io(process.env.REACT_APP_SOCKET_URL, {
+  transports: ["websocket"],
+});
 
 const App = (props) => {
   //components render
@@ -36,6 +41,7 @@ const App = (props) => {
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
 
   useEffect(() => {
+    socket.emit("connected");
     i18n.changeLanguage(localStorage.getItem("language"));
     const isChangePW = localStorage.getItem("isChangePW");
     if (cookies[STORAGEKEY.ACCESS_TOKEN]) {
