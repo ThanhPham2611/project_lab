@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Alert, Button, Form, Input, Spin } from "antd";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useMutation } from "@tanstack/react-query";
+import { useHistory } from "react-router-dom";
 
 //local
 import { post } from "../../services/axios/baseAPI";
@@ -11,9 +12,14 @@ import iconLogo from "../../assets/images/img/logoVertical.png";
 
 //scss
 import styles from "./forgetPass.module.scss";
+import axios from "axios";
 
 const ForgotPassword = () => {
+  //form
   const [form] = Form.useForm();
+
+  //history
+  const history = useHistory();
 
   // state
   const [alert, setAlert] = useState({
@@ -21,23 +27,52 @@ const ForgotPassword = () => {
     message: "",
   });
   const [displayMessage, setDisplayMessage] = useState(false);
+  const [displayInputCode, setDisplayInputCode] = useState(false);
+  const [disabledInput, setDisabledInput] = useState(false);
+  const [captcha, setCaptcha] = useState();
 
   const onFinish = (values) => {
-    postEmailReset(values);
+    if (disabledInput) {
+      console.log(values);
+      postCodeVerify(values);
+    } else {
+      axios
+        .post(`http://localhost:8080/api/resetPassword`, {
+          emailVerify: values.emailVerify,
+        })
+        .then((res) => {
+          const { data } = res;
+          setAlert({
+            status: "success",
+            message: data.message,
+          });
+          setDisplayMessage(true);
+          setDisabledInput(true);
+        })
+        .catch((err) => {
+          setAlert({
+            status: "error",
+            message: err.response.data.message,
+          });
+          setDisplayMessage(true);
+        });
+    }
   };
 
-  const postEmail = (data) => post(`resetPassword`, data);
+  const postEmail = (data) => post(`sendCode`, data);
 
-  const { mutate: postEmailReset, isLoading: isPostingReset } = useMutation(
+  const { mutate: postCodeVerify, isLoading: isPostingReset } = useMutation(
     postEmail,
     {
       onSuccess: (data) => {
-        setDisplayMessage(true);
         setAlert({
           status: "success",
-          message: data.message,
+          message: `${data.message}, after 3 second change page login`,
         });
-        window.location.href = "/login";
+        setDisplayMessage(true);
+        setTimeout(() => {
+          history.push(`/login`);
+        }, 3000);
       },
       onError: (error) => {
         setAlert({
@@ -50,7 +85,7 @@ const ForgotPassword = () => {
   );
 
   const onChangeCapt = (value) => {
-    console.log("capt", value);
+    setCaptcha(value);
   };
   return (
     <Spin spinning={isPostingReset}>
@@ -67,8 +102,14 @@ const ForgotPassword = () => {
               <Input
                 placeholder="Enter your email address"
                 className={styles.inputItem}
+                disabled={disabledInput}
               />
             </Form.Item>
+            {disabledInput && (
+              <Form.Item label="Code verify" name="codeVerify">
+                <Input placeholder="Code verify" className={styles.inputItem} />
+              </Form.Item>
+            )}
             <Form.Item>
               <ReCAPTCHA
                 sitekey={process.env.REACT_APP_GG_CAPTCHA_KEY}
@@ -80,8 +121,9 @@ const ForgotPassword = () => {
                 className={styles.btnSend}
                 type="primary"
                 htmlType="submit"
+                disabled={!captcha}
               >
-                Send password reset email
+                {disabledInput ? "Send code" : "Send password reset email"}
               </Button>
             </Form.Item>
             {displayMessage && (

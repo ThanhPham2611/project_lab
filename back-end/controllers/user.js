@@ -249,7 +249,12 @@ export const resetPassword = async (req, res) => {
     if (!existEmail) {
       return res.status(401).send({ message: "Email not exist !" });
     }
+    //codeRandom
     const passwordRandom = randomstring.generate(8);
+    await User.updateOne(
+      { email: existEmail.email },
+      { codeResetPass: passwordRandom }
+    );
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -263,16 +268,8 @@ export const resetPassword = async (req, res) => {
       to: `thanhpt@relipasoft.com`,
       subject: "Password reset notification",
       text: "Testing send email",
-      html: `Account <b>${req.body.emailVerify},</b> is reinstalled the password is <b>${passwordRandom}</b>, this password is the password's ban start and will be change after 24h `,
+      html: `Account <b>${req.body.emailVerify},</b> code reset password: <b>${passwordRandom}</b> will be change after 24h`,
     });
-    const hash = await bcrypt.hashSync(passwordRandom, saltRounds);
-    await User.findByIdAndUpdate(
-      { _id: existEmail._id },
-      {
-        password: hash,
-        isChangePassword: false,
-      }
-    );
     return res.json({
       message: "Successfully sent the password to your email",
     });
@@ -281,5 +278,63 @@ export const resetPassword = async (req, res) => {
     return res
       .status(401)
       .send({ message: "Error sent the password to your email" });
+  }
+};
+
+/**
+ * code verify
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+
+export const sendCodeVerify = async (req, res) => {
+  const { emailVerify, codeVerify } = req.body;
+  try {
+    const checkEmail = await User.findOne(
+      {
+        email: emailVerify,
+      },
+      "codeResetPass"
+    );
+    if (!checkEmail) {
+      return res.status(401).send({ message: "Email not exist !" });
+    }
+    if (checkEmail.codeResetPass === codeVerify) {
+      //codeRandom
+      const passwordRandom = randomstring.generate(8);
+      await User.updateOne(
+        { email: emailVerify },
+        {
+          password: bcrypt.hashSync(passwordRandom, saltRounds),
+          isChangePassword: false,
+        }
+      );
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "thanh.pt2611@gmail.com",
+          pass: process.env.PASSWORD_MAIL_SECRET,
+        },
+      });
+
+      await transporter.sendMail({
+        from: "adminTLU@gmail.com",
+        to: `thanhpt@relipasoft.com`,
+        subject: "Password reset notification",
+        text: "Testing send email",
+        html: `Account <b>${emailVerify},</b> Password: <b>${passwordRandom}</b>, password will expire within 24 hours from the time of sending this letter, thank you.`,
+      });
+      return res.json({
+        message: "New password has been sent to your email",
+      });
+    } else {
+      return res.status(401).json({
+        message: "Check the verification code again",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(401).send({ message: "Something went wrong" });
   }
 };

@@ -30,7 +30,7 @@ const options = {
     },
     servers: [
       {
-        url: "*",
+        url: "https://api.labmanagement.online",
       },
     ],
   },
@@ -64,7 +64,8 @@ const io = new Server({
 io.attach(httpServer);
 
 io.on("connection", (socket) => {
-  console.log(`userId, ${socket.id}`);
+  socket.on("connected", () => {});
+  socket.on("disconnect", () => {});
 });
 
 httpServer.listen(port, function () {

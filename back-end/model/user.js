@@ -40,6 +40,9 @@ const adminSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  codeResetPass: {
+    type: String,
+  },
   avatarUrl: String,
   facebook: String,
   tiktok: String,
