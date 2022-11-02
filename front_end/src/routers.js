@@ -13,6 +13,7 @@ import PageNotFound from "./pages/404";
 import NewPassword from "./pages/newpassword";
 import Profile from "./pages/profile";
 import ForgotPassword from "./pages/forget_password";
+import Register from "./pages/admin/register";
 
 export const appRouter = [
   {
@@ -74,6 +75,17 @@ export const appRouter = [
     name: "Profile",
     path: "/profile",
     component: Profile,
+    meta: {
+      role: "*",
+      isPrivate: true,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "Register",
+    path: "/register",
+    component: Register,
     meta: {
       role: "*",
       isPrivate: true,

@@ -96,3 +96,10 @@
     }
   }
 }
+
+////------ RESPONSIVE ----------
+@media screen and (max-width: 600px) {
+  .btnLogin {
+    width: 300px;
+  }
+}
