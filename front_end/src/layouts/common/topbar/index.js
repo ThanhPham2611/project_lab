@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Dropdown, Avatar, Badge, Menu, Space, Tooltip } from "antd";
+import { Row, Col, Dropdown, Avatar, Menu, Space, Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
@@ -8,12 +8,7 @@ import { useTranslation } from "react-i18next";
 import { removeCookie, STORAGEKEY } from "../../../services/cookies";
 
 //icon
-import {
-  UserOutlined,
-  KeyOutlined,
-  GlobalOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import { KeyOutlined, GlobalOutlined, LogoutOutlined } from "@ant-design/icons";
 import iconVietNam from "../../../assets/images/icon/vietnam.png";
 import iconEngland from "../../../assets/images/icon/united-kingdom.png";
 
@@ -99,9 +94,7 @@ const Topbar = () => {
               trigger={["click"]}
               overlayClassName="avatar"
             >
-              <Badge count={3}>
-                <Avatar icon={<UserOutlined />}></Avatar>
-              </Badge>
+              <Avatar src={userData.avatarUrl}></Avatar>
             </Dropdown>
           </Space>
         </Col>

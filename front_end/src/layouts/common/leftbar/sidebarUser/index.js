@@ -38,11 +38,6 @@ const MenuUser = () => {
       "/profile",
       <DesktopOutlined />
     ),
-    getItem(
-      <NavLink to="/user">{t("sidebar.user")}</NavLink>,
-      "/user",
-      <UserOutlined />
-    ),
     getItem(t("sidebar.devices"), "sub2", <TeamOutlined />, [
       getItem(
         <NavLink to="/devices-register">

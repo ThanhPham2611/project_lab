@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -27,6 +27,8 @@ const MenuAdmin = () => {
 
   const { pathname } = useLocation();
 
+  const subPathname = pathname.substring(pathname.indexOf("-") + 1);
+
   const itemMenu = [
     getItem(
       <NavLink to="/dashboard">{t("sidebar.dashboard")}</NavLink>,
@@ -39,32 +41,32 @@ const MenuAdmin = () => {
       <DesktopOutlined />
     ),
     getItem(
-      <NavLink to="/user">{t("sidebar.user")}</NavLink>,
-      "/user",
+      <NavLink to="/register">{t("sidebar.user")}</NavLink>,
+      "/register",
       <UserOutlined />
     ),
-    getItem(t("sidebar.devices"), "sub1", <TeamOutlined />, [
+    getItem(t("sidebar.devices"), "devices", <TeamOutlined />, [
       getItem(
-        <NavLink to="/devices-management">
+        <NavLink to="/management-devices">
           {t("sidebar.devices_management")}
         </NavLink>,
-        "/devices-management"
+        "/management-devices"
       ),
       getItem(
         <NavLink to="/add-devices">{t("sidebar.devices_add_new_one")}</NavLink>,
         "/add-devices"
       ),
       getItem(
-        <NavLink to="/devices_inventory">
+        <NavLink to="/inventory-devices">
           {t("sidebar.devices_inventory")}
         </NavLink>,
-        "/devices_inventory"
+        "/inventory-devices"
       ),
       getItem(
-        <NavLink to="/devices-list">
+        <NavLink to="/list-devices">
           {t("sidebar.devices_list_register")}
         </NavLink>,
-        "/devices-list"
+        "/list-devices"
       ),
     ]),
     getItem(
@@ -75,7 +77,14 @@ const MenuAdmin = () => {
   ];
 
   return (
-    <Menu defaultSelectedKeys={[pathname]} mode="inline" items={itemMenu} />
+    <>
+      <Menu
+        defaultSelectedKeys={[pathname]}
+        defaultOpenKeys={[subPathname]}
+        mode="inline"
+        items={itemMenu}
+      />
+    </>
   );
 };
 
