@@ -8,7 +8,12 @@ import { useTranslation } from "react-i18next";
 import { removeCookie, STORAGEKEY } from "../../../services/cookies";
 
 //icon
-import { KeyOutlined, GlobalOutlined, LogoutOutlined } from "@ant-design/icons";
+import {
+  KeyOutlined,
+  GlobalOutlined,
+  LogoutOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import iconVietNam from "../../../assets/images/icon/vietnam.png";
 import iconEngland from "../../../assets/images/icon/united-kingdom.png";
 
@@ -94,7 +99,10 @@ const Topbar = () => {
               trigger={["click"]}
               overlayClassName="avatar"
             >
-              <Avatar src={userData.avatarUrl}></Avatar>
+              <Avatar
+                src={userData.avatarUrl}
+                icon={!userData.avatarUrl && <UserOutlined />}
+              ></Avatar>
             </Dropdown>
           </Space>
         </Col>

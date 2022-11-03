@@ -31,7 +31,22 @@
     background-color: #fff;
     padding: 24px;
     border-radius: 20px;
-    min-height: 80vh;
+    height: 80vh;
+    overflow: scroll;
+    &::-webkit-scrollbar {
+      opacity: 0;
+      width: 5px;
+    }
+    &:hover {
+      &::-webkit-scrollbar {
+        opacity: 1;
+        width: 5px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #060a52;
+        border-radius: 10px;
+      }
+    }
   }
 }
 

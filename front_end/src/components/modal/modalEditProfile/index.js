@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, message, Modal, Space, Spin, Upload } from "antd";
+import {
+  Avatar,
+  Button,
+  Form,
+  Input,
+  message,
+  Modal,
+  Space,
+  Spin,
+  Upload,
+} from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import ImgCrop from "antd-img-crop";
@@ -8,6 +18,9 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 //local
 import { patch } from "../../../services/axios/baseAPI";
 import { storage } from "../../../services/firebase";
+
+//icon
+import { UserOutlined } from "@ant-design/icons";
 
 //scss
 import styles from "./editProfile.module.scss";
@@ -148,7 +161,11 @@ const ModalEditProfile = ({
               maxCount={1}
               onChange={handleChange}
             >
-              <img src={imgPrev} alt="img_edit" className={styles.img_edit} />
+              {imgPrev ? (
+                <img src={imgPrev} alt="img_edit" className={styles.img_edit} />
+              ) : (
+                <Avatar size={80} icon={<UserOutlined />} />
+              )}
             </Upload>
           </ImgCrop>
         </div>

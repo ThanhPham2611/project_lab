@@ -34,7 +34,7 @@ export const loginAuthen = async (req, res) => {
       {
         email: req.body.email,
       },
-      "_id firstName lastName code role isChangePassword"
+      "_id firstName lastName studentCode role isChangePassword"
     );
 
     const accessToken = jwt.sign(
@@ -62,55 +62,65 @@ export const loginAuthen = async (req, res) => {
  * @returns
  */
 export const registerAuthen = async (req, res) => {
-  const avatarUrl = req.body.avatarUrl
-    ? req.body.avatarUrl
-    : "https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg";
-  const { email, phone, lastName, firstName, code } = req.body;
+  const {
+    email,
+    phone,
+    lastName,
+    firstName,
+    avatarUrl,
+    majors,
+    role,
+    office,
+    studentCode,
+    birthday,
+  } = req.body;
   const passwordRandom = randomstring.generate(8);
   const existedUser = await User.findOne({ email }, "-password");
   if (existedUser) {
     return res.status(400).send({ message: "Email existed!" });
   }
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "thanh.pt2611@gmail.com",
-      pass: process.env.PASSWORD_MAIL_SECRET,
-    },
-  });
-
-  await transporter.sendMail({
-    from: "adminTLU@gmail.com",
-    to: `thanhpt@relipasoft.com`,
-    subject: "Thông báo tài khoản mật khẩu",
-    text: "Testing send email",
-    html: `<p>Thông tin tài khoản: ${email}</p>
-    <p>Mật khẩu: ${passwordRandom}</p>`,
-  });
   const hash = await bcrypt.hashSync(passwordRandom, saltRounds);
   try {
     await User.create({
       email,
       password: hash,
+      studentCode,
+      majors,
       phone,
       lastName,
       firstName,
-      code,
       avatarUrl,
+      role,
+      office,
+      birthday,
+      isChangePassword: false,
+    });
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "thanh.pt2611@gmail.com",
+        pass: process.env.PASSWORD_MAIL_SECRET,
+      },
+    });
+
+    await transporter.sendMail({
+      from: "adminTLU@gmail.com",
+      to: `thanhpt@relipasoft.com`,
+      subject: "Thông báo tài khoản mật khẩu",
+      text: "Testing send email",
+      html: `<p>Thông tin tài khoản: ${email}</p>
+      <p>Mật khẩu: ${passwordRandom}</p>`,
     });
   } catch (error) {
     console.log(error);
     return res.status(401).send({ message: "Something went wrong!" });
   }
-
   return res.status(201).send({
     userInfo: {
       email,
-      phone,
-      lastName,
-      firstName,
-      code,
-      avatarUrl,
+      password: passwordRandom,
+      role,
+      office,
     },
   });
 };
@@ -188,7 +198,7 @@ export const getMyInfo = async (req, res, next) => {
   const { _id } = jwt.decode(token, { complete: true }).payload;
   const user = await User.findOne(
     { _id },
-    "-_id firstName lastName code phone email avatarUrl role office class facebook tiktok instagram"
+    "-_id firstName lastName studentCode phone email avatarUrl role office class facebook tiktok instagram"
   );
 
   return res.json({
