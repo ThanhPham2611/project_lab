@@ -3,7 +3,7 @@ import { Avatar, Button, Descriptions, Image, Row, Spin } from "antd";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 //icon
-
+import { UserOutlined } from "@ant-design/icons";
 //scss
 import styles from "./profile.module.scss";
 import ModalEditProfile from "../../components/modal/modalEditProfile";
@@ -36,7 +36,8 @@ const Profile = () => {
           >
             <Avatar
               size={200}
-              src={<Image src={userData.avatarUrl} />}
+              src={userData.avatarUrl && <Image src={userData.avatarUrl} />}
+              icon={!userData.avatarUrl && <UserOutlined />}
               className={styles.avatar}
             />
             <h1 className={styles.textName}>

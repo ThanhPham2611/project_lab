@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    code: {
+    studentCode: {
       type: String,
       require: true,
     },
@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema(
       type: Number,
       require: true,
     },
-    class: {
+    majors: {
       type: String,
     },
     role: {

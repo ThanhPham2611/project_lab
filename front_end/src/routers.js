@@ -14,6 +14,7 @@ import NewPassword from "./pages/newpassword";
 import Profile from "./pages/profile";
 import ForgotPassword from "./pages/forget_password";
 import Register from "./pages/admin/register";
+import RegisterSuccess from "./pages/admin/register/registerSuccess";
 
 export const appRouter = [
   {
@@ -93,6 +94,17 @@ export const appRouter = [
       child: false,
     },
   },
+  {
+    name: "Registersuccess",
+    path: "/success-register",
+    component: RegisterSuccess,
+    meta: {
+      role: "*",
+      isPrivate: true,
+      hidden: false,
+      child: false,
+    },
+  },
 ];
 
 const PrivateRoute = (props) => {
@@ -124,7 +136,6 @@ const WhiteListRoute = (props) => {
   const isWhiteList = (path) =>
     !cookies[STORAGEKEY.ACCESS_TOKEN] && whiteList.indexOf(path) >= 0;
 
-  console.log("isWhiteList", isWhiteList);
   return (
     <Route
       path={props.path}
@@ -169,7 +180,7 @@ const renderRouter = (routes) => {
 };
 
 const routes = () => {
-  const whiteList = ["/login", "/register", "/forget-password"];
+  const whiteList = ["/login", "/forget-password"];
   const path = window.location.pathname;
   const isWhiteList = whiteList.includes(path);
   return (
