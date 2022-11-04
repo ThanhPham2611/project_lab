@@ -11,7 +11,11 @@ export const getInformation = () => {
 };
 
 export const checkPermission = (permission) => {
+  let checkRole;
   const infor = getInformation();
+  if (infor.role === 0) {
+    checkRole = "admin";
+  }
   if (permission === FULL_PERMISSION) return true;
-  return permission.indexOf(infor.role) >= 0;
+  return permission.indexOf(checkRole) >= 0;
 };

@@ -86,10 +86,10 @@ const App = (props) => {
           </Header>
         )}
 
-        <Content className={displayMenu && "content"}>
+        <Content className={displayMenu ? "content" : ""}>
           {displayMenu && <BreadCrumb userRole={userData.role} />}
 
-          <div className={displayMenu && "contentchildren"}>
+          <div className={displayMenu ? "contentchildren" : ""}>
             {renderRouter()}
           </div>
         </Content>
