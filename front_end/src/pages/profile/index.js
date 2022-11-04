@@ -61,7 +61,7 @@ const Profile = () => {
                 {userData.email}
               </Descriptions.Item>
               <Descriptions.Item label={t("my_profile.student_code")}>
-                {userData.code}
+                {userData.studentCode}
               </Descriptions.Item>
               <Descriptions.Item label={t("my_profile.phone")}>
                 0{userData.phone}
