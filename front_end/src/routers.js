@@ -15,6 +15,7 @@ import Profile from "./pages/profile";
 import ForgotPassword from "./pages/forget_password";
 import Register from "./pages/admin/register";
 import RegisterSuccess from "./pages/admin/register/registerSuccess";
+import ListUsers from "./pages/admin/list_users";
 
 export const appRouter = [
   {
@@ -98,6 +99,17 @@ export const appRouter = [
     name: "Registersuccess",
     path: "/success-register",
     component: RegisterSuccess,
+    meta: {
+      role: "admin",
+      isPrivate: true,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "List users",
+    path: "/list-users",
+    component: ListUsers,
     meta: {
       role: "admin",
       isPrivate: true,

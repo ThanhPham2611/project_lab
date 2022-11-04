@@ -6,10 +6,16 @@ export const userInfo = createAsyncThunk("myInfo", async () => {
   return data;
 });
 
+export const allUsers = createAsyncThunk("allUsers", async () => {
+  const { listUsers } = await get(`allUser`);
+  return listUsers;
+});
+
 const initialState = {
   loading: false,
   userData: {},
   accountUser: {},
+  listAllUser: [],
 };
 
 const usersSlices = createSlice({
@@ -21,6 +27,7 @@ const usersSlices = createSlice({
     },
   },
   extraReducers: (builder) => {
+    //userInfo
     builder.addCase(userInfo.pending, (state) => {
       state.loading = true;
     });
@@ -29,6 +36,17 @@ const usersSlices = createSlice({
       state.loading = false;
     });
     builder.addCase(userInfo.rejected, (state) => {
+      state.loading = false;
+    });
+    //listAllUser
+    builder.addCase(allUsers.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(allUsers.fulfilled, (state, action) => {
+      state.listAllUser = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(allUsers.rejected, (state) => {
       state.loading = false;
     });
   },
