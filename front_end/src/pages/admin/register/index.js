@@ -73,7 +73,7 @@ const Register = () => {
 
   return (
     <Spin tip="Creating user....." spinning={isCreatingUser}>
-      <h1>Register user</h1>
+      <h1 className={styles.titlePage}>Register user</h1>
       <Form
         form={form}
         onFinish={onFinish}

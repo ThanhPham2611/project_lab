@@ -6,6 +6,7 @@ const router = express.Router();
 
 //get
 router.get("/myInfo", verifyToken, UserController.getMyInfo);
+router.get("/allUser", verifyToken, UserController.getAllUser);
 
 //post
 router.post("/login", UserController.loginAuthen);
