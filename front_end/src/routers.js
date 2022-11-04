@@ -88,7 +88,7 @@ export const appRouter = [
     path: "/register-users",
     component: Register,
     meta: {
-      role: "*",
+      role: "admin",
       isPrivate: true,
       hidden: false,
       child: false,
@@ -99,7 +99,7 @@ export const appRouter = [
     path: "/success-register",
     component: RegisterSuccess,
     meta: {
-      role: "*",
+      role: "admin",
       isPrivate: true,
       hidden: false,
       child: false,
@@ -184,7 +184,7 @@ const routes = () => {
   const path = window.location.pathname;
   const isWhiteList = whiteList.includes(path);
   return (
-    <div className={`main-content ${isWhiteList && "whitelist"}`}>
+    <div className={`main-content ${isWhiteList ? "whitelist" : ""}`}>
       <Switch>
         {renderRouter(appRouter).map((render) => render)}
         <PrivateRoute path="/test/:id" />
