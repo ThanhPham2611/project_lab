@@ -85,7 +85,7 @@ export const appRouter = [
   },
   {
     name: "Register",
-    path: "/register",
+    path: "/register-users",
     component: Register,
     meta: {
       role: "*",

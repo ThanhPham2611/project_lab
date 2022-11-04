@@ -15,6 +15,7 @@ import BreadCrumb from "./common/breadcrumb";
 //icon
 import iconLogo from "../assets/images/img/logoTLU.png";
 import iconLogoVerital from "../assets/images/img/logoVertical.png";
+import MenuUser from "./common/leftbar/sidebarUser";
 
 //scss
 
@@ -32,6 +33,8 @@ const App = (props) => {
   //redux
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.userInfo);
+
+  console.log(userData);
 
   //state
   const [collapsed, setCollapsed] = useState(false);
@@ -72,7 +75,7 @@ const App = (props) => {
               <img src={iconLogo} alt="logo tlu" className="logo" />
             )}
           </div>
-          <MenuAdmin />
+          {userData.role === 0 ? <MenuAdmin /> : <MenuUser />}
         </Sider>
       )}
 

@@ -9,6 +9,7 @@ import {
   FileOutlined,
   PieChartOutlined,
   TeamOutlined,
+  DeliveredProcedureOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 
@@ -40,12 +41,17 @@ const MenuAdmin = () => {
       "/profile",
       <DesktopOutlined />
     ),
-    getItem(
-      <NavLink to="/register">{t("sidebar.user")}</NavLink>,
-      "/register",
-      <UserOutlined />
-    ),
-    getItem(t("sidebar.devices"), "devices", <TeamOutlined />, [
+    getItem(t("sidebar.user"), "users", <TeamOutlined />, [
+      getItem(
+        <NavLink to="/register-users">{"Resgister users"}</NavLink>,
+        "/register-users"
+      ),
+      getItem(
+        <NavLink to="/list-users">{"List users"}</NavLink>,
+        "/list-users"
+      ),
+    ]),
+    getItem(t("sidebar.devices"), "devices", <DeliveredProcedureOutlined />, [
       getItem(
         <NavLink to="/management-devices">
           {t("sidebar.devices_management")}
