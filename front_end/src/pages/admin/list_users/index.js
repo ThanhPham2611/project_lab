@@ -2,51 +2,54 @@ import { Button, Space, Table } from "antd";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 //local
 import { allUsers } from "../../../store/modules/usersSlices";
 
 const ListUsers = () => {
+  //translation
+  const { t } = useTranslation("common");
   //format date
   const formatDate = "YYYY-MM-DD";
   const columns = [
     {
-      title: "Name",
+      title: t("list_user.name"),
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Email",
+      title: t("list_user.email"),
       dataIndex: "email",
       key: "email",
     },
     {
-      title: "Student code",
+      title: t("list_user.student_code"),
       dataIndex: "studentCode",
       key: "studentCode",
     },
     {
-      title: "Phone",
+      title: t("list_user.phone"),
       dataIndex: "phone",
       key: "phone",
     },
     {
-      title: "Office",
+      title: t("list_user.office"),
       dataIndex: "office",
       key: "office",
     },
     {
-      title: "Birthday",
+      title: t("list_user.birthday"),
       dataIndex: "birthday",
       key: "birthday",
     },
     {
-      title: "Action",
+      title: t("list_user.action"),
       key: "action",
       render: (key) => (
         <Space>
-          <Button>Reset password</Button>
-          <Button>Detail user</Button>
+          <Button>{t("list_user.btn_resetpass")}</Button>
+          <Button>{t("list_user.btn_detail")}</Button>
         </Space>
       ),
     },

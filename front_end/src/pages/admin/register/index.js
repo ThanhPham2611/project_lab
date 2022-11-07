@@ -21,10 +21,14 @@ import { post } from "../../../services/axios/baseAPI";
 //scss
 import styles from "./register.module.scss";
 import { getAccountUser } from "../../../store/modules/usersSlices";
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
   //redux
   const dispatch = useDispatch();
+
+  //translation
+  const { t } = useTranslation("common");
 
   //history
   const history = useHistory();
@@ -72,7 +76,7 @@ const Register = () => {
   };
 
   return (
-    <Spin tip="Creating user....." spinning={isCreatingUser}>
+    <Spin tip={t("user_regsiter.creating_user")} spinning={isCreatingUser}>
       <h1 className={styles.titlePage}>Register user</h1>
       <Form
         form={form}
@@ -85,16 +89,16 @@ const Register = () => {
         }}
       >
         <Form.Item
-          label="Email"
+          label={t("user_regsiter.email")}
           name="email"
           rules={[
             {
               required: true,
-              message: "Please input your email!",
+              message: t("user_regsiter.error_input_email"),
             },
             {
               pattern: /[A-Za-zd.0-9-]+@thanglong\.edu\.vn/,
-              message: "Malformed @thanglong.edu.vn",
+              message: t("user_regsiter.error_format_email"),
             },
           ]}
         >
@@ -102,12 +106,12 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          label="First name"
+          label={t("user_regsiter.first_name")}
           name="firstName"
           rules={[
             {
               required: true,
-              message: "Please input your first name",
+              message: t("user_regsiter.error_input_firstName"),
             },
           ]}
         >
@@ -115,12 +119,12 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          label="Last name"
+          label={t("user_regsiter.last_name")}
           name="lastName"
           rules={[
             {
               required: true,
-              message: "Please input your last name",
+              message: t("user_regsiter.error_input_lastName"),
             },
           ]}
         >
@@ -128,12 +132,12 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          label="Phone"
+          label={t("user_regsiter.phone")}
           name="phone"
           rules={[
             {
               required: true,
-              message: "Please input your phone",
+              message: t("user_regsiter.error_input_phone"),
             },
           ]}
         >
@@ -141,19 +145,19 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          label="Majors"
+          label={t("user_regsiter.majors")}
           name="majors"
           rules={[
             {
               required: true,
-              message: "Please choose your majors",
+              message: t("user_regsiter.error_input_majors"),
             },
           ]}
         >
           <Select
             className="selectRegister"
             showSearch
-            placeholder="Search to majors"
+            placeholder={t("user_regsiter.placeholder_major")}
             optionFilterProp="children"
             filterOption={(input, option) =>
               (option?.label ?? "").includes(input)
@@ -185,19 +189,19 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          label="Student code"
+          label={t("user_regsiter.student_code")}
           name="studentCode"
           rules={[
             {
               required: true,
-              message: "Please input your class",
+              message: t("user_regsiter.error_input_studentCode"),
             },
           ]}
         >
           <Input className={styles.inputRegister} />
         </Form.Item>
 
-        <Form.Item label="Role" name="role">
+        <Form.Item label={t("user_regsiter.role")} name="role">
           <Select
             className="selectRegister"
             onChange={handleRole}
@@ -208,7 +212,7 @@ const Register = () => {
           />
         </Form.Item>
 
-        <Form.Item label="Office" name="office">
+        <Form.Item label={t("user_regsiter.office")} name="office">
           <Select
             className="selectRegister"
             disabled={office === 0}
@@ -221,12 +225,12 @@ const Register = () => {
 
         <Form.Item
           className="selectRegister"
-          label="Birthday"
+          label={t("user_regsiter.birthday")}
           name="birthday"
           rules={[
             {
               required: true,
-              message: "Please choose birthday",
+              message: t("user_regsiter.error_select_birthday"),
             },
           ]}
         >
@@ -243,15 +247,17 @@ const Register = () => {
         <Form.Item style={{ textAlign: "center" }}>
           <Space>
             <Button htmlType="submit" className="btn editProfile">
-              Create user
+              {t("user_regsiter.btn_create")}
             </Button>
             <Popconfirm
-              title="Are you sure reset form ?"
+              title={t("user_regsiter.question_reset_form")}
               onConfirm={onResetForm}
-              okText="Yes"
-              cancelText="No"
+              okText={t("user_regsiter.btn_yes_pop")}
+              cancelText={t("user_regsiter.btn_no_pop")}
             >
-              <Button className="btn cancel">Reset form</Button>
+              <Button className="btn cancel">
+                {t("user_regsiter.btn_reset")}
+              </Button>
             </Popconfirm>
           </Space>
         </Form.Item>
