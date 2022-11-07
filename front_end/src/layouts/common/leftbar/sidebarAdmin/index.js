@@ -11,6 +11,7 @@ import {
   TeamOutlined,
   DeliveredProcedureOutlined,
   UserOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
 
 const getItem = (label, key, icon, children) => {
@@ -41,14 +42,16 @@ const MenuAdmin = () => {
       "/profile",
       <DesktopOutlined />
     ),
-    getItem(t("sidebar.user"), "users", <TeamOutlined />, [
+    getItem(t("sidebar.user"), "users", <UserOutlined />, [
       getItem(
-        <NavLink to="/register-users">{"Resgister users"}</NavLink>,
-        "/register-users"
+        <NavLink to="/register-users">{t("sidebar.user_register")}</NavLink>,
+        "/register-users",
+        <UserAddOutlined />
       ),
       getItem(
-        <NavLink to="/list-users">{"List users"}</NavLink>,
-        "/list-users"
+        <NavLink to="/list-users">{t("sidebar.user_list")}</NavLink>,
+        "/list-users",
+        <TeamOutlined />
       ),
     ]),
     getItem(t("sidebar.devices"), "devices", <DeliveredProcedureOutlined />, [

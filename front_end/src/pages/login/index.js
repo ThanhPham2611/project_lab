@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Spin, Input, Checkbox, Button, notification } from "antd";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 //local
 import { post } from "../../services/axios/baseAPI";
@@ -14,6 +15,9 @@ import iconLogo from "../../assets/images/img/logoVertical.png";
 import styles from "./login.module.scss";
 
 const Login = () => {
+  //translation
+  const { t } = useTranslation("common");
+
   const onFinish = (value) => {
     loginUser(value);
   };
@@ -24,7 +28,6 @@ const Login = () => {
     postUser,
     {
       onSuccess: (data) => {
-        console.log(data);
         const { accessToken, message, isChangePassword } = data;
         setCookie(STORAGEKEY.ACCESS_TOKEN, accessToken);
         localStorage.setItem("isChangePW", isChangePassword);
@@ -49,7 +52,11 @@ const Login = () => {
     <div style={{ position: "relative" }}>
       <div className={styles.wrapperLogin}>
         <div className={styles.bg_img_login}></div>
-        <Spin size="large" tip="Verifying login....." spinning={isPostingInfo}>
+        <Spin
+          size="large"
+          tip={t("login.verify_login")}
+          spinning={isPostingInfo}
+        >
           <Form
             className={styles.form_login}
             name="basic"
@@ -69,11 +76,11 @@ const Login = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your email!",
+                  message: t("login.error_input_email"),
                 },
                 {
                   pattern: /[A-Za-zd.0-9-]+@thanglong\.edu\.vn/,
-                  message: "Malformed @thanglong.edu.vn",
+                  message: t("login.error_format_email"),
                 },
               ]}
               hasFeedback
@@ -81,7 +88,7 @@ const Login = () => {
               <Input
                 prefix={<UserOutlined />}
                 className={styles.item_input_form}
-                placeholder="studencode@thanglong.edu.vn"
+                placeholder={t("login.placeholder_email")}
                 autoFocus
               />
             </Form.Item>
@@ -92,42 +99,40 @@ const Login = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: t("login.error_input_password"),
                 },
               ]}
             >
               <Input.Password
                 prefix={<LockOutlined />}
                 className={styles.item_input_form}
-                placeholder="password"
+                placeholder={t("login.placeholder_pass")}
               />
             </Form.Item>
 
             <Form.Item className={styles.form_option}>
               <div className={styles.selectOption}>
                 <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Remember me</Checkbox>
+                  <Checkbox>{t("login.checkbox_remember")}</Checkbox>
                 </Form.Item>
                 <a
                   href="/forget-password"
                   target="_blank"
                   className={styles.textLink}
                 >
-                  Forgot password
+                  {t("login.forget_password")}
                 </a>
               </div>
             </Form.Item>
 
             <Form.Item>
               <Button className="btnLogin" htmlType="submit">
-                Login
+                {t("login.btn_login")}
               </Button>
             </Form.Item>
-            <a
-              href="/register"
-              target="_blank"
-              className={styles.textLink}
-            >{`Register, Don't have an account!`}</a>
+            <a href="/register" target="_blank" className={styles.textLink}>
+              {t("login.link_register")}
+            </a>
           </Form>
         </Spin>
       </div>

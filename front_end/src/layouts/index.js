@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Layout } from "antd";
-import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import i18n from "i18next";
 import { io } from "socket.io-client";
 
 //local
-import { STORAGEKEY } from "../services/cookies";
+import { getCookie, STORAGEKEY } from "../services/cookies";
 import { userInfo } from "../store/modules/usersSlices";
 import Topbar from "./common/topbar";
 import MenuAdmin from "./common/leftbar/sidebarAdmin";
@@ -16,6 +15,7 @@ import BreadCrumb from "./common/breadcrumb";
 import iconLogo from "../assets/images/img/logoTLU.png";
 import iconLogoVerital from "../assets/images/img/logoVertical.png";
 import MenuUser from "./common/leftbar/sidebarUser";
+import { useLocation } from "react-router-dom";
 
 //scss
 
@@ -30,30 +30,36 @@ const App = (props) => {
   //components render
   const { renderRouter } = props;
 
+  const { pathname } = useLocation();
+
   //redux
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.userInfo);
-
-  console.log(userData);
 
   //state
   const [collapsed, setCollapsed] = useState(false);
   const [displayMenu, setDisplayMenu] = useState(false);
 
   //cookies
-  const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
+  const cookies = getCookie(STORAGEKEY.ACCESS_TOKEN);
 
   useEffect(() => {
     socket.emit("connected");
     i18n.changeLanguage(localStorage.getItem("language"));
-    const isChangePW = localStorage.getItem("isChangePW");
-    if (cookies[STORAGEKEY.ACCESS_TOKEN]) {
-      if (isChangePW === "true") {
+    const isChangePassword = localStorage.getItem("isChangePW");
+    if (cookies) {
+      if (isChangePassword === "true") {
         setDisplayMenu(true);
         dispatch(userInfo());
+      } else {
+        localStorage.removeItem("isChangePW");
+        setDisplayMenu(false);
       }
+    } else {
+      localStorage.removeItem("isChangePW");
+      setDisplayMenu(false);
     }
-  }, []);
+  }, [cookies, pathname]);
 
   return (
     <Layout
