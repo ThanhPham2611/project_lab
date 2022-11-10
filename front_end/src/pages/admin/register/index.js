@@ -14,14 +14,15 @@ import moment from "moment";
 import { useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 //local
 import { post } from "../../../services/axios/baseAPI";
+import { REG_EMAIL } from "../../../utils/regex";
+import { getAccountUser } from "../../../store/modules/usersSlices";
 
 //scss
 import styles from "./register.module.scss";
-import { getAccountUser } from "../../../store/modules/usersSlices";
-import { useTranslation } from "react-i18next";
 
 const Register = () => {
   //redux
@@ -97,7 +98,7 @@ const Register = () => {
               message: t("user_regsiter.error_input_email"),
             },
             {
-              pattern: /[A-Za-zd.0-9-]+@thanglong\.edu\.vn/,
+              pattern: REG_EMAIL,
               message: t("user_regsiter.error_format_email"),
             },
           ]}

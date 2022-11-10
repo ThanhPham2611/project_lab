@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState } from "react";
 import { Row, Col, Dropdown, Avatar, Menu, Space, Tooltip } from "antd";
 import { useSelector } from "react-redux";
@@ -13,6 +14,7 @@ import {
   GlobalOutlined,
   LogoutOutlined,
   UserOutlined,
+  MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import iconVietNam from "../../../assets/images/icon/vietnam.png";
 import iconEngland from "../../../assets/images/icon/united-kingdom.png";
@@ -21,6 +23,8 @@ import iconEngland from "../../../assets/images/icon/united-kingdom.png";
 import styles from "./topbar.module.scss";
 import ModalLanguage from "../../../components/modal/modalLanguage";
 import ModalChangePassword from "../../../components/modal/modalChangePass";
+import HeaderPC from "./screen/headerPC";
+import HeaderMobile from "./screen/headerMobile";
 
 const Topbar = () => {
   //redux
@@ -37,7 +41,7 @@ const Topbar = () => {
   const handleLogout = async () => {
     await removeCookie(STORAGEKEY.ACCESS_TOKEN);
     await localStorage.removeItem("role");
-    await localStorage.removeItem("isChangePW");
+    await localStorage.removeItem(STORAGEKEY.CHANGE_PASSWORD);
     window.location.href = "/login";
   };
 
@@ -78,35 +82,8 @@ const Topbar = () => {
 
   return (
     <>
-      <Row justify="space-between" className={styles.wrapperTop}>
-        <Col>
-          <span>
-            {t("topbar.welcome")},{" "}
-            <b>{userData.firstName + userData.lastName}</b>
-          </span>
-        </Col>
-        <Col>
-          <Space>
-            <Tooltip placement="bottom" title={t("topbar.language")}>
-              <img
-                className={styles.flagIcon}
-                src={language === "vi" ? iconVietNam : iconEngland}
-                alt={language === "vi" ? "vietnam flag" : "england flag"}
-              />
-            </Tooltip>
-            <Dropdown
-              overlay={menuAvatar}
-              trigger={["click"]}
-              overlayClassName="avatar"
-            >
-              <Avatar
-                src={userData.avatarUrl}
-                icon={!userData.avatarUrl && <UserOutlined />}
-              ></Avatar>
-            </Dropdown>
-          </Space>
-        </Col>
-      </Row>
+      {screen.width <= 1110 ? <HeaderMobile /> : <HeaderPC />}
+
       <ModalLanguage
         isModalVisible={modalLanguage}
         setIsModalVisible={setModalLanguage}

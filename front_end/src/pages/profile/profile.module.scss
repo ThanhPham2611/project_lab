@@ -1,3 +1,5 @@
+@import "../../assets/scss/modules/variable.scss";
+
 .avatar {
   box-shadow: 2px 20px 20px#666;
 }
@@ -12,16 +14,8 @@
 }
 
 .btnEdit {
-  color: whitesmoke !important;
-  background-color: #060a52 !important;
-  &:hover {
-    border: 1px solid transparent;
-    background-color: rgb(212, 14, 14);
-    color: white !important;
-  }
+  &:hover,
   &:active {
-    border: 1px solid transparent;
-    background-color: rgb(212, 14, 14);
-    color: white !important;
+    background-color: $color2stTLU !important;
   }
 }

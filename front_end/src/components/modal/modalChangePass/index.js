@@ -8,6 +8,7 @@ import { patch } from "../../../services/axios/baseAPI";
 
 //scss
 import styles from "./changePass.module.scss";
+import ButtonLab from "../../button/button";
 
 const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
   //translation
@@ -133,21 +134,16 @@ const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
 
             <Form.Item>
               <Space className={styles.btnGroup}>
-                <Button
-                  className={`${styles.btn} ${styles.changePass}`}
-                  key="submit"
-                  type="primary"
+                <ButtonLab
+                  classNameBtn={styles.btnChangePass}
+                  nameBtn={t("modal_change_pass.btn_change_pass")}
                   htmlType="submit"
-                >
-                  {t("modal_change_pass.btn_change_pass")}
-                </Button>
-                <Button
-                  className={styles.btn}
-                  key="cancel"
-                  onClick={handleCancel}
-                >
-                  {t("modal_change_pass.btn_cancel")}
-                </Button>
+                />
+                <ButtonLab
+                  classNameBtn="cancel"
+                  nameBtn={t("modal_change_pass.btn_cancel")}
+                  onClickBtn={handleCancel}
+                />
               </Space>
             </Form.Item>
           </Form>

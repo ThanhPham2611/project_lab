@@ -1,8 +1,10 @@
+/* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
 import { Layout } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import i18n from "i18next";
 import { io } from "socket.io-client";
+import { useLocation } from "react-router-dom";
 
 //local
 import { getCookie, STORAGEKEY } from "../services/cookies";
@@ -10,12 +12,11 @@ import { userInfo } from "../store/modules/usersSlices";
 import Topbar from "./common/topbar";
 import MenuAdmin from "./common/leftbar/sidebarAdmin";
 import BreadCrumb from "./common/breadcrumb";
+import MenuUser from "./common/leftbar/sidebarUser";
 
 //icon
 import iconLogo from "../assets/images/img/logoTLU.png";
 import iconLogoVerital from "../assets/images/img/logoVertical.png";
-import MenuUser from "./common/leftbar/sidebarUser";
-import { useLocation } from "react-router-dom";
 
 //scss
 
@@ -46,22 +47,33 @@ const App = (props) => {
   useEffect(() => {
     socket.emit("connected");
     i18n.changeLanguage(localStorage.getItem("language"));
-    const isChangePassword = localStorage.getItem("isChangePW");
+    const isChangePassword = localStorage.getItem(STORAGEKEY.CHANGE_PASSWORD);
     if (cookies) {
       if (isChangePassword === "true") {
         setDisplayMenu(true);
         dispatch(userInfo());
       } else {
-        localStorage.removeItem("isChangePW");
+        localStorage.removeItem(STORAGEKEY.CHANGE_PASSWORD);
         setDisplayMenu(false);
       }
     } else {
-      localStorage.removeItem("isChangePW");
+      localStorage.removeItem(STORAGEKEY.CHANGE_PASSWORD);
       setDisplayMenu(false);
     }
   }, [cookies, pathname]);
 
-  return (
+  return screen.width <= 1110 ? (
+    <Layout className="site_layout">
+      {displayMenu && (
+        <Header className="header">
+          <Topbar />
+        </Header>
+      )}
+      <Content>
+        <div>{renderRouter()}</div>
+      </Content>
+    </Layout>
+  ) : (
     <Layout
       style={{
         minHeight: "100vh",

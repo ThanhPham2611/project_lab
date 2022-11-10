@@ -1,3 +1,5 @@
+@import "../modules/variable.scss";
+
 //layout website
 .siderMenu {
   background-color: #fff;
@@ -52,14 +54,14 @@
 
 // ---- BTN WEBSITE ---
 .btnLogin {
-  border-radius: 20px;
-  height: 44px;
+  border-radius: $borderRadiusBtn;
+  height: $heighBtn;
   width: 10vw;
-  color: #060a52;
-  border: 1px solid #060a52;
+  color: $color1stTLU;
+  border: 1px solid $color1stTLU;
   &:hover {
     width: 24vw;
-    background-color: #060a52;
+    background-color: $color1stTLU;
     color: whitesmoke;
     font-weight: bold;
     border: 1px solid transparent;
@@ -67,8 +69,8 @@
 }
 
 .btn {
-  border-radius: 20px;
-  height: 44px;
+  border-radius: $borderRadiusBtn;
+  height: $heighBtn;
   &.changePass {
     width: 10vw;
     color: white;
@@ -78,15 +80,6 @@
       width: 20vw;
       background-color: #a50e0e;
       border: 1px solid transparent;
-    }
-  }
-  &.edit {
-    color: white;
-    background-color: #060a52;
-    &:hover {
-      border: 1px solid transparent;
-      background-color: #a50e0e;
-      color: white;
     }
   }
   &.editProfile {
@@ -104,10 +97,14 @@
     }
   }
   &.cancel {
-    min-width: 150px;
-    color: black;
+    color: #060a52;
+    border: 1px solid #060a52;
+    background-color: transparent;
     &:hover {
+      color: #060a52;
       border: 1px solid #060a52;
+      background-color: transparent;
+      opacity: 0.8;
     }
   }
 }

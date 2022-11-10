@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 //local
 import { post } from "../../services/axios/baseAPI";
 import { setCookie, STORAGEKEY } from "../../services/cookies";
+import { REG_EMAIL } from "../../utils/regex";
 
 //icon
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -30,7 +31,7 @@ const Login = () => {
       onSuccess: (data) => {
         const { accessToken, message, isChangePassword } = data;
         setCookie(STORAGEKEY.ACCESS_TOKEN, accessToken);
-        localStorage.setItem("isChangePW", isChangePassword);
+        localStorage.setItem(STORAGEKEY.CHANGE_PASSWORD, isChangePassword);
         if (isChangePassword) {
           window.location.href = "/dashboard";
         } else {
@@ -79,7 +80,7 @@ const Login = () => {
                   message: t("login.error_input_email"),
                 },
                 {
-                  pattern: /[A-Za-zd.0-9-]+@thanglong\.edu\.vn/,
+                  pattern: REG_EMAIL,
                   message: t("login.error_format_email"),
                 },
               ]}
