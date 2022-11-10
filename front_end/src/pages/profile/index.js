@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { Avatar, Button, Descriptions, Image, Row, Spin } from "antd";
+import { Avatar, Descriptions, Image, Row, Spin } from "antd";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+
+//local
+import ButtonLab from "../../components/button/button";
+import ModalEditProfile from "../../components/modal/modalEditProfile";
+
 //icon
 import { UserOutlined } from "@ant-design/icons";
+
 //scss
 import styles from "./profile.module.scss";
-import ModalEditProfile from "../../components/modal/modalEditProfile";
 
 const Profile = () => {
   //redux
@@ -48,12 +53,11 @@ const Profile = () => {
             <Descriptions
               title={t("my_profile.user_info")}
               extra={
-                <Button
-                  className="btn edit"
-                  onClick={() => setEditProfile(true)}
-                >
-                  {t("my_profile.btn_edit_profile")}
-                </Button>
+                <ButtonLab
+                  classNameBtn={styles.btnEdit}
+                  nameBtn={t("my_profile.btn_edit_profile")}
+                  onClickBtn={() => setEditProfile(true)}
+                />
               }
               className={styles.description}
             >

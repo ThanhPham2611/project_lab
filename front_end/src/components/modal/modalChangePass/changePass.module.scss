@@ -1,21 +1,13 @@
+@import "../../../assets/scss/modules/variable.scss";
+
 .btnGroup {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 400px;
+  justify-content: center;
 }
 
-.btn {
-  border-radius: 20px !important;
-  height: 35px !important;
-  min-width: 8vw !important;
-  &.changePass {
-    background-color: #060a52;
-    border: 1px solid transparent;
-    &:hover {
-      background-color: rgb(158, 9, 9);
-      border: 1px solid transparent;
-    }
+.btnChangePass {
+  &:hover,
+  &:focus {
+    background-color: $color2stTLU;
   }
 }
 
