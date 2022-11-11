@@ -1,0 +1,27 @@
+.addDevice_form {
+  padding: 20px;
+}
+
+.formRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.formInput {
+  height: 35px;
+  border-radius: 20px !important;
+  padding: 0 15px !important;
+}
+
+.addDevice_form_btn {
+  display: flex !important;
+  justify-content: center;
+  margin-top: 20px;
+  button {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      margin: 0 10px;
+      border-radius: 20px;
+  }
+}

@@ -16,6 +16,8 @@ import ForgotPassword from "./pages/forget_password";
 import Register from "./pages/admin/register";
 import RegisterSuccess from "./pages/admin/register/registerSuccess";
 import ListUsers from "./pages/admin/list_users";
+import AddDevice from "./pages/admin/add_devices";
+import DeviceManagement from "./pages/admin/device_management";
 
 export const appRouter = [
   {
@@ -110,6 +112,28 @@ export const appRouter = [
     name: "List users",
     path: "/list-users",
     component: ListUsers,
+    meta: {
+      role: "admin",
+      isPrivate: true,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "AddDevice",
+    path: "/add-devices",
+    component: AddDevice,
+    meta: {
+      role: "admin",
+      isPrivate: true,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "DeviceManagement",
+    path: "/management-devices",
+    component: DeviceManagement,
     meta: {
       role: "admin",
       isPrivate: true,

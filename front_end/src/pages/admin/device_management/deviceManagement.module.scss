@@ -1,0 +1,58 @@
+.labelSelectType {
+    margin-right: 10px;
+}
+
+.spinningContainer {
+    display: flex;
+    align-items: center;
+}
+
+.filterContainer,
+.filterDetailContainer {
+    margin: auto;
+    background: #fff;
+    padding: 20px 25px;
+    margin-top: 30px;
+    border: #dadcde 1px solid;
+    border-radius: 10px;
+    box-shadow: 1px 1px rgb(218 220 222 / 70%);
+}
+
+.filterDetailWrapper {
+    display: flex;
+    justify-content: space-between;
+    button {
+        border-radius: 20px
+    }
+}
+
+.filterInput {
+    display: flex;
+    justify-content: space-around;
+}
+
+.filterButton {
+    display: flex;
+    justify-content: center;
+    button {
+        display: flex;
+        align-items: center;
+        padding: 18px 20px;
+        border-radius: 20px;
+    }
+}
+
+.listDevices {
+    box-shadow: 1px 1px 9px rgb(218 220 222 / 70%);
+}
+
+.tableInfo {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    padding: 0 15px;
+    margin: 50px 0 0;
+    &_detail {
+        font-weight: 500;
+    }
+}
