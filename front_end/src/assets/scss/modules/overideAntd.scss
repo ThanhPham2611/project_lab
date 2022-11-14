@@ -87,3 +87,21 @@
     height: 35px !important;
   }
 }
+
+//popconfirm
+.ant-popover-buttons {
+  .ant-btn {
+    border-radius: 20px;
+    min-width: 60px;
+  }
+
+  .ant-btn-default {
+    color: #060a52;
+    border: 1px solid #060a52;
+  }
+
+  .ant-btn-primary {
+    background-color: #060a52;
+    border: 1px solid transparent;
+  }
+}

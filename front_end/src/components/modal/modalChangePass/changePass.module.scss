@@ -1,14 +1,9 @@
 @import "../../../assets/scss/modules/variable.scss";
 
 .btnGroup {
+  display: flex;
   justify-content: center;
-}
-
-.btnChangePass {
-  &:hover,
-  &:focus {
-    background-color: $color2stTLU;
-  }
+  align-items: center;
 }
 
 .inputPass {

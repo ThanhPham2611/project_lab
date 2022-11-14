@@ -66,6 +66,7 @@
     "error_format_email": "Malformed @thanglong.edu.vn"
   },
   "user_regsiter": {
+    "title_register": "User register",
     "email": "Email",
     "first_name": "First name",
     "last_name": "Last name",
@@ -100,6 +101,9 @@
     "birthday": "Birthday",
     "action": "Action",
     "btn_resetpass": "Reset password",
-    "btn_detail": "Detail user"
+    "btn_detail": "Detail user",
+    "pop_conf_title": "Are you sure to reset password",
+    "pop_btn_ok": "Oke",
+    "pop_btn_cancel": "Cancel"
   }
 }

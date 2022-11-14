@@ -11,6 +11,7 @@ import iconLogo from "../../assets/images/img/logoVertical.png";
 
 //scss
 import styles from "./newPassword.module.scss";
+import ButtonPrimary from "../../components/button/buttonPrimary";
 
 const NewPassword = () => {
   const onFinish = (value) => {
@@ -80,9 +81,11 @@ const NewPassword = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button className="btn changePass" type="primary" htmlType="submit">
-              Change password
-            </Button>
+            <ButtonPrimary
+              classNameBtn={styles.btnChangePass}
+              nameBtn="Change password"
+              htmlType="submit"
+            />
           </Form.Item>
         </Form>
       </div>

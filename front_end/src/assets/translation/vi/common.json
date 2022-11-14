@@ -58,7 +58,7 @@
     "placeholder_email": "Mã sinh viên@thanglong.edu.vn",
     "placeholder_pass": "Nhập mật khẩu",
     "checkbox_remember": "Remember me",
-    "forget_password": "Quên đăng nhập",
+    "forget_password": "Quên mật khẩu",
     "btn_login": "Đăng nhập",
     "link_register": "Đăng ký, chưa có tài khoản",
     "error_input_email": "Bạn cần nhập email của bạn",
@@ -66,6 +66,7 @@
     "error_format_email": "Định dạng email cần @thanglong.edu.vn"
   },
   "user_regsiter": {
+    "title_register": "Đăng ký người dùng",
     "email": "Email",
     "first_name": "Họ",
     "last_name": "Tên",
@@ -100,6 +101,9 @@
     "birthday": "Ngày sinh",
     "action": "Thực thi",
     "btn_resetpass": "Đặt lại mật khẩu",
-    "btn_detail": "Chi tiết người dùng"
+    "btn_detail": "Chi tiết người dùng",
+    "pop_conf_title": "Bạn có chắc chắn đặt lại mật khẩu không",
+    "pop_btn_ok": "Đúng",
+    "pop_btn_cancel": "Hủy"
   }
 }

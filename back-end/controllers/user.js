@@ -84,11 +84,11 @@ export const registerAuthen = async (req, res) => {
     await User.create({
       email,
       password: hash,
-      studentCode,
+      studentCode: studentCode.toLowerCase(),
       majors,
       phone,
-      lastName,
-      firstName,
+      lastName: lastName.toLowerCase(),
+      firstName: firstName.toLowerCase(),
       avatarUrl,
       role,
       office,
@@ -224,7 +224,23 @@ export const getAllUser = async (req, res) => {
     if (role !== 0) {
       return res.status(401).send({ message: "you not admin!" });
     }
-    const listUsers = await User.find({}, "-__v");
+    const { inputSearch, office } = req.query;
+    const condition = {};
+    if (Number(office) === 0 || office) {
+      condition.office = Number(office);
+    }
+    if (inputSearch)
+      Object.assign(condition, {
+        $or: [
+          {
+            studentCode: inputSearch,
+          },
+          {
+            email: inputSearch,
+          },
+        ],
+      });
+    const listUsers = await User.find(condition, "-__v");
     return res.json({
       listUsers,
     });

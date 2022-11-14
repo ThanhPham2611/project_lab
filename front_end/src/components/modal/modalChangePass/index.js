@@ -5,10 +5,11 @@ import { useTranslation } from "react-i18next";
 
 //local
 import { patch } from "../../../services/axios/baseAPI";
+import ButtonPrimary from "../../button/buttonPrimary";
+import ButtonCancel from "../../button/buttonCancel";
 
 //scss
 import styles from "./changePass.module.scss";
-import ButtonLab from "../../button/button";
 
 const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
   //translation
@@ -132,15 +133,14 @@ const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
               <Input.Password className={styles.inputPass} />
             </Form.Item>
 
-            <Form.Item>
-              <Space className={styles.btnGroup}>
-                <ButtonLab
+            <Form.Item className={styles.btnGroup}>
+              <Space>
+                <ButtonPrimary
                   classNameBtn={styles.btnChangePass}
                   nameBtn={t("modal_change_pass.btn_change_pass")}
                   htmlType="submit"
                 />
-                <ButtonLab
-                  classNameBtn="cancel"
+                <ButtonCancel
                   nameBtn={t("modal_change_pass.btn_cancel")}
                   onClickBtn={handleCancel}
                 />

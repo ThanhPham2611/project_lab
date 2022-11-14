@@ -1,9 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 
-import styles from "./btn.module.scss";
-
-const ButtonLab = ({
+const ButtonPrimary = ({
   classNameBtn,
   nameBtn,
   htmlType,
@@ -12,7 +10,7 @@ const ButtonLab = ({
 }) => {
   return (
     <Button
-      className={`btn ${styles.btn} ${classNameBtn}`}
+      className={`btn primary ${classNameBtn}`}
       htmlType={htmlType}
       onClick={onClickBtn}
       style={styleBtn}
@@ -22,4 +20,4 @@ const ButtonLab = ({
   );
 };
 
-export default ButtonLab;
+export default ButtonPrimary;

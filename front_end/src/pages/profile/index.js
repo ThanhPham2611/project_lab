@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 //local
-import ButtonLab from "../../components/button/button";
+import ButtonPrimary from "../../components/button/buttonPrimary";
 import ModalEditProfile from "../../components/modal/modalEditProfile";
 
 //icon
@@ -53,8 +53,8 @@ const Profile = () => {
             <Descriptions
               title={t("my_profile.user_info")}
               extra={
-                <ButtonLab
-                  classNameBtn={styles.btnEdit}
+                <ButtonPrimary
+                  classNameBtn={`primary`}
                   nameBtn={t("my_profile.btn_edit_profile")}
                   onClickBtn={() => setEditProfile(true)}
                 />

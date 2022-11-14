@@ -6,8 +6,8 @@ export const userInfo = createAsyncThunk("myInfo", async () => {
   return data;
 });
 
-export const allUsers = createAsyncThunk("allUsers", async () => {
-  const { listUsers } = await get(`allUser`);
+export const allUsers = createAsyncThunk("allUsers", async (value) => {
+  const { listUsers } = await get(`allUser`, value);
   return listUsers;
 });
 
