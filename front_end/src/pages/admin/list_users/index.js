@@ -1,15 +1,27 @@
-import { Button, Form, Input, Popconfirm, Select, Space, Table } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  notification,
+  Popconfirm,
+  Select,
+  Space,
+  Table,
+} from "antd";
 import moment from "moment";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 //local
 import { allUsers } from "../../../store/modules/usersSlices";
 import ButtonCancel from "../../../components/button/buttonCancel";
+import { post } from "../../../services/axios/baseAPI";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 
 import styles from "./listUser.module.scss";
+import { useMutation } from "@tanstack/react-query";
+import ModalViewPassword from "../../../components/modal/modalViewPassword";
 
 const { Search } = Input;
 
@@ -64,6 +76,7 @@ const ListUsers = () => {
               okText={t("list_user.pop_btn_ok")}
               cancelText={t("list_user.pop_btn_cancel")}
               disabled={key.office === 0}
+              onConfirm={() => confirmReset(key.email)}
             >
               <Button
                 className={`btn primary ${key.office === 0 && "disabled"}`}
@@ -96,6 +109,8 @@ const ListUsers = () => {
 
   //state
   const [form] = Form.useForm();
+  const [openModal, setOpenModal] = useState(false);
+  const [valueReset, setValueReset] = useState("");
 
   useEffect(() => {
     dispatch(allUsers());
@@ -104,6 +119,22 @@ const ListUsers = () => {
   const onFinish = (value) => {
     dispatch(allUsers(value));
   };
+
+  const confirmReset = (email) => {
+    resetUser({ email });
+    setOpenModal(true);
+  };
+
+  const postEmailConfirm = (data) => post(`adminReset`, data);
+
+  const { mutate: resetUser } = useMutation(postEmailConfirm, {
+    onSuccess: (data) => {
+      setValueReset(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   return (
     <>
@@ -159,6 +190,11 @@ const ListUsers = () => {
         dataSource={dataList}
         bordered
         loading={loading}
+      />
+      <ModalViewPassword
+        isModal={openModal}
+        setIsModal={setOpenModal}
+        valueReset={valueReset}
       />
     </>
   );
