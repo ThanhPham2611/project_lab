@@ -18,7 +18,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 //local
 import { patch } from "../../../services/axios/baseAPI";
 import { storage } from "../../../services/firebase";
-
+import ButtonPrimary from "../../button/buttonPrimary";
+import ButtonCancel from "../../button/buttonCancel";
 //icon
 import { UserOutlined } from "@ant-design/icons";
 
@@ -183,12 +184,14 @@ const ModalEditProfile = ({
 
           <Form.Item>
             <Space className={styles.btnGroup}>
-              <Button className="btn editProfile" htmlType="submit">
-                {t("modal_edit_profile.btn_change_edit")}
-              </Button>
-              <Button className="btn cancel" onClick={handleCancel}>
-                {t("modal_edit_profile.btn_cancel")}
-              </Button>
+              <ButtonPrimary
+                nameBtn={t("modal_edit_profile.btn_change_edit")}
+                htmlType="submit"
+              />
+              <ButtonCancel
+                nameBtn={t("modal_edit_profile.btn_cancel")}
+                onClickBtn={handleCancel}
+              />
             </Space>
           </Form.Item>
         </Form>
