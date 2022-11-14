@@ -13,6 +13,7 @@ router.post("/login", UserController.loginAuthen);
 router.post("/register", UserController.registerAuthen);
 router.post("/resetPassword", UserController.resetPassword);
 router.post("/sendCode", UserController.sendCodeVerify);
+router.post("/adminReset", UserController.AdminResetPassword);
 
 //patch
 router.patch("/updatePassword", UserController.updatePassword);
