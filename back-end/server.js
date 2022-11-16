@@ -30,7 +30,7 @@ const options = {
     },
     servers: [
       {
-        url: "https://api.labmanagement.online",
+        url: process.env.API_BASE_URL,
       },
     ],
   },
@@ -53,7 +53,6 @@ app.use("/api", user);
 const port = process.env.PORT || 8000;
 
 //socket.io
-
 const httpServer = http.createServer(app);
 const io = new Server({
   cors: {

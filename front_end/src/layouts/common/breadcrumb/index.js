@@ -18,11 +18,14 @@ const BreadCrumb = (props) => {
         if (name.includes("-")) {
           const newName = name.split("-").join(" ");
           return isLast ? (
-            <Breadcrumb.Item>{`${newName[0].toUpperCase()}${newName.slice(
+            <Breadcrumb.Item
+              key={index}
+            >{`${newName[0].toUpperCase()}${newName.slice(
               1
             )}`}</Breadcrumb.Item>
           ) : (
             <Breadcrumb.Item
+              key={index}
               href={`/${name}`}
             >{`${newName[0].toUpperCase()}${newName.slice(
               1

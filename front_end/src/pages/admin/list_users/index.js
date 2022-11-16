@@ -12,16 +12,19 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 //local
 import { allUsers } from "../../../store/modules/usersSlices";
 import ButtonCancel from "../../../components/button/buttonCancel";
 import { post } from "../../../services/axios/baseAPI";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
+import { getCookie, STORAGEKEY } from "../../../services/cookies";
+import ModalViewPassword from "../../../components/modal/modalViewPassword";
+import ModalViewUser from "../../../components/modal/modalViewUser";
 
 import styles from "./listUser.module.scss";
-import { useMutation } from "@tanstack/react-query";
-import ModalViewPassword from "../../../components/modal/modalViewPassword";
 
 const { Search } = Input;
 
@@ -84,7 +87,10 @@ const ListUsers = () => {
                 {t("list_user.btn_resetpass")}
               </Button>
             </Popconfirm>
-            <ButtonCancel nameBtn={t("list_user.btn_detail")} />
+            <ButtonCancel
+              nameBtn={t("list_user.btn_detail")}
+              onClickBtn={() => handleDetail(key.key)}
+            />
           </Space>
         );
       },
@@ -111,6 +117,7 @@ const ListUsers = () => {
   const [form] = Form.useForm();
   const [openModal, setOpenModal] = useState(false);
   const [valueReset, setValueReset] = useState("");
+  const [openModalView, setOpenModalView] = useState(false);
 
   useEffect(() => {
     dispatch(allUsers());
@@ -123,6 +130,29 @@ const ListUsers = () => {
   const confirmReset = (email) => {
     resetUser({ email });
     setOpenModal(true);
+  };
+
+  const handleDetail = (id) => {
+    setOpenModalView(true);
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/getInfoUser`,
+        {
+          idUser: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie(STORAGEKEY.ACCESS_TOKEN)}`,
+          },
+        }
+      )
+      .then((res) => {
+        const { data } = res;
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const postEmailConfirm = (data) => post(`adminReset`, data);
@@ -196,6 +226,7 @@ const ListUsers = () => {
         setIsModal={setOpenModal}
         valueReset={valueReset}
       />
+      <ModalViewUser isModal={openModalView} setIsModal={setOpenModalView} />
     </>
   );
 };
