@@ -38,6 +38,7 @@ export const loginAuthen = async (req, res) => {
       isChangePassword: user.isChangePassword,
       accessToken,
       message: "Login success !",
+      role: user.role,
     });
   } catch (err) {
     console.log(err);

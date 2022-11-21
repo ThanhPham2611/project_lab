@@ -15,6 +15,7 @@ const initialState = {
   loading: false,
   userData: {},
   accountUser: {},
+  detailUser: {},
   listAllUser: [],
 };
 
@@ -24,6 +25,9 @@ const usersSlices = createSlice({
   reducers: {
     getAccountUser: (state, action) => {
       state.accountUser = action.payload;
+    },
+    getDetailUser: (state, action) => {
+      state.detailUser = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -52,5 +56,5 @@ const usersSlices = createSlice({
   },
 });
 
-export const { getAccountUser } = usersSlices.actions;
+export const { getAccountUser, getDetailUser } = usersSlices.actions;
 export default usersSlices.reducer;

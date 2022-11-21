@@ -104,6 +104,21 @@
     "btn_detail": "Detail user",
     "pop_conf_title": "Are you sure to reset password",
     "pop_btn_ok": "Oke",
-    "pop_btn_cancel": "Cancel"
+    "pop_btn_cancel": "Cancel",
+    "placeholder_input": "Input email or student code",
+    "placeholder_office": "Office",
+    "btn_search": "Search",
+    "btn_rest_form": "Reset form",
+    "table_admin": "Admin",
+    "table_student": "Student",
+    "table_teacher": "Teacher"
+  },
+  "ults": {
+    "student": "Student",
+    "admin": "Admin",
+    "teacher": "Teacher",
+    "user": "User",
+    "question_prompt": "Please enter your admin code ?",
+    "confirm_login_fail": "Login admin failed"
   }
 }

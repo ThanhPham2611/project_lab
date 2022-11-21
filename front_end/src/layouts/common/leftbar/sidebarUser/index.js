@@ -27,6 +27,8 @@ const MenuUser = () => {
 
   const { pathname } = useLocation();
 
+  const subPathname = pathname.substring(pathname.indexOf("-") + 1);
+
   const itemMenu = [
     getItem(
       <NavLink to="/dashboard">{t("sidebar.dashboard")}</NavLink>,
@@ -58,7 +60,12 @@ const MenuUser = () => {
   ];
 
   return (
-    <Menu defaultSelectedKeys={[pathname]} mode="inline" items={itemMenu} />
+    <Menu
+      defaultSelectedKeys={[pathname]}
+      defaultOpenKeys={[subPathname]}
+      mode="inline"
+      items={itemMenu}
+    />
   );
 };
 

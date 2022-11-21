@@ -29,7 +29,12 @@ const Login = () => {
     postUser,
     {
       onSuccess: (data) => {
-        const { accessToken, message, isChangePassword } = data;
+        const { accessToken, message, isChangePassword, role } = data;
+        if (role === 0) {
+          const checkAdmin = prompt(t("ults.question_prompt"));
+          if (checkAdmin !== process.env.REACT_APP_CODE_ADMIN)
+            return alert(t("ults.confirm_login_fail"));
+        }
         setCookie(STORAGEKEY.ACCESS_TOKEN, accessToken);
         localStorage.setItem(STORAGEKEY.CHANGE_PASSWORD, isChangePassword);
         if (isChangePassword) {
