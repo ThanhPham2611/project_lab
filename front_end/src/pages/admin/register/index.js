@@ -23,6 +23,8 @@ import { getAccountUser } from "../../../store/modules/usersSlices";
 
 //scss
 import styles from "./register.module.scss";
+import ButtonPrimary from "../../../components/button/buttonPrimary";
+import { EOffice, ERole } from "../../../utils/role";
 
 const Register = () => {
   //redux
@@ -56,7 +58,6 @@ const Register = () => {
     postCreate,
     {
       onSuccess: (data) => {
-        console.log(data);
         const { userInfo } = data;
         dispatch(getAccountUser(userInfo));
         history.push("/success-register");
@@ -207,8 +208,8 @@ const Register = () => {
             className="selectRegister"
             onChange={handleRole}
             options={[
-              { value: 1, label: "User" },
-              { value: 0, label: "Admin" },
+              { value: ERole.user, label: t("ults.user") },
+              { value: ERole.admin, label: t("ults.admin") },
             ]}
           />
         </Form.Item>
@@ -218,8 +219,8 @@ const Register = () => {
             className="selectRegister"
             disabled={office === 0}
             options={[
-              { value: 1, label: "Student" },
-              { value: 2, label: "Teacher" },
+              { value: EOffice.student, label: t("ults.student") },
+              { value: EOffice.teacher, label: t("ults.teacher") },
             ]}
           />
         </Form.Item>
@@ -247,9 +248,10 @@ const Register = () => {
 
         <Form.Item style={{ textAlign: "center" }}>
           <Space>
-            <Button htmlType="submit" className="btn editProfile">
-              {t("user_regsiter.btn_create")}
-            </Button>
+            <ButtonPrimary
+              nameBtn={t("user_regsiter.btn_create")}
+              htmlType="submit"
+            />
             <Popconfirm
               title={t("user_regsiter.question_reset_form")}
               onConfirm={onResetForm}

@@ -1,13 +1,4 @@
-import {
-  Button,
-  Form,
-  Input,
-  notification,
-  Popconfirm,
-  Select,
-  Space,
-  Table,
-} from "antd";
+import { Button, Form, Input, Popconfirm, Select, Space, Table } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,13 +7,14 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 //local
-import { allUsers } from "../../../store/modules/usersSlices";
+import { allUsers, getDetailUser } from "../../../store/modules/usersSlices";
 import ButtonCancel from "../../../components/button/buttonCancel";
 import { post } from "../../../services/axios/baseAPI";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 import { getCookie, STORAGEKEY } from "../../../services/cookies";
 import ModalViewPassword from "../../../components/modal/modalViewPassword";
 import ModalViewUser from "../../../components/modal/modalViewUser";
+import { EOffice, listOffice } from "../../../utils/role";
 
 import styles from "./listUser.module.scss";
 
@@ -60,7 +52,13 @@ const ListUsers = () => {
       dataIndex: "office",
       key: "office",
       render: (key) => (
-        <span>{key === 0 ? "Admin" : key === 1 ? "User" : "Teacher"}</span>
+        <span>
+          {key === EOffice.admin
+            ? t("list_user.table_admin")
+            : key === EOffice.student
+            ? t("list_user.table_student")
+            : t("list_user.table_teacher")}
+        </span>
       ),
     },
     {
@@ -132,6 +130,11 @@ const ListUsers = () => {
     setOpenModal(true);
   };
 
+  const handleReset = () => {
+    dispatch(allUsers());
+    form.resetFields();
+  };
+
   const handleDetail = (id) => {
     setOpenModalView(true);
     axios
@@ -148,7 +151,7 @@ const ListUsers = () => {
       )
       .then((res) => {
         const { data } = res;
-        console.log(data);
+        dispatch(getDetailUser(data.userInfo));
       })
       .catch((err) => {
         console.log(err);
@@ -172,7 +175,7 @@ const ListUsers = () => {
         <Form form={form} onFinish={onFinish} layout="inline">
           <Form.Item name="inputSearch">
             <Search
-              placeholder="Input email or student code"
+              placeholder={t("list_user.placeholder_input")}
               allowClear
               style={{ width: 300 }}
             />
@@ -180,22 +183,14 @@ const ListUsers = () => {
 
           <Form.Item name="office">
             <Select
-              placeholder="Office"
+              placeholder={t("list_user.placeholder_office")}
               style={{ width: 150 }}
-              options={[
-                {
-                  value: 0,
-                  label: "Admin",
-                },
-                {
-                  value: 1,
-                  label: "User",
-                },
-                {
-                  value: 2,
-                  label: "Teacher",
-                },
-              ]}
+              options={listOffice.map((item) => {
+                return {
+                  value: item.value,
+                  label: item.label,
+                };
+              })}
             />
           </Form.Item>
 
@@ -203,19 +198,22 @@ const ListUsers = () => {
             <Space>
               <ButtonPrimary
                 classNameBtn={styles.btnSearch}
-                nameBtn="Search"
+                nameBtn={t("list_user.btn_search")}
                 htmlType="submit"
               />
               <ButtonCancel
                 classNameBtn={styles.btnSearch}
-                nameBtn="Reset form"
-                onClickBtn={() => form.resetFields()}
+                nameBtn={t("list_user.btn_rest_form")}
+                onClickBtn={handleReset}
               />
             </Space>
           </Form.Item>
         </Form>
       </div>
       <Table
+        rowClassName={(record) =>
+          record.office === EOffice.admin ? `${styles.rowAdmin}` : ""
+        }
         columns={columns}
         dataSource={dataList}
         bordered

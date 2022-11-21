@@ -104,6 +104,21 @@
     "btn_detail": "Chi tiết người dùng",
     "pop_conf_title": "Bạn có chắc chắn đặt lại mật khẩu không",
     "pop_btn_ok": "Đúng",
-    "pop_btn_cancel": "Hủy"
+    "pop_btn_cancel": "Hủy",
+    "placeholder_input": "Nhập mật khẩu hoặc mã sinh viên",
+    "placeholder_office": "Chức vụ",
+    "btn_search": "Tìm kiếm",
+    "btn_rest_form": "Làm mới",
+    "table_admin": "Quản trị viên",
+    "table_student": "Sinh viên",
+    "table_teacher": "Giáo viên"
+  },
+  "ults": {
+    "student": "Sinh viên",
+    "admin": "Quản trị viên",
+    "teacher": "Giáo viên",
+    "user": "Người dùng",
+    "question_prompt": "Bạn cần nhập mã code quản trị viên của bạn ?",
+    "confirm_login_fail": "Đăng nhập vào quyền quản trị viên lỗi"
   }
 }

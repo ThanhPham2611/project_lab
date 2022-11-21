@@ -12,20 +12,27 @@ import { UserOutlined } from "@ant-design/icons";
 
 //scss
 import styles from "./profile.module.scss";
+import { EOffice, ERole } from "../../utils/role";
 
 const Profile = () => {
   //redux
   const { userData, loading } = useSelector((state) => state.userInfo);
 
-  //state
-  const [modalEditProfile, setEditProfile] = useState(false);
-  const [role] = useState(userData.role === 1 ? "User" : "Admin");
-  const [office] = useState(
-    userData.role === 1 ? "Student" : userData.role === 2 ? "Teacher" : "Admin"
-  );
-
   //translation
   const { t } = useTranslation("common");
+
+  //state
+  const [modalEditProfile, setEditProfile] = useState(false);
+  const [role] = useState(
+    userData.role === ERole.user ? t("ults.student") : t("ults.admin")
+  );
+  const [office] = useState(
+    userData.office === EOffice.student
+      ? t("ults.student")
+      : userData.office === EOffice.teacher
+      ? t("ults.teacher")
+      : t("ults.admin")
+  );
 
   return (
     <>

@@ -62,9 +62,9 @@
   &:hover {
     width: 24vw;
     background-color: $color1stTLU;
-    color: whitesmoke;
+    color: whitesmoke !important;
     font-weight: bold;
-    border: 1px solid transparent;
+    border: 1px solid transparent !important;
   }
 }
 
@@ -86,6 +86,8 @@
     }
     &:hover {
       background-color: $color2stTLU;
+      color: white;
+      border: 1px solid transparent;
     }
   }
 

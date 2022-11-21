@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 //local
@@ -19,14 +19,29 @@ import ListUsers from "./pages/admin/list_users";
 import AddDevice from "./pages/admin/add_devices";
 import DeviceManagement from "./pages/admin/device_management";
 
+export const BlankPage = () => {
+  const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
+  const history = useHistory();
+  useEffect(() => {
+    if (cookies) {
+      console.log(1);
+      history.push("/dashboard");
+    } else {
+      console.log(2);
+      history.push("/login");
+    }
+  }, []);
+  return <div></div>;
+};
+
 export const appRouter = [
   {
-    name: "something",
+    name: "Blank_page",
     path: "/",
-    component: Login,
+    component: BlankPage,
     meta: {
       role: "*",
-      isPrivate: false,
+      isPrivate: true,
       hidden: false,
       child: false,
     },
