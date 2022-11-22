@@ -8,8 +8,7 @@ import {
   DesktopOutlined,
   FileOutlined,
   PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
+  ToolOutlined,
 } from "@ant-design/icons";
 
 const getItem = (label, key, icon, children) => {
@@ -40,16 +39,16 @@ const MenuUser = () => {
       "/profile",
       <DesktopOutlined />
     ),
-    getItem(t("sidebar.devices"), "sub2", <TeamOutlined />, [
+    getItem(t("sidebar.devices"), "devices", <ToolOutlined />, [
       getItem(
-        <NavLink to="/devices-register">
+        <NavLink to="/register-devices">
           {t("sidebar.devices_register")}
         </NavLink>,
-        "/devices-register"
+        "/register-devices"
       ),
       getItem(
-        <NavLink to="/devices-list">{t("sidebar.devices_list")}</NavLink>,
-        "/devices-list"
+        <NavLink to="/list-devices">{t("sidebar.devices_list")}</NavLink>,
+        "/list-devices"
       ),
     ]),
     getItem(
