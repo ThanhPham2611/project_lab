@@ -8,8 +8,7 @@ import {
   DesktopOutlined,
   FileOutlined,
   PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
+  ToolOutlined,
 } from "@ant-design/icons";
 
 const getItem = (label, key, icon, children) => {
@@ -27,7 +26,9 @@ const MenuUser = () => {
 
   const { pathname } = useLocation();
 
-  const subPathname = pathname.substring(pathname.indexOf("-") + 1);
+  const subPathname = pathname.substring(pathname.lastIndexOf("-") + 1);
+
+  console.log(subPathname);
 
   const itemMenu = [
     getItem(
@@ -40,16 +41,18 @@ const MenuUser = () => {
       "/profile",
       <DesktopOutlined />
     ),
-    getItem(t("sidebar.devices"), "sub2", <TeamOutlined />, [
+    getItem(t("sidebar.devices"), "devices", <ToolOutlined />, [
       getItem(
-        <NavLink to="/devices-register">
+        <NavLink to="/register-devices">
           {t("sidebar.devices_register")}
         </NavLink>,
-        "/devices-register"
+        "/register-devices"
       ),
       getItem(
-        <NavLink to="/devices-list">{t("sidebar.devices_list")}</NavLink>,
-        "/devices-list"
+        <NavLink to="/list-register-devices">
+          {t("sidebar.devices_list")}
+        </NavLink>,
+        "/list-register-devices"
       ),
     ]),
     getItem(

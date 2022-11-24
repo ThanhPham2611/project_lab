@@ -18,6 +18,8 @@ import RegisterSuccess from "./pages/admin/register/registerSuccess";
 import ListUsers from "./pages/admin/list_users";
 import AddDevice from "./pages/admin/add_devices";
 import DeviceManagement from "./pages/admin/device_management";
+import DeviceRegister from "./pages/user/device_regsiter";
+import ListDeviceRegister from "./pages/user/list_device_register";
 
 export const BlankPage = () => {
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
@@ -94,6 +96,28 @@ export const appRouter = [
     name: "Profile",
     path: "/profile",
     component: Profile,
+    meta: {
+      role: "*",
+      isPrivate: true,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "Device register",
+    path: "/register-devices",
+    component: DeviceRegister,
+    meta: {
+      role: "*",
+      isPrivate: true,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "List register",
+    path: "/list-register-devices",
+    component: ListDeviceRegister,
     meta: {
       role: "*",
       isPrivate: true,
