@@ -109,3 +109,9 @@
     border: 1px solid transparent;
   }
 }
+
+.view_user {
+  .ant-modal-content {
+    min-width: 500px;
+  }
+}
