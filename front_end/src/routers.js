@@ -19,10 +19,7 @@ import ListUsers from "./pages/admin/list_users";
 import AddDevice from "./pages/admin/add_devices";
 import DeviceManagement from "./pages/admin/device_management";
 import DeviceRegister from "./pages/user/device_regsiter";
-<<<<<<< HEAD
 import ListDeviceRegister from "./pages/user/list_device_register";
-=======
->>>>>>> 41e1137 (Add feature device register)
 
 export const BlankPage = () => {
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
