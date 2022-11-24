@@ -38,7 +38,7 @@ const Register = () => {
   //form
   const [form] = Form.useForm();
   //format birthday
-  const formatBirthday = "DD/MM/YYYY";
+  const formatBirthday = "YYYY-MM-DD";
 
   //state
   const [office, setOffice] = useState();
@@ -47,7 +47,7 @@ const Register = () => {
     const newData = {
       ...value,
       office: office === 0 ? 0 : value.office,
-      majors: `${value.majors}${Number(moment().format("YYYY")) - 1988}`,
+      majors: `${value.majors} ${Number(value.birthday.$y) + 18 - 1987}`,
     };
     registerUser(newData);
   };
@@ -87,7 +87,6 @@ const Register = () => {
         initialValues={{
           office: 1,
           role: 1,
-          birthday: moment().subtract("18", "years"),
         }}
       >
         <Form.Item
@@ -239,7 +238,6 @@ const Register = () => {
           <DatePicker
             format={formatBirthday}
             style={{ width: "100%" }}
-            defaultValue={moment().subtract("18", "years")}
             disabledDate={(current) => {
               return moment().subtract("18", "years") < current;
             }}
