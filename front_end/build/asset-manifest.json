@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.0c0b58a4.css",
-    "main.js": "/static/js/main.1075815c.js",
+    "main.css": "/static/css/main.e9409e37.css",
+    "main.js": "/static/js/main.602de0c3.js",
     "static/media/coming_soon.jpg": "/static/media/coming_soon.84195a022d091b588984.jpg",
     "static/media/logoTLU.png": "/static/media/logoTLU.282ee3d1fbfc195200ad.png",
     "static/media/united-kingdom.png": "/static/media/united-kingdom.b9a2ba74e5f8a55977e7.png",
     "static/media/vietnam.png": "/static/media/vietnam.a7a251f3ce4a10a7fd18.png",
     "static/media/logoVertical.png": "/static/media/logoVertical.3301896206d5b35e7cd2.png",
     "index.html": "/index.html",
-    "main.0c0b58a4.css.map": "/static/css/main.0c0b58a4.css.map",
-    "main.1075815c.js.map": "/static/js/main.1075815c.js.map"
+    "main.e9409e37.css.map": "/static/css/main.e9409e37.css.map",
+    "main.602de0c3.js.map": "/static/js/main.602de0c3.js.map"
   },
   "entrypoints": [
-    "static/css/main.0c0b58a4.css",
-    "static/js/main.1075815c.js"
+    "static/css/main.e9409e37.css",
+    "static/js/main.602de0c3.js"
   ]
 }

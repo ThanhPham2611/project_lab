@@ -218,6 +218,10 @@ const ListUsers = () => {
         dataSource={dataList}
         bordered
         loading={loading}
+        pagination={{
+          defaultCurrent: 1,
+          defaultPageSize: 7,
+        }}
       />
       <ModalViewPassword
         isModal={openModal}

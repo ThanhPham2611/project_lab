@@ -17,8 +17,6 @@ const ModalViewUser = ({ isModal, setIsModal }) => {
   //redux
   const { detailUser } = useSelector((state) => state.userInfo);
 
-  console.log("modallll", detailUser);
-
   const handleCancel = () => {
     setIsModal(false);
   };
