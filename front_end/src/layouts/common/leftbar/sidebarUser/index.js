@@ -26,7 +26,9 @@ const MenuUser = () => {
 
   const { pathname } = useLocation();
 
-  const subPathname = pathname.substring(pathname.indexOf("-") + 1);
+  const subPathname = pathname.substring(pathname.lastIndexOf("-") + 1);
+
+  console.log(subPathname);
 
   const itemMenu = [
     getItem(
@@ -47,8 +49,10 @@ const MenuUser = () => {
         "/register-devices"
       ),
       getItem(
-        <NavLink to="/list-devices">{t("sidebar.devices_list")}</NavLink>,
-        "/list-devices"
+        <NavLink to="/list-register-devices">
+          {t("sidebar.devices_list")}
+        </NavLink>,
+        "/list-register-devices"
       ),
     ]),
     getItem(

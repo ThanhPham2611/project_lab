@@ -1,5 +1,7 @@
 export const formatDate = "YYYY-MM-DD";
 
+export const formatDateHour = "YYYY-MM-DD HH:mm:ss";
+
 export const listMajor = [
   {
     value: "TC",
@@ -21,15 +23,36 @@ export const listMajor = [
 
 export const listDevices = [
   {
-    code: 1,
+    code: "Adruino",
     label: "Adruino",
   },
   {
-    code: 2,
+    code: "Cam bien",
     label: "Cam bien",
   },
   {
-    code: 3,
+    code: "Test khi gas",
     label: "Test khi gas",
+  },
+];
+
+export const EStatusRegister = {
+  notApprove: 1,
+  approve: 0,
+  refuse: 2,
+};
+
+export const listStatusRegister = [
+  {
+    value: EStatusRegister.notApprove,
+    label: "Not approve",
+  },
+  {
+    value: EStatusRegister.approve,
+    label: "Approve",
+  },
+  {
+    value: EStatusRegister.refuse,
+    label: "Refuse",
   },
 ];

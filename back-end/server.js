@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 
 //router
 import user from "./routes/user";
+import device from "./routes/device";
 
 dotenv.config();
 const app = express();
@@ -48,6 +49,7 @@ mongoose
 
 //router
 app.use("/api", user);
+app.use("/api", device);
 
 //port
 const port = process.env.PORT || 8000;
