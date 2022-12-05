@@ -10,7 +10,7 @@ const ButtonPrimary = ({
 }) => {
   return (
     <Button
-      className={`btn primary ${classNameBtn}`}
+      className={`btn primary ${classNameBtn} `}
       htmlType={htmlType}
       onClick={onClickBtn}
       style={styleBtn}

@@ -31,7 +31,7 @@ export const loginAuthen = async (req, res) => {
       JSON.parse(JSON.stringify(user)),
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "30000s",
+        expiresIn: "8h",
       }
     );
     return res.json({
