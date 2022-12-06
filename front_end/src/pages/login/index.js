@@ -14,6 +14,12 @@ import iconLogo from "../../assets/images/img/logoVertical.png";
 
 //scss
 import styles from "./login.module.scss";
+import { io } from "socket.io-client";
+
+// socket
+const socket = io(process.env.REACT_APP_SOCKET_URL, {
+  transports: ["websocket"],
+});
 
 const Login = () => {
   //translation
@@ -35,6 +41,7 @@ const Login = () => {
           if (checkAdmin !== process.env.REACT_APP_CODE_ADMIN)
             return alert(t("ults.confirm_login_fail"));
         }
+        socket.emit("connected");
         setCookie(STORAGEKEY.ACCESS_TOKEN, accessToken);
         localStorage.setItem(STORAGEKEY.CHANGE_PASSWORD, isChangePassword);
         if (isChangePassword) {
