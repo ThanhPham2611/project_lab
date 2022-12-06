@@ -67,9 +67,14 @@ const io = new Server({
 io.attach(httpServer);
 
 io.on("connection", (socket) => {
-  socket.on("connected", () => {});
-  socket.on("disconnect", () => {});
+  socket.on("connected", () => {
+    console.log("user connected");
+  });
+  socket.on("disconnect", () => {
+    console.log("use disconnect");
+  });
   socket.on("devices_register", () => {
+    console.log("sockettt", "socket emit");
     io.emit("success_form");
   });
 });

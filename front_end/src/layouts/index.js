@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import i18n from "i18next";
-import { io } from "socket.io-client";
 import { useLocation } from "react-router-dom";
 
 //local
@@ -21,11 +20,6 @@ import iconLogoVerital from "../assets/images/img/logoVertical.png";
 //scss
 
 const { Sider, Header, Content } = Layout;
-
-// socket
-const socket = io(process.env.REACT_APP_SOCKET_URL, {
-  transports: ["websocket"],
-});
 
 const App = (props) => {
   //components render
@@ -45,7 +39,6 @@ const App = (props) => {
   const cookies = getCookie(STORAGEKEY.ACCESS_TOKEN);
 
   useEffect(() => {
-    socket.emit("connected");
     i18n.changeLanguage(localStorage.getItem("language"));
     const isChangePassword = localStorage.getItem(STORAGEKEY.CHANGE_PASSWORD);
     if (cookies) {
