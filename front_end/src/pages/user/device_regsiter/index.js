@@ -12,12 +12,18 @@ import {
 } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
+import { io } from "socket.io-client";
 
 //local
 import { listDevices, listMajor } from "../../../utils";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 import ButtonCancel from "../../../components/button/buttonCancel";
 import { post } from "../../../services/axios/baseAPI";
+
+// socket
+const socket = io(process.env.REACT_APP_SOCKET_URL, {
+  transports: ["websocket"],
+});
 
 const DeviceRegister = () => {
   const [form] = Form.useForm();
@@ -33,6 +39,7 @@ const DeviceRegister = () => {
     postDeviceRegister,
     {
       onSuccess: (data) => {
+        socket.emit("devices_register");
         notification.success({ message: "Đăng ký thành công" });
         history.push("/list-register-devices");
       },

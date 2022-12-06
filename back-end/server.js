@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 //router
 import user from "./routes/user";
 import device from "./routes/device";
+import admin from "./routes/admin";
 
 dotenv.config();
 const app = express();
@@ -50,6 +51,7 @@ mongoose
 //router
 app.use("/api", user);
 app.use("/api", device);
+app.use("/api", admin);
 
 //port
 const port = process.env.PORT || 8000;
@@ -67,6 +69,9 @@ io.attach(httpServer);
 io.on("connection", (socket) => {
   socket.on("connected", () => {});
   socket.on("disconnect", () => {});
+  socket.on("devices_register", () => {
+    io.emit("success_form");
+  });
 });
 
 httpServer.listen(port, function () {

@@ -20,16 +20,15 @@ import AddDevice from "./pages/admin/add_devices";
 import DeviceManagement from "./pages/admin/device_management";
 import DeviceRegister from "./pages/user/device_regsiter";
 import ListDeviceRegister from "./pages/user/list_device_register";
+import DevicesResList from "./pages/admin/devices_request_list";
 
 export const BlankPage = () => {
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
   const history = useHistory();
   useEffect(() => {
     if (cookies) {
-      console.log(1);
       history.push("/dashboard");
     } else {
-      console.log(2);
       history.push("/login");
     }
   }, []);
@@ -173,6 +172,17 @@ export const appRouter = [
     name: "DeviceManagement",
     path: "/management-devices",
     component: DeviceManagement,
+    meta: {
+      role: "admin",
+      isPrivate: true,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "ListRequestDevice",
+    path: "/list-request-devices",
+    component: DevicesResList,
     meta: {
       role: "admin",
       isPrivate: true,

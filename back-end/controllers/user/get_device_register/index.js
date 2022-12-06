@@ -22,15 +22,19 @@ export const getDeviceRegister = async (req, res) => {
     condition.status = Number(status);
   }
 
-  const dataBorrow = await borrowEquipment.find(
-    {
-      idCreator: _id,
-      ...condition,
-    },
-    {
-      __v: 0,
-    }
-  );
+  const dataBorrow = await borrowEquipment
+    .find(
+      {
+        idCreator: _id,
+        ...condition,
+      },
+      {
+        __v: 0,
+      }
+    )
+    .sort({
+      createdAt: -1,
+    });
 
   return res.json({
     dataBorrow,
