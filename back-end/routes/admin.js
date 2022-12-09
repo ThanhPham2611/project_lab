@@ -14,6 +14,9 @@ import { AdminResetPassword } from "../controllers/admin/reset_pass_user";
 import { resetPassword } from "../controllers/user/reset_password";
 import { sendCodeVerify } from "../controllers/user/send_verify_code";
 
+//patch
+import { patchRequestList } from "../controllers/admin/patch_request_devices";
+
 const router = express.Router();
 
 router.get("/allUser", verifyToken, getAllUser);
@@ -24,5 +27,7 @@ router.post("/resetPassword", resetPassword);
 router.post("/sendCode", sendCodeVerify);
 router.post("/adminReset", AdminResetPassword);
 router.post("/getInfoUser", getInfoUser);
+
+router.patch("/request_device/:id", patchRequestList);
 
 export default router;

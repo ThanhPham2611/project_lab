@@ -1,13 +1,14 @@
-import { Form, Input, Select, Space, Table, Tag } from "antd";
+import { Form, Input, notification, Select, Space, Table, Tag } from "antd";
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
 import ButtonCancel from "../../../components/button/buttonCancel";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
-import { STORAGEKEY } from "../../../services/cookies";
+import ModalReason from "../../../components/modal/modalReason";
+import { getCookie, STORAGEKEY } from "../../../services/cookies";
 import { listRequestDevice } from "../../../store/modules/deviceRegisterSlices";
 import { EStatusRegister, formatDate } from "../../../utils";
 
@@ -75,7 +76,9 @@ const DevicesResList = () => {
                   "disabled"
                 }`}
                 nameBtn="Duyệt đơn"
-                onClickBtn={() => handlePost(EStatusRegister.approve)}
+                onClickBtn={() =>
+                  handlePost({ status: EStatusRegister.approve, id: data._id })
+                }
               />
               <ButtonPrimary
                 classNameBtn={`${
@@ -83,7 +86,7 @@ const DevicesResList = () => {
                   "disabled"
                 } ${styles.btnRefuse}`}
                 nameBtn="Hủy đơn"
-                onClickBtn={() => handlePost(EStatusRegister.refuse)}
+                onClickBtn={() => openModalRefuse(data._id)}
               />
             </>
           ) : (
@@ -93,7 +96,7 @@ const DevicesResList = () => {
                 "disabled"
               }`}
               nameBtn="Hoàn đơn"
-              onClickBtn={() => handlePost(EStatusRegister.notApprove)}
+              // onClickBtn={() => }
             />
           )}
         </Space>
@@ -105,6 +108,8 @@ const DevicesResList = () => {
   const { listRequest, loading } = useSelector((state) => state.deviceRegister);
   //state
   const [form] = Form.useForm();
+  const [openModal, setOpenModal] = useState(false);
+  const [idModal, setIdModal] = useState("");
 
   useEffect(() => {
     dispatch(listRequestDevice());
@@ -123,65 +128,79 @@ const DevicesResList = () => {
     dispatch(listRequestDevice());
   };
 
-  const handlePost = (status) =>
+  const openModalRefuse = async (id) => {
+    await setIdModal(id);
+    setOpenModal(true);
+  };
+
+  const handlePost = (value) =>
     axios({
-      method: "post",
-      url: ``,
-      data: {
-        status,
-      },
+      method: "patch",
+      url: `${process.env.REACT_APP_API_URL}/request_device/${value.id}`,
+      data: value,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.get(STORAGEKEY.ACCESS_TOKEN)}`,
+        Authorization: `Bearer ${getCookie(STORAGEKEY.ACCESS_TOKEN)}`,
       },
-    });
+    })
+      .then(() => {
+        notification.success({ message: "Duyệt đơn thành công" });
+        dispatch(listRequestDevice());
+        socket.emit("admin_call");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
   return (
-    <div style={{ marginBottom: 20 }}>
-      <Form form={form} onFinish={onFinish} layout="inline">
-        <Form.Item name="search">
-          <Search placeholder="Nhập mã sinh viên" allowClear />
-        </Form.Item>
-        <Form.Item name="status">
-          <Select
-            className={styles.widthSelect}
-            placeholder="Trạng thái đơn"
-            options={[
-              {
-                value: EStatusRegister.notApprove,
-                label: "Chưa được duyệt",
-              },
-              {
-                value: EStatusRegister.approve,
-                label: "Đã được duyệt",
-              },
-              {
-                value: EStatusRegister.refuse,
-                label: "Từ chối",
-              },
-            ]}
-          />
-        </Form.Item>
-        <Space>
-          <ButtonPrimary
-            classNameBtn={styles.btnSearch}
-            nameBtn="Tìm kiếm"
-            htmlType="submit"
-          />
-          <ButtonCancel
-            classNameBtn={styles.btnSearch}
-            nameBtn={"Làm mới"}
-            onClickBtn={handleReset}
-          />
-        </Space>
-      </Form>
-      <Table
-        className={styles.classTable}
-        columns={column}
-        dataSource={listRequest}
-        loading={loading}
-      />
-    </div>
+    <>
+      <div style={{ marginBottom: 20 }}>
+        <Form form={form} onFinish={onFinish} layout="inline">
+          <Form.Item name="search">
+            <Search placeholder="Nhập mã sinh viên" allowClear />
+          </Form.Item>
+          <Form.Item name="status">
+            <Select
+              className={styles.widthSelect}
+              placeholder="Trạng thái đơn"
+              options={[
+                {
+                  value: EStatusRegister.notApprove,
+                  label: "Chưa được duyệt",
+                },
+                {
+                  value: EStatusRegister.approve,
+                  label: "Đã được duyệt",
+                },
+                {
+                  value: EStatusRegister.refuse,
+                  label: "Từ chối",
+                },
+              ]}
+            />
+          </Form.Item>
+          <Space>
+            <ButtonPrimary
+              classNameBtn={styles.btnSearch}
+              nameBtn="Tìm kiếm"
+              htmlType="submit"
+            />
+            <ButtonCancel
+              classNameBtn={styles.btnSearch}
+              nameBtn={"Làm mới"}
+              onClickBtn={handleReset}
+            />
+          </Space>
+        </Form>
+        <Table
+          className={styles.classTable}
+          columns={column}
+          dataSource={listRequest}
+          loading={loading}
+        />
+      </div>
+      <ModalReason isModal={openModal} setIsModal={setOpenModal} id={idModal} />
+    </>
   );
 };
 
