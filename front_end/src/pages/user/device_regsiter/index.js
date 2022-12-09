@@ -19,6 +19,7 @@ import { listDevices, listMajor } from "../../../utils";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 import ButtonCancel from "../../../components/button/buttonCancel";
 import { post } from "../../../services/axios/baseAPI";
+import moment from "moment";
 
 // socket
 const socket = io(process.env.REACT_APP_SOCKET_URL, {
@@ -136,7 +137,12 @@ const DeviceRegister = () => {
                 },
               ]}
             >
-              <DatePicker style={{ width: "100%" }} />
+              <DatePicker
+                style={{ width: "100%" }}
+                disabledDate={(current) => {
+                  return moment().subtract(0, "days") > current;
+                }}
+              />
             </Form.Item>
           </Col>
 
@@ -151,7 +157,12 @@ const DeviceRegister = () => {
                 },
               ]}
             >
-              <DatePicker style={{ width: "100%" }} />
+              <DatePicker
+                style={{ width: "100%" }}
+                disabledDate={(current) => {
+                  return moment().subtract(0, "days") > current;
+                }}
+              />
             </Form.Item>
           </Col>
         </Row>
