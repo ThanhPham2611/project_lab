@@ -39,6 +39,7 @@ const borrowEquiment = mongoose.Schema(
       type: Number,
       default: 1,
     },
+    rejectReason: String,
   },
   {
     timestamps: true,

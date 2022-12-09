@@ -4,7 +4,6 @@ import {
   Col,
   DatePicker,
   Form,
-  Input,
   Row,
   Select,
   Space,
@@ -13,6 +12,7 @@ import {
 } from "antd";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
+import { io } from "socket.io-client";
 
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 import {
@@ -25,7 +25,10 @@ import { deviceRegister } from "../../../store/modules/deviceRegisterSlices";
 //scss
 import styles from "./list_device.module.scss";
 
-const { Search } = Input;
+// socket
+const socket = io(process.env.REACT_APP_SOCKET_URL, {
+  transports: ["websocket"],
+});
 
 const ListDeviceRegister = () => {
   const column = [
@@ -76,7 +79,14 @@ const ListDeviceRegister = () => {
     },
     {
       title: "Action",
-      render: (key) => <ButtonPrimary nameBtn="Edit" />,
+      render: (key) => (
+        <ButtonPrimary
+          classNameBtn={`${
+            moment(key.borrowDate).format() <= moment().format() && "disabled"
+          }`}
+          nameBtn="Edit"
+        />
+      ),
     },
   ];
 
@@ -91,6 +101,10 @@ const ListDeviceRegister = () => {
   }, []);
 
   const [form] = Form.useForm();
+
+  socket.on("user_claim", () => {
+    dispatch(deviceRegister());
+  });
 
   const onFinish = (value) => {
     dispatch(deviceRegister(value));
