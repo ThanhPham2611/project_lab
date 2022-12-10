@@ -2,6 +2,7 @@ import { Form, Input, notification, Select, Space, Table, Tag } from "antd";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
@@ -23,80 +24,85 @@ const socket = io(process.env.REACT_APP_SOCKET_URL, {
 });
 
 const DevicesResList = () => {
+  //translation
+  const { t } = useTranslation("common");
+
   const column = [
     {
-      title: "Email",
+      title: t("devices_request.column_email"),
       dataIndex: "creator",
     },
     {
-      title: "Họ và tên",
+      title: t("devices_request.column_name"),
       render: (data) => <span>{`${data.firstName} ${data.lastName}`}</span>,
     },
     {
-      title: "Mã sinh viên",
+      title: t("devices_request.column_student_code"),
       dataIndex: "studentCode",
     },
     {
-      title: "Thiết bị mượn",
+      title: t("devices_request.column_device"),
       dataIndex: "devices",
       render: (data) => data.map((item) => <Tag>{item}</Tag>),
     },
     {
-      title: "Ngày mượn",
+      title: t("devices_request.column_borrow_date"),
       dataIndex: "borrowDate",
       render: (data) => <span>{moment(data).format(formatDate)}</span>,
     },
     {
-      title: "Ngày trả",
+      title: t("devices_request.column_return_date"),
       dataIndex: "returnDate",
       render: (data) => <span>{moment(data).format(formatDate)}</span>,
     },
     {
-      title: "Trạng thái",
+      title: t("devices_request.column_status"),
       dataIndex: "status",
       render: (data) => (
         <span>
           {data === EStatusRegister.approve
-            ? "Đã được duyệt"
+            ? t("devices_request.name_status_approved")
             : data === EStatusRegister.notApprove
-            ? "Chưa được duyệt"
-            : "Từ chối"}
+            ? t("devices_request.name_status_not_approve")
+            : t("devices_request.name_status_refused")}
         </span>
       ),
     },
     {
-      title: "Thực thi",
+      title: t("devices_request.column_action"),
       render: (data) => (
         <Space>
           {data.status === EStatusRegister.notApprove ? (
             <>
               <ButtonPrimary
                 classNameBtn={`${
-                  moment(data.borrowDate).format() <= moment().format() &&
-                  "disabled"
+                  moment(data.borrowDate).format() <
+                    moment().format(formatDate) && "disabled"
                 }`}
-                nameBtn="Duyệt đơn"
+                nameBtn={t("devices_request.btn_confirm")}
                 onClickBtn={() =>
                   handlePost({ status: EStatusRegister.approve, id: data._id })
                 }
               />
               <ButtonPrimary
                 classNameBtn={`${
-                  moment(data.borrowDate).format() <= moment().format() &&
-                  "disabled"
+                  moment(data.borrowDate).format() <
+                    moment().format(formatDate) && "disabled"
                 } ${styles.btnRefuse}`}
-                nameBtn="Hủy đơn"
+                nameBtn={t("devices_request.btn_refuse")}
                 onClickBtn={() => openModalRefuse(data._id)}
               />
             </>
           ) : (
             <ButtonCancel
               classNameBtn={`${
-                moment(data.borrowDate).format() <= moment().format() &&
+                moment(data.borrowDate).format() < moment().format() &&
                 "disabled"
               }`}
-              nameBtn="Hoàn đơn"
-              // onClickBtn={() => }
+              nameBtn={t("devices_request.btn_refund")}
+              onClickBtn={() =>
+                handlePost({ status: EStatusRegister.notApprove, id: data._id })
+              }
             />
           )}
         </Space>
@@ -144,7 +150,9 @@ const DevicesResList = () => {
       },
     })
       .then(() => {
-        notification.success({ message: "Duyệt đơn thành công" });
+        notification.success({
+          message: t("devices_request.notifi_success_status"),
+        });
         dispatch(listRequestDevice());
         socket.emit("admin_call");
       })
@@ -154,27 +162,30 @@ const DevicesResList = () => {
 
   return (
     <>
-      <div style={{ marginBottom: 20 }}>
+      <div className="wrapperPage">
         <Form form={form} onFinish={onFinish} layout="inline">
           <Form.Item name="search">
-            <Search placeholder="Nhập mã sinh viên" allowClear />
+            <Search
+              placeholder={t("devices_request.placeholder_search")}
+              allowClear
+            />
           </Form.Item>
           <Form.Item name="status">
             <Select
               className={styles.widthSelect}
-              placeholder="Trạng thái đơn"
+              placeholder={t("devices_request.placeholder_status")}
               options={[
                 {
                   value: EStatusRegister.notApprove,
-                  label: "Chưa được duyệt",
+                  label: t("devices_request.select_not_approve"),
                 },
                 {
                   value: EStatusRegister.approve,
-                  label: "Đã được duyệt",
+                  label: t("devices_request.select_approve"),
                 },
                 {
                   value: EStatusRegister.refuse,
-                  label: "Từ chối",
+                  label: t("devices_request.select_refuse"),
                 },
               ]}
             />
@@ -182,12 +193,12 @@ const DevicesResList = () => {
           <Space>
             <ButtonPrimary
               classNameBtn={styles.btnSearch}
-              nameBtn="Tìm kiếm"
+              nameBtn={t("devices_request.btn_search")}
               htmlType="submit"
             />
             <ButtonCancel
               classNameBtn={styles.btnSearch}
-              nameBtn={"Làm mới"}
+              nameBtn={t("devices_request.btn_cancel")}
               onClickBtn={handleReset}
             />
           </Space>
