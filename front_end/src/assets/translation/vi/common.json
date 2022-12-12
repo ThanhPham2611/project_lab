@@ -133,9 +133,28 @@
     "btn_refuse": "Từ chối",
     "btn_refund": "Hoàn đơn",
     "notifi_success_status": "Duyệt đơn thành công",
+    "notifi_refuse_status": "Từ chối đơn thành công",
+    "noti_refund_status": "Hoàn đơn thành công",
     "name_status_approved": "Đã được duyệt",
     "name_status_not_approve": "Chưa được duyệt",
-    "name_status_refused": "Đã từ chối"
+    "name_status_refused": "Đã từ chối",
+    "err_noti_reason_field": "Bạn cần điền trường lý do"
+  },
+  "devices_request_user": {
+    "placeholder_date": "Chọn ngày",
+    "placeholder_status": "Trạng thái đơn",
+    "btn_search": "Tìm kiếm",
+    "btn_resest": "Làm mới",
+    "column_student_code": "Mã sinh viên",
+    "column_device": "Thiết bị mượn",
+    "column_borrow_date": "Ngày mượn",
+    "column_return_date": "Ngày trả",
+    "column_status": "Trạng thái",
+    "name_status_approved": "Đã duyệt đơn",
+    "name_status_not_approve": "Chưa duyệt đơn",
+    "name_status_refused": "Đã từ chối",
+    "column_action": "Thực thi",
+    "btn_edit": "Chỉnh sửa"
   },
   "ults": {
     "student": "Sinh viên",

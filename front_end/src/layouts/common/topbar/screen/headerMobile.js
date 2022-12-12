@@ -1,4 +1,4 @@
-import { Avatar, Col, Dropdown, Menu, Row, Space, Tooltip } from "antd";
+import { Avatar, Col, Drawer, Dropdown, Menu, Row, Space, Tooltip } from "antd";
 import React, { useState } from "react";
 import i18n from "i18next";
 import { useSelector } from "react-redux";
@@ -34,6 +34,7 @@ const HeaderMobile = () => {
   //state
   const [modalLanguage, setModalLanguage] = useState(false);
   const [modalChangePass, setModalChangePass] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   const handleModalLg = () => {
     setModalLanguage(true);
@@ -49,6 +50,8 @@ const HeaderMobile = () => {
     await localStorage.removeItem(STORAGEKEY.CHANGE_PASSWORD);
     window.location.href = "/login";
   };
+
+  const closeSidebar = () => {};
 
   //menu dropdown
   const menuAvatar = (
@@ -81,7 +84,10 @@ const HeaderMobile = () => {
     <>
       <Row align="middle" className={styles.headerMobile}>
         <Col sm={2} xs={2} style={{ display: "flex" }}>
-          <MenuUnfoldOutlined style={{ fontSize: 25 }} />
+          <MenuUnfoldOutlined
+            style={{ fontSize: 25 }}
+            onClick={() => setOpenSidebar(true)}
+          />
         </Col>
         <Col sm={22} xs={22}>
           <Row justify="space-between">
@@ -123,6 +129,18 @@ const HeaderMobile = () => {
         isModalVisible={modalChangePass}
         setIsModalVisible={setModalChangePass}
       />
+      <Drawer
+        // title="Basic Drawer"
+        placement="left"
+        closable={true}
+        onClose={() => setOpenSidebar(false)}
+        open={openSidebar}
+        key="left"
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
     </>
   );
 };

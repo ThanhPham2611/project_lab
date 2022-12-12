@@ -59,13 +59,21 @@ const DevicesResList = () => {
       title: t("devices_request.column_status"),
       dataIndex: "status",
       render: (data) => (
-        <span>
+        <Tag
+          color={
+            data === EStatusRegister.notApprove
+              ? "#2db7f5"
+              : data === EStatusRegister.approve
+              ? "#87d068"
+              : "#cd201f"
+          }
+        >
           {data === EStatusRegister.approve
             ? t("devices_request.name_status_approved")
             : data === EStatusRegister.notApprove
             ? t("devices_request.name_status_not_approve")
             : t("devices_request.name_status_refused")}
-        </span>
+        </Tag>
       ),
     },
     {
@@ -96,8 +104,8 @@ const DevicesResList = () => {
           ) : (
             <ButtonCancel
               classNameBtn={`${
-                moment(data.borrowDate).format() < moment().format() &&
-                "disabled"
+                moment(data.borrowDate).format() <
+                  moment().format(formatDate) && "disabled"
               }`}
               nameBtn={t("devices_request.btn_refund")}
               onClickBtn={() =>
@@ -149,10 +157,17 @@ const DevicesResList = () => {
         Authorization: `Bearer ${getCookie(STORAGEKEY.ACCESS_TOKEN)}`,
       },
     })
-      .then(() => {
-        notification.success({
-          message: t("devices_request.notifi_success_status"),
-        });
+      .then((res) => {
+        const { data } = res;
+        if (data.borrowDevice.status === 1) {
+          notification.success({
+            message: t("devices_request.notifi_success_status"),
+          });
+        } else {
+          notification.success({
+            message: t("devices_request.noti_refund_status"),
+          });
+        }
         dispatch(listRequestDevice());
         socket.emit("admin_call");
       })

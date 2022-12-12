@@ -95,6 +95,12 @@
   &.cancel {
     color: $color1stTLU;
     border: 1px solid $color1stTLU;
+    &.disabled {
+      border: 1px solid #ccc;
+      color: #ccc;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
   }
 }
 
