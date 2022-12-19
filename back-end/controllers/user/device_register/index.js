@@ -23,6 +23,7 @@ export const deviceRegister = async (req, res) => {
     devices,
     borrowDate,
     returnDate,
+    purpose,
   } = req.body;
 
   const user = await User.findOne({ _id }, "-_id email");
@@ -42,6 +43,7 @@ export const deviceRegister = async (req, res) => {
       devices,
       borrowDate: moment(borrowDate).format(formatDate),
       returnDate: moment(returnDate).format(formatDate),
+      purpose,
     });
     return res.status(200).send({ message: "Register success !" });
   } catch (err) {

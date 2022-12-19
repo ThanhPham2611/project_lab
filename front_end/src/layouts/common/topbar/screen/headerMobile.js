@@ -1,4 +1,4 @@
-import { Avatar, Col, Dropdown, Menu, Row, Space, Tooltip } from "antd";
+import { Avatar, Col, Drawer, Dropdown, Menu, Row, Space, Tooltip } from "antd";
 import React, { useState } from "react";
 import i18n from "i18next";
 import { useSelector } from "react-redux";
@@ -22,6 +22,9 @@ import styles from "../topbar.module.scss";
 import { removeCookie, STORAGEKEY } from "../../../../services/cookies";
 import ModalLanguage from "../../../../components/modal/modalLanguage";
 import ModalChangePassword from "../../../../components/modal/modalChangePass";
+import routes from "../../../../routers";
+import MenuAdmin from "../../leftbar/sidebarAdmin";
+import MenuUser from "../../leftbar/sidebarUser";
 
 const HeaderMobile = () => {
   //redux
@@ -34,6 +37,7 @@ const HeaderMobile = () => {
   //state
   const [modalLanguage, setModalLanguage] = useState(false);
   const [modalChangePass, setModalChangePass] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   const handleModalLg = () => {
     setModalLanguage(true);
@@ -81,7 +85,10 @@ const HeaderMobile = () => {
     <>
       <Row align="middle" className={styles.headerMobile}>
         <Col sm={2} xs={2} style={{ display: "flex" }}>
-          <MenuUnfoldOutlined style={{ fontSize: 25 }} />
+          <MenuUnfoldOutlined
+            style={{ fontSize: 25 }}
+            onClick={() => setOpenSidebar(true)}
+          />
         </Col>
         <Col sm={22} xs={22}>
           <Row justify="space-between">
@@ -123,6 +130,15 @@ const HeaderMobile = () => {
         isModalVisible={modalChangePass}
         setIsModalVisible={setModalChangePass}
       />
+      <Drawer
+        placement="left"
+        closable={true}
+        onClose={() => setOpenSidebar(false)}
+        open={openSidebar}
+        key="left"
+      >
+        {userData.role === 0 ? <MenuAdmin /> : <MenuUser />}
+      </Drawer>
     </>
   );
 };

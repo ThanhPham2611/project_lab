@@ -13,6 +13,7 @@ import ButtonPrimary from "../../button/buttonPrimary";
 
 //scss
 import styles from "./reason.module.scss";
+import { t } from "i18next";
 
 const { TextArea } = Input;
 
@@ -45,7 +46,9 @@ const ModalReason = ({ isModal, setIsModal, id }) => {
         },
       })
         .then(() => {
-          notification.success({ message: "Từ chối đơn thành công" });
+          notification.success({
+            message: t("devices_request.notifi_refuse_status"),
+          });
           dispatch(listRequestDevice());
           socket.emit("admin_call");
           setIsModal(false);
@@ -55,7 +58,9 @@ const ModalReason = ({ isModal, setIsModal, id }) => {
           console.log(err);
         });
     } else {
-      notification.error({ message: "Bạn cần điền lý do" });
+      notification.error({
+        message: t("devices_request.err_noti_reason_field"),
+      });
     }
   };
 

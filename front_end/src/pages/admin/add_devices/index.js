@@ -1,5 +1,6 @@
 import { Row, Col, Form, Input, DatePicker, Button } from "antd";
 import React from "react";
+import { formatDate } from "../../../utils";
 
 // local
 // import { post } from '../../../api/BaseRequest'
@@ -8,8 +9,6 @@ import React from "react";
 import styles from "./addDevice.module.scss";
 
 const AddDevice = () => {
-  // state
-  const formatTime = "YYYY-MM-DD HH:mm";
   const [form] = Form.useForm();
 
   const onFinish = (value) => {
@@ -84,11 +83,7 @@ const AddDevice = () => {
             label="Import Date"
             rules={[{ required: true, message: "Please input device type!" }]}
           >
-            <DatePicker
-              className={styles.formInput}
-              showTime
-              format={formatTime}
-            />
+            <DatePicker className={styles.formInput} format={formatDate} />
           </Form.Item>
         </Col>
         <Col xl={10}>

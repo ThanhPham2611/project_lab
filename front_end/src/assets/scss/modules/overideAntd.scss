@@ -112,6 +112,14 @@
 
 .view_user {
   .ant-modal-content {
-    min-width: 500px;
+    width: 50vw;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .view_user {
+    .ant-modal-content {
+      width: 100%;
+    }
   }
 }

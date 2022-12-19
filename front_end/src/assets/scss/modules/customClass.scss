@@ -95,11 +95,22 @@
   &.cancel {
     color: $color1stTLU;
     border: 1px solid $color1stTLU;
+    &.disabled {
+      border: 1px solid #ccc;
+      color: #ccc;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
   }
 }
 
 .wrapperPage {
   margin-bottom: 20px;
+}
+
+.rowContent {
+  margin: 10px 0;
+  width: 100%;
 }
 
 ////------ RESPONSIVE ----------

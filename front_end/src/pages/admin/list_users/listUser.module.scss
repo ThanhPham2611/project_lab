@@ -5,3 +5,26 @@
 .rowAdmin {
   color: red;
 }
+
+.fullWidth {
+  width: 100%;
+}
+
+.rowMobile {
+  width: 100%;
+  border: 1px solid #ccc;
+  .colMobile {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 10px;
+    &:not(:first-child) {
+      border-left: 1px solid #ccc;
+    }
+  }
+}
+
+@media screen and (max-width: 807px) {
+  .colHeader {
+    margin: 10px 0;
+  }
+}
