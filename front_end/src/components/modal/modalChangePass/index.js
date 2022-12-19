@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Form, Input, Button, Space, Spin } from "antd";
+import { Modal, Form, Input, Space, Spin, Row, Col } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
@@ -58,82 +58,94 @@ const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
           <Form
             name="Change Password"
             form={form}
-            labelCol={{
-              span: 8,
-            }}
-            wrapperCol={{
-              span: 16,
-            }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
-            <Form.Item
-              label={t("modal_change_pass.old_password")}
-              name="oldPassword"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-            >
-              <Input.Password className={styles.inputPass} />
-            </Form.Item>
+            <Row className="rowContent" gutter={[16, 16]} align="middle">
+              <Col xxl={8} xl={7} xs={24}>
+                <label>{t("modal_change_pass.old_password")}:</label>
+              </Col>
+              <Col xxl={16} xl={17} xs={24}>
+                <Form.Item
+                  name="oldPassword"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your password!",
+                    },
+                  ]}
+                >
+                  <Input.Password className={styles.inputPass} />
+                </Form.Item>
+              </Col>
+            </Row>
 
-            <Form.Item
-              label={t("modal_change_pass.new_password")}
-              name="newPassword"
-              dependencies={["oldPassword"]}
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue("oldPassword") !== value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error(
-                        "The new password is the same as the old password"
-                      )
-                    );
-                  },
-                }),
-              ]}
-            >
-              <Input.Password className={styles.inputPass} />
-            </Form.Item>
+            <Row className="rowContent" gutter={[16, 16]} align="middle">
+              <Col xxl={8} xl={7} xs={24}>
+                <label>{t("modal_change_pass.new_password")}:</label>
+              </Col>
+              <Col xxl={16} xl={17} xs={24}>
+                <Form.Item
+                  name="newPassword"
+                  dependencies={["oldPassword"]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your password!",
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("oldPassword") !== value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error(
+                            "The new password is the same as the old password"
+                          )
+                        );
+                      },
+                    }),
+                  ]}
+                >
+                  <Input.Password className={styles.inputPass} />
+                </Form.Item>
+              </Col>
+            </Row>
 
-            <Form.Item
-              label={t("modal_change_pass.confirm_password")}
-              name="confirmPassword"
-              dependencies={["newPassword"]}
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue("newPassword") === value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error(
-                        "The two passwords that you entered do not match!"
-                      )
-                    );
-                  },
-                }),
-              ]}
-            >
-              <Input.Password className={styles.inputPass} />
-            </Form.Item>
+            <Row className="rowContent" gutter={[16, 16]} align="middle">
+              <Col xxl={8} xl={7} xs={24}>
+                <label>{t("modal_change_pass.confirm_password")}:</label>
+              </Col>
+              <Col xxl={16} xl={17} xs={24}>
+                <Form.Item
+                  name="confirmPassword"
+                  dependencies={["newPassword"]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your password!",
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("newPassword") === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error(
+                            "The two passwords that you entered do not match!"
+                          )
+                        );
+                      },
+                    }),
+                  ]}
+                >
+                  <Input.Password className={styles.inputPass} />
+                </Form.Item>
+              </Col>
+            </Row>
 
-            <Form.Item className={styles.btnGroup}>
+            <Row className="rowContent" justify="center">
               <Space>
                 <ButtonPrimary
                   classNameBtn={styles.btnChangePass}
@@ -145,7 +157,7 @@ const ModalChangePassword = ({ isModalVisible, setIsModalVisible }) => {
                   onClickBtn={handleCancel}
                 />
               </Space>
-            </Form.Item>
+            </Row>
           </Form>
         </Spin>
       </Modal>

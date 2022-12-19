@@ -1,10 +1,23 @@
-import { Button, Form, Input, Popconfirm, Select, Space, Table } from "antd";
+/* eslint-disable no-restricted-globals */
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Popconfirm,
+  Row,
+  Select,
+  Space,
+  Table,
+  Tooltip,
+} from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { InfoCircleOutlined, UserSwitchOutlined } from "@ant-design/icons";
 
 //local
 import { allUsers, getDetailUser } from "../../../store/modules/usersSlices";
@@ -122,7 +135,11 @@ const ListUsers = () => {
   }, []);
 
   const onFinish = (value) => {
-    dispatch(allUsers(value));
+    const newData = {
+      ...value,
+      inputSearch: value.inputSearch.toLowerCase(),
+    };
+    dispatch(allUsers(newData));
   };
 
   const confirmReset = (email) => {
@@ -153,8 +170,8 @@ const ListUsers = () => {
         const { data } = res;
         dispatch(getDetailUser(data.userInfo));
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        return;
       });
   };
 
@@ -164,65 +181,114 @@ const ListUsers = () => {
     onSuccess: (data) => {
       setValueReset(data);
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
+      return;
     },
   });
 
   return (
     <>
-      <div style={{ marginBottom: 20 }}>
-        <Form form={form} onFinish={onFinish} layout="inline">
-          <Form.Item name="inputSearch">
-            <Search
-              placeholder={t("list_user.placeholder_input")}
-              allowClear
-              style={{ width: 300 }}
-            />
-          </Form.Item>
-
-          <Form.Item name="office">
-            <Select
-              placeholder={t("list_user.placeholder_office")}
-              style={{ width: 150 }}
-              options={listOffice.map((item) => {
-                return {
-                  value: item.value,
-                  label: item.label,
-                };
-              })}
-            />
-          </Form.Item>
-
-          <Form.Item>
-            <Space>
-              <ButtonPrimary
-                classNameBtn={styles.btnSearch}
-                nameBtn={t("list_user.btn_search")}
-                htmlType="submit"
+      <Form form={form} onFinish={onFinish} layout="inline">
+        <Row className="rowContent">
+          <Col xxl={6} xl={8} lg={8} md={10} sm={15} xs={14}>
+            <Form.Item name="inputSearch">
+              <Search
+                placeholder={t("list_user.placeholder_input")}
+                allowClear
               />
-              <ButtonCancel
-                classNameBtn={styles.btnSearch}
-                nameBtn={t("list_user.btn_rest_form")}
-                onClickBtn={handleReset}
+            </Form.Item>
+          </Col>
+
+          <Col xxl={3} xl={4} lg={4} md={4} sm={5} xs={10}>
+            <Form.Item name="office">
+              <Select
+                placeholder={t("list_user.placeholder_office")}
+                className={styles.fullWidth}
+                options={listOffice.map((item) => {
+                  return {
+                    value: item.value,
+                    label: item.label,
+                  };
+                })}
               />
-            </Space>
-          </Form.Item>
-        </Form>
-      </div>
-      <Table
-        rowClassName={(record) =>
-          record.office === EOffice.admin ? `${styles.rowAdmin}` : ""
-        }
-        columns={columns}
-        dataSource={dataList}
-        bordered
-        loading={loading}
-        pagination={{
-          defaultCurrent: 1,
-          defaultPageSize: 7,
-        }}
-      />
+            </Form.Item>
+          </Col>
+
+          <Col xxl={3} xl={5} className={styles.colHeader}>
+            <Form.Item>
+              <Space>
+                <ButtonPrimary
+                  classNameBtn={styles.btnSearch}
+                  nameBtn={t("list_user.btn_search")}
+                  htmlType="submit"
+                />
+                <ButtonCancel
+                  classNameBtn={styles.btnSearch}
+                  nameBtn={t("list_user.btn_rest_form")}
+                  onClickBtn={handleReset}
+                />
+              </Space>
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form>
+
+      {screen.width <= 1110 ? (
+        <Row>
+          <Row className={styles.rowMobile}>
+            <Col lg={7} md={7} sm={10} xs={8} className={styles.colMobile}>
+              {t("list_user.email")}
+            </Col>
+            <Col lg={7} md={5} sm={5} xs={7} className={styles.colMobile}>
+              {t("list_user.student_code")}
+            </Col>
+            <Col lg={10} md={10} sm={7} className={styles.colMobile}>
+              {t("list_user.action")}
+            </Col>
+          </Row>
+          {dataList.map((item) => (
+            <Row key={item.key} className={styles.rowMobile}>
+              <Col lg={7} md={7} sm={10} xs={8} className={styles.colMobile}>
+                {item.email}
+              </Col>
+              <Col lg={7} md={5} sm={5} xs={7} className={styles.colMobile}>
+                {item.studentCode}
+              </Col>
+              <Col lg={10} md={10} sm={7} className={styles.colMobile}>
+                <Space size={20}>
+                  <Tooltip title={t("list_user.btn_resetpass")}>
+                    <UserSwitchOutlined
+                      style={{ fontSize: 20, color: "#060a52" }}
+                      onClick={() => confirmReset(item.email)}
+                    />
+                  </Tooltip>
+                  <Tooltip title={t("list_user.btn_detail")}>
+                    <InfoCircleOutlined
+                      style={{ fontSize: 20, color: "#a50e0e" }}
+                      onClick={() => handleDetail(item.key)}
+                    />
+                  </Tooltip>
+                </Space>
+              </Col>
+            </Row>
+          ))}
+        </Row>
+      ) : (
+        <Table
+          rowClassName={(record) =>
+            record.office === EOffice.admin ? `${styles.rowAdmin}` : ""
+          }
+          columns={columns}
+          dataSource={dataList}
+          bordered
+          loading={loading}
+          pagination={{
+            defaultCurrent: 1,
+            defaultPageSize: 7,
+          }}
+        />
+      )}
+
       <ModalViewPassword
         isModal={openModal}
         setIsModal={setOpenModal}

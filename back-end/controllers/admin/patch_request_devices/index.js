@@ -17,8 +17,10 @@ export const patchRequestList = async (req, res) => {
     if (!checkexist) {
       return res.status(400).send({ message: "Form not found" });
     }
-    await BorrowDevice.findByIdAndUpdate(id, { ...req.body });
-    return res.status(200).send({ message: "Ok" });
+    const borrowDevice = await BorrowDevice.findByIdAndUpdate(id, {
+      ...req.body,
+    });
+    return res.status(200).send({ message: "Ok", borrowDevice });
   } catch (err) {
     return res.status(400).send({ message: "Something wentwrong" });
   }

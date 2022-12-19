@@ -63,7 +63,7 @@ const App = (props) => {
         </Header>
       )}
       <Content>
-        <div>{renderRouter()}</div>
+        <div style={{ padding: "15px" }}>{renderRouter()}</div>
       </Content>
     </Layout>
   ) : (

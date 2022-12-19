@@ -28,8 +28,6 @@ const MenuUser = () => {
 
   const subPathname = pathname.substring(pathname.lastIndexOf("-") + 1);
 
-  console.log(subPathname);
-
   const itemMenu = [
     getItem(
       <NavLink to="/dashboard">{t("sidebar.dashboard")}</NavLink>,

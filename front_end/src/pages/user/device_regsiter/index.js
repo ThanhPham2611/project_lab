@@ -26,6 +26,8 @@ const socket = io(process.env.REACT_APP_SOCKET_URL, {
   transports: ["websocket"],
 });
 
+const { TextArea } = Input;
+
 const DeviceRegister = () => {
   const [form] = Form.useForm();
   const history = useHistory();
@@ -167,7 +169,7 @@ const DeviceRegister = () => {
           </Col>
         </Row>
 
-        <Row>
+        <Row justify="space-between">
           <Col xs={24} xxl={10}>
             <Form.Item
               name="studentCode"
@@ -180,6 +182,21 @@ const DeviceRegister = () => {
               ]}
             >
               <Input placeholder="You fill student code" />
+            </Form.Item>
+          </Col>
+
+          <Col xs={24} xxl={10}>
+            <Form.Item
+              name="purpose"
+              label="Purpose"
+              rules={[
+                {
+                  required: true,
+                  message: "You need fill required",
+                },
+              ]}
+            >
+              <TextArea rows={4} placeholder="You fill purpose " />
             </Form.Item>
           </Col>
         </Row>

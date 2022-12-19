@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState } from "react";
 import { Avatar, Descriptions, Image, Row, Spin } from "antd";
 import { useSelector } from "react-redux";
@@ -39,15 +40,12 @@ const Profile = () => {
       <Spin tip="Loading....." spinning={loading}>
         <Row justify="center">
           <Row
-            style={{
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "space-between",
-              height: 300,
-            }}
+            justify="space-between"
+            align="middle"
+            className={styles.rowAvatar}
           >
             <Avatar
-              size={200}
+              size={screen.width <= 1110 ? 150 : 200}
               src={userData.avatarUrl && <Image src={userData.avatarUrl} />}
               icon={!userData.avatarUrl && <UserOutlined />}
               className={styles.avatar}

@@ -105,7 +105,7 @@
     "pop_conf_title": "Bạn có chắc chắn đặt lại mật khẩu không",
     "pop_btn_ok": "Đúng",
     "pop_btn_cancel": "Hủy",
-    "placeholder_input": "Nhập mật khẩu hoặc mã sinh viên",
+    "placeholder_input": "Nhập mã sinh viên",
     "placeholder_office": "Chức vụ",
     "btn_search": "Tìm kiếm",
     "btn_rest_form": "Làm mới",
@@ -133,9 +133,44 @@
     "btn_refuse": "Từ chối",
     "btn_refund": "Hoàn đơn",
     "notifi_success_status": "Duyệt đơn thành công",
+    "notifi_refuse_status": "Từ chối đơn thành công",
+    "noti_refund_status": "Hoàn đơn thành công",
     "name_status_approved": "Đã được duyệt",
     "name_status_not_approve": "Chưa được duyệt",
-    "name_status_refused": "Đã từ chối"
+    "name_status_refused": "Đã từ chối",
+    "err_noti_reason_field": "Bạn cần điền trường lý do"
+  },
+  "devices_request_user": {
+    "placeholder_date": "Chọn ngày",
+    "placeholder_status": "Trạng thái đơn",
+    "btn_search": "Tìm kiếm",
+    "btn_resest": "Làm mới",
+    "column_student_code": "Mã sinh viên",
+    "column_device": "Thiết bị mượn",
+    "column_borrow_date": "Ngày mượn",
+    "column_return_date": "Ngày trả",
+    "column_status": "Trạng thái",
+    "name_status_approved": "Đã duyệt đơn",
+    "name_status_not_approve": "Chưa duyệt đơn",
+    "name_status_refused": "Đã từ chối",
+    "column_action": "Thực thi",
+    "btn_edit": "Chỉnh sửa"
+  },
+  "modal_view_user": {
+    "title_modal": "Thông tin người dùng",
+    "alt_image": "Ảnh người dùng",
+    "user_name": "Tên người dùng",
+    "birthday": "Ngày sinh",
+    "email": "Email",
+    "is_change_pass": "Thay đổi mật khẩu",
+    "no_change": "Chưa thay đổi",
+    "changed": "Đã thay đổi",
+    "major": "Ngành",
+    "office": "Chức vụ",
+    "phone": "Số điện thoại",
+    "role": "Quyền",
+    "create_date": "Ngày khởi tạo",
+    "update": "Ngày cập nhật"
   },
   "ults": {
     "student": "Sinh viên",
@@ -143,6 +178,7 @@
     "teacher": "Giáo viên",
     "user": "Người dùng",
     "question_prompt": "Bạn cần nhập mã code quản trị viên của bạn ?",
-    "confirm_login_fail": "Đăng nhập vào quyền quản trị viên lỗi"
+    "confirm_login_fail": "Đăng nhập vào quyền quản trị viên lỗi",
+    "spin_loading": "Đang tải...."
   }
 }

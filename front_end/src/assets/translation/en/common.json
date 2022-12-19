@@ -120,7 +120,7 @@
     "select_approve": "Approved",
     "select_refuse": "Refused",
     "btn_search": "Search",
-    "btn_cancel": "Cancel",
+    "btn_cancel": "Reset",
     "column_email": "Email",
     "column_name": "Full name",
     "column_student_code": "Student code",
@@ -133,9 +133,44 @@
     "btn_refuse": "Refuse",
     "btn_refund": "Refund",
     "notifi_success_status": "Successful application approval",
+    "notifi_refuse_status": "Successful application rejection",
+    "noti_refund_status": "Refund successful",
     "name_status_approved": "Approved",
     "name_status_not_approve": "Not approve",
-    "name_status_refused": "Refused"
+    "name_status_refused": "Refused",
+    "err_noti_reason_field": "You need to fill in the reason field"
+  },
+  "devices_request_user": {
+    "placeholder_date": "Select search",
+    "placeholder_status": "Status",
+    "btn_search": "Search",
+    "btn_resest": "Reset",
+    "column_student_code": "Student code",
+    "column_device": "Borrow devices",
+    "column_borrow_date": "Borrow date",
+    "column_return_date": "Return date",
+    "column_status": "Status",
+    "name_status_approved": "Approved",
+    "name_status_not_approve": "Not approve",
+    "name_status_refused": "Refused",
+    "column_action": "Action",
+    "btn_edit": "Edit"
+  },
+  "modal_view_user": {
+    "title_modal": "User information",
+    "alt_image": "Avatar user",
+    "user_name": "User name",
+    "birthday": "Birthday",
+    "email": "Email",
+    "is_change_pass": "Is change password",
+    "no_change": "No change",
+    "changed": "Changed",
+    "major": "Major",
+    "office": "Office",
+    "phone": "Phone",
+    "role": "Role",
+    "create_date": "Create date",
+    "update": "Update"
   },
   "ults": {
     "student": "Student",
@@ -143,6 +178,7 @@
     "teacher": "Teacher",
     "user": "User",
     "question_prompt": "Please enter your admin code ?",
-    "confirm_login_fail": "Login admin failed"
+    "confirm_login_fail": "Login admin failed",
+    "spin_loading": "Loading...."
   }
 }

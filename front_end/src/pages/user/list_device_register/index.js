@@ -13,6 +13,7 @@ import {
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import { useTranslation } from "react-i18next";
 
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 import {
@@ -31,6 +32,9 @@ const socket = io(process.env.REACT_APP_SOCKET_URL, {
 });
 
 const ListDeviceRegister = () => {
+  //translation
+  const { t } = useTranslation("common");
+
   const column = [
     {
       title: "STT",
@@ -38,26 +42,26 @@ const ListDeviceRegister = () => {
       render: (key, _, index) => <span>{index + 1}</span>,
     },
     {
-      title: "Student code",
+      title: t("devices_request_user.column_student_code"),
       dataIndex: "studentCode",
     },
     {
-      title: "Device",
+      title: t("devices_request_user.column_device"),
       dataIndex: "devices",
       render: (data) => data.map((item) => <Tag>{item}</Tag>),
     },
     {
-      title: "Borrow date",
+      title: t("devices_request_user.column_borrow_date"),
       dataIndex: "borrowDate",
       render: (data) => <span>{moment(data).format(formatDate)}</span>,
     },
     {
-      title: "Return date",
+      title: t("devices_request_user.column_return_date"),
       dataIndex: "returnDate",
       render: (data) => <span>{moment(data).format(formatDate)}</span>,
     },
     {
-      title: "Status",
+      title: t("devices_request_user.column_status"),
       dataIndex: "status",
       render: (data) => (
         <Tag
@@ -70,21 +74,21 @@ const ListDeviceRegister = () => {
           }
         >
           {data === EStatusRegister.notApprove
-            ? "Not approve"
+            ? t("devices_request_user.name_status_approved")
             : data === EStatusRegister.approve
-            ? "Approve"
-            : "Refuse"}
+            ? t("devices_request_user.name_status_not_approve")
+            : t("devices_request_user.name_status_refused")}
         </Tag>
       ),
     },
     {
-      title: "Action",
+      title: t("devices_request_user.column_action"),
       render: (key) => (
         <ButtonPrimary
           classNameBtn={`${
             moment(key.borrowDate).format() <= moment().format() && "disabled"
           }`}
-          nameBtn="Edit"
+          nameBtn={t("devices_request_user.btn_edit")}
         />
       ),
     },
@@ -121,13 +125,16 @@ const ListDeviceRegister = () => {
         <Row gutter={[16, 16]} className={styles.row}>
           <Col xxl={4}>
             <Form.Item name="dateSearch">
-              <DatePicker className={styles.widthFull} />
+              <DatePicker
+                className={styles.widthFull}
+                placeholder={t("devices_request_user.placeholder_date")}
+              />
             </Form.Item>
           </Col>
           <Col xxl={4}>
             <Form.Item name="status">
               <Select
-                placeholder="Status"
+                placeholder={t("devices_request_user.placeholder_status")}
                 options={listStatusRegister}
                 className={styles.widthFull}
               />
@@ -139,13 +146,13 @@ const ListDeviceRegister = () => {
                 className={`btn primary ${styles.btnSearch}`}
                 htmlType="submit"
               >
-                Search
+                {t("devices_request_user.btn_search")}
               </Button>
               <Button
                 className={`btn cancel ${styles.btnSearch}`}
                 onClick={handleReset}
               >
-                Reset
+                {t("devices_request_user.btn_resest")}
               </Button>
             </Space>
           </Col>
