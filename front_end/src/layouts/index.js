@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
-import { Layout } from "antd";
+import { Layout, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import i18n from "i18next";
 import { useLocation } from "react-router-dom";
@@ -16,6 +16,7 @@ import MenuUser from "./common/leftbar/sidebarUser";
 //icon
 import iconLogo from "../assets/images/img/logoTLU.png";
 import iconLogoVerital from "../assets/images/img/logoVertical.png";
+import { useTranslation } from "react-i18next";
 
 //scss
 
@@ -27,9 +28,12 @@ const App = (props) => {
 
   const { pathname } = useLocation();
 
+  //translation
+  const { t } = useTranslation("common");
+
   //redux
   const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.userInfo);
+  const { userData, loading } = useSelector((state) => state.userInfo);
 
   //state
   const [collapsed, setCollapsed] = useState(false);
@@ -56,56 +60,60 @@ const App = (props) => {
   }, [cookies, pathname]);
 
   return screen.width <= 1110 ? (
-    <Layout className="site_layout">
-      {displayMenu && (
-        <Header className="header">
-          <Topbar />
-        </Header>
-      )}
-      <Content>
-        <div style={{ padding: "15px" }}>{renderRouter()}</div>
-      </Content>
-    </Layout>
-  ) : (
-    <Layout
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      {displayMenu && (
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
-          className="siderMenu"
-        >
-          <div className="wrapperLogo">
-            {collapsed ? (
-              <img src={iconLogoVerital} alt="logo tlu" className="logo" />
-            ) : (
-              <img src={iconLogo} alt="logo tlu" className="logo" />
-            )}
-          </div>
-          {userData.role === 0 ? <MenuAdmin /> : <MenuUser />}
-        </Sider>
-      )}
-
+    <Spin spinning={loading} tip={t("ults.spin_loading")}>
       <Layout className="site_layout">
         {displayMenu && (
           <Header className="header">
             <Topbar />
           </Header>
         )}
-
-        <Content className={displayMenu ? "content" : ""}>
-          {displayMenu && <BreadCrumb userRole={userData.role} />}
-
-          <div className={displayMenu ? "contentchildren" : ""}>
-            {renderRouter()}
-          </div>
+        <Content>
+          <div style={{ padding: "15px" }}>{renderRouter()}</div>
         </Content>
       </Layout>
-    </Layout>
+    </Spin>
+  ) : (
+    <Spin spinning={loading} tip={t("ults.spin_loading")}>
+      <Layout
+        style={{
+          minHeight: "100vh",
+        }}
+      >
+        {displayMenu && (
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
+            className="siderMenu"
+          >
+            <div className="wrapperLogo">
+              {collapsed ? (
+                <img src={iconLogoVerital} alt="logo tlu" className="logo" />
+              ) : (
+                <img src={iconLogo} alt="logo tlu" className="logo" />
+              )}
+            </div>
+            {userData.role === 0 ? <MenuAdmin /> : <MenuUser />}
+          </Sider>
+        )}
+
+        <Layout className="site_layout">
+          {displayMenu && (
+            <Header className="header">
+              <Topbar />
+            </Header>
+          )}
+
+          <Content className={displayMenu ? "content" : ""}>
+            {displayMenu && <BreadCrumb userRole={userData.role} />}
+
+            <div className={displayMenu ? "contentchildren" : ""}>
+              {renderRouter()}
+            </div>
+          </Content>
+        </Layout>
+      </Layout>
+    </Spin>
   );
 };
 

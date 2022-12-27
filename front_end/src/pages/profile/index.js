@@ -37,7 +37,7 @@ const Profile = () => {
 
   return (
     <>
-      <Spin tip="Loading....." spinning={loading}>
+      <Spin tip={t("ults.spin_loading")} spinning={loading}>
         <Row justify="center">
           <Row
             justify="space-between"
