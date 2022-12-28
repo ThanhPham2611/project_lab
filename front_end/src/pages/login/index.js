@@ -143,9 +143,6 @@ const Login = () => {
                 {t("login.btn_login")}
               </Button>
             </Form.Item>
-            <a href="/register" target="_blank" className={styles.textLink}>
-              {t("login.link_register")}
-            </a>
           </Form>
         </Spin>
       </div>

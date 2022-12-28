@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Avatar,
-  Button,
-  Form,
-  Input,
-  message,
-  Modal,
-  Space,
-  Spin,
-  Upload,
-} from "antd";
+import { Avatar, Form, Input, message, Modal, Space, Spin, Upload } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import ImgCrop from "antd-img-crop";
@@ -50,11 +40,13 @@ const ModalEditProfile = ({
   const [form] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue({
-      facebook: userData.facebook,
-      tiktok: userData.tiktok,
-      instagram: userData.instagram,
-    });
+    if (userData) {
+      form.setFieldsValue({
+        facebook: userData.facebook,
+        tiktok: userData.tiktok,
+        instagram: userData.instagram,
+      });
+    }
   }, [userData]);
 
   //state
@@ -71,7 +63,14 @@ const ModalEditProfile = ({
   };
 
   const onFinish = (value) => {
-    if (!fileSource) return;
+    if (!fileSource) {
+      const newData = {
+        ...value,
+        avatarUrl: linkAvatar,
+      };
+      changeInfo(newData);
+      return;
+    }
     const storageRef = ref(storage, fileSource?.name);
     const uploadAvatar = uploadBytesResumable(storageRef, fileSource);
 

@@ -116,6 +116,11 @@
 ////------ RESPONSIVE ----------
 @media screen and (max-width: 600px) {
   .btnLogin {
-    width: 300px;
+    width: 230px;
+    &:focus,
+    &:active {
+      width: 230px;
+      background-color: $color1stTLU;
+    }
   }
 }
