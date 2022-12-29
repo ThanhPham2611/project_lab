@@ -14,15 +14,14 @@
   width: 100%;
 }
 
-.addDevice_form_btn {
-  display: flex !important;
-  justify-content: center;
-  margin-top: 20px;
-  button {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    margin: 0 10px;
-    border-radius: 20px;
+.titlePage {
+  text-align: center;
+  font-size: 30px;
+}
+
+@media screen and (max-width: 600px) {
+  .titlePage {
+    text-align: left;
+    font-size: 25px;
   }
 }
