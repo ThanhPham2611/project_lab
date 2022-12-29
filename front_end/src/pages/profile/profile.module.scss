@@ -15,5 +15,11 @@
 
 .rowAvatar {
   flex-direction: column;
-  height: 250px;
+  height: 300px;
+}
+
+@media screen and (max-width: 1110px) {
+  .rowAvatar {
+    height: 250px;
+  }
 }

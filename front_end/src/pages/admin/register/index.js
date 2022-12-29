@@ -9,6 +9,7 @@ import {
   Space,
   Popconfirm,
   notification,
+  Divider,
 } from "antd";
 import moment from "moment";
 import { useMutation } from "@tanstack/react-query";
@@ -80,6 +81,7 @@ const Register = () => {
   return (
     <Spin tip={t("user_regsiter.creating_user")} spinning={isCreatingUser}>
       <h1 className={styles.titlePage}>{t("user_regsiter.title_register")}</h1>
+      <Divider />
       <Form
         form={form}
         onFinish={onFinish}

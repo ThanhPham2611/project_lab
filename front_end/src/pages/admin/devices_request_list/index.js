@@ -1,10 +1,22 @@
-import { Form, Input, notification, Select, Space, Table, Tag } from "antd";
+/* eslint-disable no-restricted-globals */
+import {
+  Col,
+  Form,
+  Input,
+  notification,
+  Row,
+  Select,
+  Space,
+  Table,
+  Tag,
+} from "antd";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import { CheckOutlined, StopOutlined, UndoOutlined } from "@ant-design/icons";
 
 import ButtonCancel from "../../../components/button/buttonCancel";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
@@ -78,43 +90,80 @@ const DevicesResList = () => {
     },
     {
       title: t("devices_request.column_action"),
-      render: (data) => (
-        <Space>
-          {data.status === EStatusRegister.notApprove ? (
-            <>
-              <ButtonPrimary
+      render: (data) =>
+        screen.width <= 1545 ? (
+          <Space size={20}>
+            {data.status === EStatusRegister.notApprove ? (
+              <>
+                <CheckOutlined
+                  style={{ fontSize: 20 }}
+                  onClick={() =>
+                    handlePost({
+                      status: EStatusRegister.approve,
+                      id: data._id,
+                    })
+                  }
+                />
+                <StopOutlined
+                  style={{ fontSize: 20 }}
+                  onClick={() => openModalRefuse(data._id)}
+                />
+              </>
+            ) : (
+              <UndoOutlined
+                style={{ fontSize: 20 }}
+                onClick={() =>
+                  handlePost({
+                    status: EStatusRegister.notApprove,
+                    id: data._id,
+                  })
+                }
+              />
+            )}
+          </Space>
+        ) : (
+          <Space>
+            {data.status === EStatusRegister.notApprove ? (
+              <>
+                <ButtonPrimary
+                  classNameBtn={`${
+                    moment(data.borrowDate).format() <
+                      moment().format(formatDate) && "disabled"
+                  }`}
+                  nameBtn={t("devices_request.btn_confirm")}
+                  onClickBtn={() =>
+                    handlePost({
+                      status: EStatusRegister.approve,
+                      id: data._id,
+                    })
+                  }
+                />
+                <ButtonPrimary
+                  classNameBtn={`${
+                    moment(data.borrowDate).format() <
+                      moment().format(formatDate) && "disabled"
+                  } ${styles.btnRefuse}`}
+                  nameBtn={t("devices_request.btn_refuse")}
+                  onClickBtn={() => openModalRefuse(data._id)}
+                />
+              </>
+            ) : (
+              <ButtonCancel
                 classNameBtn={`${
                   moment(data.borrowDate).format() <
                     moment().format(formatDate) && "disabled"
                 }`}
-                nameBtn={t("devices_request.btn_confirm")}
+                nameBtn={t("devices_request.btn_refund")}
                 onClickBtn={() =>
-                  handlePost({ status: EStatusRegister.approve, id: data._id })
+                  handlePost({
+                    status: EStatusRegister.notApprove,
+                    id: data._id,
+                  })
                 }
               />
-              <ButtonPrimary
-                classNameBtn={`${
-                  moment(data.borrowDate).format() <
-                    moment().format(formatDate) && "disabled"
-                } ${styles.btnRefuse}`}
-                nameBtn={t("devices_request.btn_refuse")}
-                onClickBtn={() => openModalRefuse(data._id)}
-              />
-            </>
-          ) : (
-            <ButtonCancel
-              classNameBtn={`${
-                moment(data.borrowDate).format() <
-                  moment().format(formatDate) && "disabled"
-              }`}
-              nameBtn={t("devices_request.btn_refund")}
-              onClickBtn={() =>
-                handlePost({ status: EStatusRegister.notApprove, id: data._id })
-              }
-            />
-          )}
-        </Space>
-      ),
+            )}
+          </Space>
+        ),
     },
   ];
   //redux
@@ -179,44 +228,53 @@ const DevicesResList = () => {
     <>
       <div className="wrapperPage">
         <Form form={form} onFinish={onFinish} layout="inline">
-          <Form.Item name="search">
-            <Search
-              placeholder={t("devices_request.placeholder_search")}
-              allowClear
-            />
-          </Form.Item>
-          <Form.Item name="status">
-            <Select
-              className={styles.widthSelect}
-              placeholder={t("devices_request.placeholder_status")}
-              options={[
-                {
-                  value: EStatusRegister.notApprove,
-                  label: t("devices_request.select_not_approve"),
-                },
-                {
-                  value: EStatusRegister.approve,
-                  label: t("devices_request.select_approve"),
-                },
-                {
-                  value: EStatusRegister.refuse,
-                  label: t("devices_request.select_refuse"),
-                },
-              ]}
-            />
-          </Form.Item>
-          <Space>
-            <ButtonPrimary
-              classNameBtn={styles.btnSearch}
-              nameBtn={t("devices_request.btn_search")}
-              htmlType="submit"
-            />
-            <ButtonCancel
-              classNameBtn={styles.btnSearch}
-              nameBtn={t("devices_request.btn_cancel")}
-              onClickBtn={handleReset}
-            />
-          </Space>
+          <Row className="rowContent">
+            <Col xxl={4} xl={5}>
+              <Form.Item name="search">
+                <Search
+                  className="fullWidth"
+                  placeholder={t("devices_request.placeholder_search")}
+                  allowClear
+                />
+              </Form.Item>
+            </Col>
+            <Col xxl={4} xl={4}>
+              <Form.Item name="status">
+                <Select
+                  className="fullWidth"
+                  placeholder={t("devices_request.placeholder_status")}
+                  options={[
+                    {
+                      value: EStatusRegister.notApprove,
+                      label: t("devices_request.select_not_approve"),
+                    },
+                    {
+                      value: EStatusRegister.approve,
+                      label: t("devices_request.select_approve"),
+                    },
+                    {
+                      value: EStatusRegister.refuse,
+                      label: t("devices_request.select_refuse"),
+                    },
+                  ]}
+                />
+              </Form.Item>
+            </Col>
+            <Col>
+              <Space>
+                <ButtonPrimary
+                  classNameBtn={styles.btnSearch}
+                  nameBtn={t("devices_request.btn_search")}
+                  htmlType="submit"
+                />
+                <ButtonCancel
+                  classNameBtn={styles.btnSearch}
+                  nameBtn={t("devices_request.btn_cancel")}
+                  onClickBtn={handleReset}
+                />
+              </Space>
+            </Col>
+          </Row>
         </Form>
         <Table
           className={styles.classTable}

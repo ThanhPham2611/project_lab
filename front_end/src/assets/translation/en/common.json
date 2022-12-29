@@ -172,6 +172,34 @@
     "create_date": "Create date",
     "update": "Update"
   },
+  "add_devices": {
+    "title_header": "Device register",
+    "device_name": "Device name",
+    "device_code": "Device code",
+    "device_type": "Device type",
+    "amount": "Amount",
+    "import_date": "Import date",
+    "manager": "Manager",
+    "purpose": "Purpose",
+    "note": "Note",
+    "btn_submit": "Submit",
+    "btn_reset": "Reset form",
+    "error_required_device_name": "Please input device name",
+    "error_required_device_code": "Please input device code",
+    "error_required_device_type": "Choose device type",
+    "error_required_amount": "Please input device amout",
+    "error_required_import_date": "Choose import date",
+    "error_required_manager": "Please input manager",
+    "error_required_purpose": "Please input purpose",
+    "placeholder_device_name": "Fill device name",
+    "placeholder_device_code": "Fill device code",
+    "placeholder_device_type": "Fill device type",
+    "placeholder_amount": "Fill device amount",
+    "placeholder_import_date": "Fill import date",
+    "placeholder_manager": "Fill manager",
+    "placeholder_purpose": "Fill purpose",
+    "placeholder_note": "Fill note (if necessary)"
+  },
   "ults": {
     "student": "Student",
     "admin": "Admin",
@@ -179,6 +207,7 @@
     "user": "User",
     "question_prompt": "Please enter your admin code ?",
     "confirm_login_fail": "Login admin failed",
-    "spin_loading": "Loading...."
+    "spin_loading": "Loading....",
+    "regex_number": "You need fill number this field"
   }
 }
