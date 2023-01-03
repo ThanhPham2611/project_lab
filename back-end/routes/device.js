@@ -1,5 +1,5 @@
 import express from "express";
-
+//user
 import { deviceRegister } from "../controllers/user/device_register";
 import { getDeviceRegister } from "../controllers/user/get_device_register";
 

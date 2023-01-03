@@ -2,6 +2,7 @@
 import {
   Button,
   Col,
+  Divider,
   Form,
   Input,
   Popconfirm,
@@ -188,6 +189,8 @@ const ListUsers = () => {
 
   return (
     <>
+      <h1 className="titleHeaderPage">{t("list_user.header_title")}</h1>
+      <Divider />
       <Form form={form} onFinish={onFinish} layout="inline">
         <Row className="rowContent">
           <Col xxl={6} xl={8} lg={8} md={10} sm={15} xs={14}>

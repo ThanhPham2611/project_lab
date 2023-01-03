@@ -17,10 +17,25 @@ export const listRequestDevice = createAsyncThunk(
   }
 );
 
+export const getlistDevice = createAsyncThunk("listDevice", async (params) => {
+  const { data } = await get(`getDevice`, params);
+  return data;
+});
+
+export const getlistDeviceType = createAsyncThunk(
+  "listDeviceType",
+  async () => {
+    const { data } = await get(`getDeviceSig`);
+    return data;
+  }
+);
+
 const initialState = {
   loading: false,
   listDeviceRegister: [],
   listRequest: [],
+  listDevice: [],
+  listDeviceType: [],
 };
 
 const deviceRegisterSlices = createSlice({
@@ -38,7 +53,6 @@ const deviceRegisterSlices = createSlice({
     builder.addCase(deviceRegister.rejected, (state) => {
       state.loading = false;
     });
-
     //list request
     builder.addCase(listRequestDevice.pending, (state) => {
       state.loading = true;
@@ -48,6 +62,28 @@ const deviceRegisterSlices = createSlice({
       state.loading = false;
     });
     builder.addCase(listRequestDevice.rejected, (state) => {
+      state.loading = false;
+    });
+    //list device
+    builder.addCase(getlistDevice.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(getlistDevice.fulfilled, (state, action) => {
+      state.listDevice = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(getlistDevice.rejected, (state) => {
+      state.loading = false;
+    });
+    //list device type
+    builder.addCase(getlistDeviceType.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(getlistDeviceType.fulfilled, (state, action) => {
+      state.listDeviceType = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(getlistDeviceType.rejected, (state) => {
       state.loading = false;
     });
   },
