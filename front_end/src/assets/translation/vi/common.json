@@ -93,6 +93,7 @@
     "question_reset_form": "Bạn có chắc chắn làm mới biểu mẫu ?"
   },
   "list_user": {
+    "header_title": "Danh sách người dùng",
     "name": "Tên người dùng",
     "email": "Email",
     "student_code": "Mã sinh viên",
@@ -175,7 +176,7 @@
   "add_devices": {
     "title_header": "Đăng ký thiết bị",
     "device_name": "Tên thiết bị",
-    "device_code": "Mã thiết bị",
+    "device_location": "Vị trí thiết bị",
     "device_type": "Loại thiết bị",
     "amount": "Số lượng",
     "import_date": "Ngày nhập",
@@ -185,14 +186,14 @@
     "btn_submit": "Tạo đơn",
     "btn_reset": "Làm mới",
     "error_required_device_name": "Cần nhập tên thiết bị",
-    "error_required_device_code": "Cần nhập mã thiết bị",
+    "error_required_device_location": "Cần nhập vị trí thiết bị",
     "error_required_device_type": "Cần chọn loại thiết bị",
     "error_required_amount": "Cần nhập số lượng thiết bị",
     "error_required_import_date": "Chọn ngày nhập thiết  bị",
     "error_required_manager": "Cần nhập người quản lý",
     "error_required_purpose": "Cần nhập lý do",
     "placeholder_device_name": "Tên thiết bị",
-    "placeholder_device_code": "Mã thiết bị",
+    "placeholder_device_location": "Vị trí thiết bị",
     "placeholder_device_type": "Loại thiết bị",
     "placeholder_amount": "Số lượng thiết bị",
     "placeholder_import_date": "Ngày nhập thiết bị",

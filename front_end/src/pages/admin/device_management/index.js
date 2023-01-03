@@ -1,43 +1,151 @@
-import React, { useState } from 'react'
-import { Col, Row, Select, Typography } from 'antd'
+import React, { useEffect, useState } from "react";
+import { Col, Divider, Form, Input, Row, Select, Space, Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
-// local
-import FilterAllDevices from './partials/filter/flterAllDevices'
-import FilterByDevice from './partials/filter/filterByDevice'
-import FilterByUser from './partials/filter/filterByUser'
-import ListAllDevices from './partials/list/listAllDevices'
+//local
+import ButtonPrimary from "../../../components/button/buttonPrimary";
+import ButtonCancel from "../../../components/button/buttonCancel";
+import { formatDate } from "../../../utils";
+import { getlistDevice } from "../../../store/modules/deviceRegisterSlices";
 
 // scss
-import styles from './deviceManagement.module.scss'
+import styles from "./deviceManagement.module.scss";
+
+const { Search } = Input;
+
 const DeviceManagement = () => {
+  const column = [
+    {
+      title: "Device name",
+      dataIndex: "deviceName",
+      key: "deviceName",
+      render: (data) => <span>{data}</span>,
+    },
+    {
+      title: "Device code",
+      dataIndex: "deviceCode",
+      key: "deviceCode",
+    },
+    {
+      title: "Device type",
+      dataIndex: "deviceType",
+      key: "deviceType",
+    },
+    {
+      title: "Import date",
+      dataIndex: "importDate",
+      key: "importDate",
+      render: (data) => <span>{moment(data).format(formatDate)}</span>,
+    },
+    {
+      title: "Manager",
+      dataIndex: "manager",
+      key: "manager",
+    },
+    {
+      title: "Action",
+      render: (key) => (
+        <Space>
+          <ButtonPrimary nameBtn="Borrow logs" />
+        </Space>
+      ),
+    },
+  ];
+
+  //redux
+  const dispatch = useDispatch();
+  const { listAllUser } = useSelector((state) => state.userInfo);
+  const { listDevice } = useSelector((state) => state.deviceRegister);
+
   // state
-  const [tableType, setTableType] = useState(0)
+  const [form] = Form.useForm();
 
-  const handleChangeTable = (value) => {
-    setTableType(value)
-  }
+  useEffect(() => {
+    dispatch(getlistDevice());
+  }, []);
+
+  const onFinish = (value) => {
+    console.log(value);
+  };
+
   return (
-    <>
-      <Row>
-        <Col>
-          <Typography.Text className={styles.labelSelectType}>Phân loại theo:</Typography.Text>
-          <Select defaultValue={tableType} onChange={handleChangeTable}>
-            <Select.Option value={0}>Default</Select.Option>
-            <Select.Option value={1}>Devices</Select.Option>
-            <Select.Option value={2}>User</Select.Option>
-          </Select>
-        </Col>
-      </Row>
-      {tableType === 0 && (
-        <>
-          <FilterAllDevices />
-          <ListAllDevices />
-        </>
-      )}
-      {tableType === 1 && <FilterByDevice />}
-      {tableType === 2 && <FilterByUser />}
-    </>
-  )
-}
+    <div>
+      <h1 className="titleHeaderPage">List device</h1>
+      <Divider />
+      <Form form={form} onFinish={onFinish} className="fullWidth">
+        <Row gutter={[16, 16]}>
+          <Col xxl={4}>
+            <Form.Item name="deviceCode">
+              <Search placeholder="Fill device code" />
+            </Form.Item>
+          </Col>
 
-export default DeviceManagement
+          <Col xxl={3}>
+            <Form.Item name="deviceType">
+              <Select
+                placeholder="Device type"
+                options={[
+                  {
+                    value: "AC",
+                    label: "Accessories",
+                  },
+                  {
+                    value: "LE",
+                    label: "Led",
+                  },
+                  {
+                    value: "BA",
+                    label: "Battery",
+                  },
+                ]}
+                className="fullWidth"
+              />
+            </Form.Item>
+          </Col>
+
+          <Col xxl={3}>
+            <Form.Item name="manager">
+              <Select
+                showSearch
+                className="fullWidth"
+                placeholder="manager"
+                filterOption={(input, option) =>
+                  (option?.label.toLowerCase() ?? "").includes(
+                    input.toLowerCase()
+                  )
+                }
+                filterSort={(optionA, optionB) =>
+                  (optionA?.label ?? "")
+                    .toLowerCase()
+                    .localeCompare((optionB?.label ?? "").toLowerCase())
+                }
+                options={listAllUser.map((item) => {
+                  return {
+                    value: item._id,
+                    label: `${item.firstName} ${item.lastName}`,
+                  };
+                })}
+              />
+            </Form.Item>
+          </Col>
+
+          <Col>
+            <Space>
+              <ButtonPrimary
+                classNameBtn="btnSearchTable"
+                nameBtn="Search"
+                htmlType="submit"
+              />
+              <ButtonCancel classNameBtn="btnSearchTable" nameBtn="Reset" />
+            </Space>
+          </Col>
+        </Row>
+      </Form>
+
+      <Table columns={column} dataSource={listDevice} />
+    </div>
+  );
+};
+
+export default DeviceManagement;

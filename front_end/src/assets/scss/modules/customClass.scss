@@ -117,6 +117,23 @@
   width: 100%;
 }
 
+.titleHeaderPage {
+  font-size: 30px;
+  text-align: center;
+}
+
+.btnSearchTable {
+  height: 30px;
+}
+
+.colorBtn {
+  background-color: $color1stTLU;
+  &:hover {
+    scale: 1.02;
+    background-color: $color1stTLU !important;
+  }
+}
+
 ////------ RESPONSIVE ----------
 @media screen and (max-width: 600px) {
   .btnLogin {
@@ -126,5 +143,10 @@
       width: 230px;
       background-color: $color1stTLU;
     }
+  }
+
+  .titleHeaderPage {
+    font-size: 25px;
+    text-align: left;
   }
 }
