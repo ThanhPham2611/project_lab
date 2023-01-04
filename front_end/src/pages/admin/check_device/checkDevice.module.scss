@@ -21,3 +21,20 @@
 .wrapperDetail {
   margin: 25px 0;
 }
+
+.wrapperCameraMobile {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .wrapperCameraMobile {
+    display: block;
+    flex-direction: column;
+    .camera {
+      width: 300px;
+    }
+  }
+  .wrapperCamera {
+    display: none;
+  }
+}
