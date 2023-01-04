@@ -28,7 +28,7 @@
 
 @media screen and (max-width: 600px) {
   .wrapperCameraMobile {
-    display: block;
+    display: flex;
     flex-direction: column;
     .camera {
       width: 300px;

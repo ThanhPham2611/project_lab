@@ -34,6 +34,7 @@ const deviceSchema = mongoose.Schema({
     type: Number,
   },
   idUser: String,
+  borrowDate: String,
   note: String,
 });
 

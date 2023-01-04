@@ -21,6 +21,7 @@ import { createSigDevice } from "../controllers/admin/post_sig_device";
 
 //patch
 import { patchRequestList } from "../controllers/admin/patch_request_devices";
+import { patchDevice } from "../controllers/admin/patch_device";
 
 const router = express.Router();
 
@@ -39,5 +40,6 @@ router.post("/addDevice", CreateDevices);
 router.post("/addDeviceSig", createSigDevice);
 
 router.patch("/request_device/:id", patchRequestList);
+router.patch("/editDevice/:id", patchDevice);
 
 export default router;
