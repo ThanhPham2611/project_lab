@@ -1,11 +1,20 @@
 import React, { useEffect } from "react";
-import { DatePicker, Form, Modal, Row, Select, Space } from "antd";
+import {
+  DatePicker,
+  Form,
+  Modal,
+  notification,
+  Row,
+  Select,
+  Space,
+} from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { allUsers } from "../../../store/modules/usersSlices";
 import ButtonPrimary from "../../button/buttonPrimary";
 import ButtonCancel from "../../button/buttonCancel";
+import { patch } from "../../../services/axios/baseAPI";
 
-const ModalBorrowDevice = ({ isModal, setIsModal, id }) => {
+const ModalBorrowDevice = ({ isModal, setIsModal, dataValue }) => {
   //redux
   const dispatch = useDispatch();
   const { listAllUser } = useSelector((state) => state.userInfo);
@@ -21,9 +30,14 @@ const ModalBorrowDevice = ({ isModal, setIsModal, id }) => {
     form.resetFields();
   };
 
-  const onFinish = (value) => {
-    console.log(value);
-  };
+  const onFinish = (value) =>
+    patch(`editDevice/${dataValue._id}`, value)
+      .then(() => {
+        notification.success({ message: "Cho mượn thành công" });
+      })
+      .catch(() => {
+        notification.error({ message: "Lỗi server" });
+      });
 
   return (
     <Modal
@@ -33,7 +47,11 @@ const ModalBorrowDevice = ({ isModal, setIsModal, id }) => {
       footer={false}
     >
       <Form form={form} onFinish={onFinish} labelCol={{ span: 5 }}>
-        <Form.Item name="idUser" label="Người mượn">
+        <Form.Item
+          name="idUser"
+          label="Người mượn"
+          rules={[{ required: true, message: "Bạn cần chọn trường này" }]}
+        >
           <Select
             showSearch
             placeholder="Nhập mã sinh viên hoặc tên"
@@ -54,7 +72,11 @@ const ModalBorrowDevice = ({ isModal, setIsModal, id }) => {
           />
         </Form.Item>
 
-        <Form.Item name="borrowDate" label="Ngày mượn">
+        <Form.Item
+          name="borrowDate"
+          label="Ngày mượn"
+          rules={[{ required: true, message: "Bạn cần chọn trường này" }]}
+        >
           <DatePicker />
         </Form.Item>
 

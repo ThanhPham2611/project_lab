@@ -1,4 +1,5 @@
 import Device from "../../../model/devices";
+import Users from "../../../model/user";
 import jwt from "jsonwebtoken";
 
 export const getInfoDevice = async (req, res) => {
@@ -17,7 +18,12 @@ export const getInfoDevice = async (req, res) => {
     if (!dataInfo) {
       return res.status(404).send({ message: "Not Exists" });
     }
-    return res.status(200).send({ data: dataInfo, message: "Ok" });
+    const nameUser = await Users.findOne({ _id: dataInfo.idUser }, "-__v");
+
+    return res.status(200).send({
+      data: dataInfo,
+      message: "Ok",
+    });
   } catch (err) {
     console.log(err);
     return res.status(401).send({ message: "Fail" });

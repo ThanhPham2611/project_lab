@@ -102,7 +102,7 @@ const CheckDevice = () => {
               onClick={() => setOnCamera(false)}
             />
             <QrReader
-              facingMode="front"
+              facingMode="rear"
               onScan={(data) => {
                 if (data) {
                   setTextValue(data.text);
@@ -117,82 +117,86 @@ const CheckDevice = () => {
         </div>
       )}
       {textValue && (
-        <div className={styles.wrapperDetail}>
-          <Row justify="center" className={styles.rowInfo}>
-            <Col xl={5} xxl={5}>
-              <label>{t("check_device.device_name")}: </label>
-            </Col>
-            <Col>
-              <span>{dataValue.deviceName}</span>
-            </Col>
-          </Row>
-          <Row justify="center" className={styles.rowInfo}>
-            <Col xl={5} xxl={5}>
-              <label>{t("check_device.device_code")}: </label>
-            </Col>
-            <Col>
-              <span>{dataValue.deviceCode}</span>
-            </Col>
-          </Row>
-          <Row justify="center" className={styles.rowInfo}>
-            <Col xl={5} xxl={5}>
-              <label>{t("check_device.device_location")}: </label>
-            </Col>
-            <Col>
-              <span>
-                {dataValue.deviceLocation
-                  ? detailLocationDevice(
-                      dataValue.deviceLocation[0],
-                      dataValue.deviceLocation[1]
-                    )
-                  : ""}
-              </span>
-            </Col>
-          </Row>
-          <Row justify="center" className={styles.rowInfo}>
-            <Col xl={5} xxl={5}>
-              <label>{t("check_device.device_type")}: </label>
-            </Col>
-            <Col>
-              <span>{dataValue.deviceType}</span>
-            </Col>
-          </Row>
-          <Row justify="center" className={styles.rowInfo}>
-            <Col xl={5} xxl={5}>
-              <label>{t("check_device.import_date")}: </label>
-            </Col>
-            <Col>
-              <span>{moment(dataValue.importDate).format(formatDate)}</span>
-            </Col>
-          </Row>
-          <Row justify="center" className={styles.rowInfo}>
-            <Col xl={5} xxl={5}>
-              <label>{t("check_device.status")}: </label>
-            </Col>
-            <Col>
-              <span>
-                {dataValue.status === 0
-                  ? t("check_device.status_not_borrow")
-                  : t("check_device.status_borrow")}
-              </span>
-            </Col>
-          </Row>
+        <Row justify="center" className={styles.wrapperDetail}>
+          <div style={{ width: "30%" }}>
+            <Row className={styles.rowInfo}>
+              <Col xl={5} xxl={10}>
+                <label>{t("check_device.device_name")}: </label>
+              </Col>
+              <Col>
+                <span>{dataValue.deviceName}</span>
+              </Col>
+            </Row>
 
-          <Row justify="center" className={styles.rowBtn}>
-            {dataValue.status === 0 ? (
-              <ButtonPrimary
-                nameBtn={t("check_device.btn_lend")}
-                onClickBtn={() => setOpenModalBorrow(true)}
-              />
-            ) : (
-              <ButtonPrimary nameBtn={t("check_device.btn_eviction")} />
-            )}
-          </Row>
-        </div>
+            <Row className={styles.rowInfo}>
+              <Col xl={5} xxl={10}>
+                <label>{t("check_device.device_code")}: </label>
+              </Col>
+              <Col>
+                <span>{dataValue.deviceCode}</span>
+              </Col>
+            </Row>
+
+            <Row className={styles.rowInfo}>
+              <Col xl={5} xxl={10}>
+                <label>{t("check_device.device_location")}: </label>
+              </Col>
+              <Col>
+                <span>
+                  {dataValue.deviceLocation
+                    ? detailLocationDevice(
+                        dataValue.deviceLocation[0],
+                        dataValue.deviceLocation[1]
+                      )
+                    : ""}
+                </span>
+              </Col>
+            </Row>
+            <Row className={styles.rowInfo}>
+              <Col xl={5} xxl={10}>
+                <label>{t("check_device.device_type")}: </label>
+              </Col>
+              <Col>
+                <span>{dataValue.deviceType}</span>
+              </Col>
+            </Row>
+            <Row className={styles.rowInfo}>
+              <Col xl={5} xxl={10}>
+                <label>{t("check_device.import_date")}: </label>
+              </Col>
+              <Col>
+                <span>{moment(dataValue.importDate).format(formatDate)}</span>
+              </Col>
+            </Row>
+            <Row className={styles.rowInfo}>
+              <Col xl={5} xxl={10}>
+                <label>{t("check_device.status")}: </label>
+              </Col>
+              <Col>
+                <span>
+                  {dataValue.status === 0
+                    ? t("check_device.status_not_borrow")
+                    : t("check_device.status_borrow")}
+                </span>
+              </Col>
+            </Row>
+            <Row justify="center" className={styles.rowBtn}>
+              {dataValue.status === 0 ? (
+                <ButtonPrimary
+                  nameBtn={t("check_device.btn_lend")}
+                  onClickBtn={() => setOpenModalBorrow(true)}
+                />
+              ) : (
+                <ButtonPrimary nameBtn={t("check_device.btn_eviction")} />
+              )}
+            </Row>
+          </div>
+        </Row>
       )}
       <ModalBorrowDevice
         isModal={openModalBorrow}
         setIsModal={setOpenModalBorrow}
+        dataValue={dataValue}
       />
     </Spin>
   );
