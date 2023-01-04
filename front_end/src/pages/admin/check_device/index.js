@@ -1,6 +1,6 @@
-import { Col, Divider, Input, notification, QRCode, Row, Spin } from "antd";
+import { Col, Divider, Input, notification, Row, Spin } from "antd";
 import React, { useState } from "react";
-import { CameraOutlined } from "@ant-design/icons";
+import { CameraOutlined, CloseOutlined } from "@ant-design/icons";
 import QrReader from "react-qr-scanner";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,7 @@ import ButtonPrimary from "../../../components/button/buttonPrimary";
 
 //scss
 import styles from "./checkDevice.module.scss";
+import ModalBorrowDevice from "../../../components/modal/modalBorrowDevice";
 
 const { Search } = Input;
 
@@ -23,6 +24,7 @@ const CheckDevice = () => {
   const [dataValue, setDataValue] = useState({});
   const [textValue, setTextValue] = useState("");
   const [loading, setLoading] = useState(false);
+  const [openModalBorrow, setOpenModalBorrow] = useState(false);
 
   const handleCamera = () => {
     setTextValue("");
@@ -67,18 +69,52 @@ const CheckDevice = () => {
       </Row>
 
       {onCamera && (
-        <Row justify="center" className="rowContent">
-          <QrReader
-            onScan={(data) => {
-              if (data) {
-                setTextValue(data.text);
-                handlePostCode(data.text);
-                setOnCamera(false);
-                return;
-              }
-            }}
-          />
-        </Row>
+        <div>
+          <Row
+            justify="center"
+            style={{ flexDirection: "column" }}
+            className={`${styles.wrapperCamera} rowContent`}
+          >
+            <CloseOutlined
+              style={{ fontSize: 25 }}
+              onClick={() => setOnCamera(false)}
+            />
+            <QrReader
+              facingMode="front"
+              onScan={(data) => {
+                if (data) {
+                  setTextValue(data.text);
+                  handlePostCode(data.text);
+                  setOnCamera(false);
+                  return;
+                }
+              }}
+            />
+          </Row>
+
+          <Row
+            justify="center"
+            align="middle"
+            className={styles.wrapperCameraMobile}
+          >
+            <CloseOutlined
+              style={{ fontSize: 25 }}
+              onClick={() => setOnCamera(false)}
+            />
+            <QrReader
+              facingMode="front"
+              onScan={(data) => {
+                if (data) {
+                  setTextValue(data.text);
+                  handlePostCode(data.text);
+                  setOnCamera(false);
+                  return;
+                }
+              }}
+              className={styles.camera}
+            />
+          </Row>
+        </div>
       )}
       {textValue && (
         <div className={styles.wrapperDetail}>
@@ -98,7 +134,6 @@ const CheckDevice = () => {
               <span>{dataValue.deviceCode}</span>
             </Col>
           </Row>
-
           <Row justify="center" className={styles.rowInfo}>
             <Col xl={5} xxl={5}>
               <label>{t("check_device.device_location")}: </label>
@@ -114,7 +149,6 @@ const CheckDevice = () => {
               </span>
             </Col>
           </Row>
-
           <Row justify="center" className={styles.rowInfo}>
             <Col xl={5} xxl={5}>
               <label>{t("check_device.device_type")}: </label>
@@ -123,7 +157,6 @@ const CheckDevice = () => {
               <span>{dataValue.deviceType}</span>
             </Col>
           </Row>
-
           <Row justify="center" className={styles.rowInfo}>
             <Col xl={5} xxl={5}>
               <label>{t("check_device.import_date")}: </label>
@@ -132,7 +165,6 @@ const CheckDevice = () => {
               <span>{moment(dataValue.importDate).format(formatDate)}</span>
             </Col>
           </Row>
-
           <Row justify="center" className={styles.rowInfo}>
             <Col xl={5} xxl={5}>
               <label>{t("check_device.status")}: </label>
@@ -147,16 +179,21 @@ const CheckDevice = () => {
           </Row>
 
           <Row justify="center" className={styles.rowBtn}>
-            <ButtonPrimary
-              nameBtn={
-                dataValue.status === 0
-                  ? t("check_device.btn_lend")
-                  : t("check_device.btn_eviction")
-              }
-            />
+            {dataValue.status === 0 ? (
+              <ButtonPrimary
+                nameBtn={t("check_device.btn_lend")}
+                onClickBtn={() => setOpenModalBorrow(true)}
+              />
+            ) : (
+              <ButtonPrimary nameBtn={t("check_device.btn_eviction")} />
+            )}
           </Row>
         </div>
       )}
+      <ModalBorrowDevice
+        isModal={openModalBorrow}
+        setIsModal={setOpenModalBorrow}
+      />
     </Spin>
   );
 };
