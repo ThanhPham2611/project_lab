@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Col, Divider, Form, Input, Row, Select, Space, Table } from "antd";
+import {
+  Col,
+  Divider,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Select,
+  Space,
+  Table,
+} from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
@@ -11,6 +21,7 @@ import { getlistDevice } from "../../../store/modules/deviceRegisterSlices";
 
 // scss
 import styles from "./deviceManagement.module.scss";
+import ModalQrCode from "../../../components/modal/modalQrCode";
 
 const { Search } = Input;
 
@@ -45,9 +56,14 @@ const DeviceManagement = () => {
     },
     {
       title: "Action",
+      width: 300,
       render: (key) => (
         <Space>
           <ButtonPrimary nameBtn="Borrow logs" />
+          <ButtonPrimary
+            nameBtn="Qr code"
+            onClickBtn={() => handleOpenModal(key.deviceCode)}
+          />
         </Space>
       ),
     },
@@ -60,10 +76,17 @@ const DeviceManagement = () => {
 
   // state
   const [form] = Form.useForm();
+  const [openModalQr, setOpenModalQr] = useState(false);
+  const [valueQr, setValueQr] = useState("");
 
   useEffect(() => {
     dispatch(getlistDevice());
   }, []);
+
+  const handleOpenModal = (value) => {
+    setOpenModalQr(true);
+    setValueQr(value);
+  };
 
   const onFinish = (value) => {
     console.log(value);
@@ -144,6 +167,11 @@ const DeviceManagement = () => {
       </Form>
 
       <Table columns={column} dataSource={listDevice} />
+      <ModalQrCode
+        valueCode={valueQr}
+        setIsModal={setOpenModalQr}
+        isModal={openModalQr}
+      />
     </div>
   );
 };

@@ -2,3 +2,22 @@
   cursor: pointer;
   font-size: 18px;
 }
+
+.rowInfo {
+  margin: 10px 0;
+  label,
+  span {
+    font-size: 20px;
+  }
+  span {
+    font-weight: bold;
+  }
+}
+
+.rowBtn {
+  margin: 20px 0;
+}
+
+.wrapperDetail {
+  margin: 25px 0;
+}

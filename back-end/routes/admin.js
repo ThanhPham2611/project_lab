@@ -9,6 +9,7 @@ import { getInfoUser } from "../controllers/admin/get_info_user";
 import { getRequestList } from "../controllers/admin/get_request_devices";
 import { getDevice } from "../controllers/admin/get_device";
 import { getDeviceSignature } from "../controllers/admin/get_device_signature";
+import { getInfoDevice } from "../controllers/admin/get_info_device";
 
 //post
 import { registerAuthen } from "../controllers/admin/register";
@@ -27,6 +28,7 @@ router.get("/allUser", verifyToken, getAllUser);
 router.get("/request_device", verifyToken, getRequestList);
 router.get("/getDevice", getDevice);
 router.get("/getDeviceSig", getDeviceSignature);
+router.get("/getInfoDevice", getInfoDevice);
 
 router.post("/register", registerAuthen);
 router.post("/resetPassword", resetPassword);
