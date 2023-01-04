@@ -201,6 +201,33 @@
     "placeholder_purpose": "Lý do",
     "placeholder_note": "Ghi chú (nếu cần) "
   },
+  "modal_add_device": {
+    "notifi_success": "Tạo thành công loại thiết bị",
+    "notifi_error_exists": "Đã tồn tại mã loại thiết bị",
+    "title_modal": "Thêm loại thiết bị",
+    "device_type_code": "Mã loại thiết bị",
+    "placeholder_device_type_code": "Nhập mã loại thiết bị",
+    "device_type_name": "Tên loại thiết bị",
+    "placeholder_device_type_name": "Nhập tên loại thiết bị",
+    "submit_btn": "Tạo loại",
+    "cancel_btn": "Hủy"
+  },
+  "check_device": {
+    "notifi_success": "Tìm thiết bị thành công",
+    "notifi_error": "Không tìm thấy thiết bị",
+    "title_header": "Kiểm tra thiết bị",
+    "placeholder_search": "Nhập mã thiết bị hoặc quét qua camera",
+    "device_name": "Tên thiết bị",
+    "device_code": "Mã thiết bị",
+    "device_location": "Vị trí thiết bị",
+    "device_type": "Loại thiết bị",
+    "import_date": "Ngày nhập",
+    "status": "Trạng thái",
+    "status_borrow": "Đã được mượn",
+    "status_not_borrow": "Chưa được mượn",
+    "btn_lend": "Cho mượn",
+    "btn_eviction": "Thu hồi"
+  },
   "ults": {
     "student": "Sinh viên",
     "admin": "Quản trị viên",

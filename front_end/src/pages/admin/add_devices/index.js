@@ -128,7 +128,7 @@ const AddDevice = () => {
             </Col>
             <Col xs={24} xl={10} xxl={10}>
               <Form.Item
-                name="locationDevice"
+                name="deviceLocation"
                 label={t("add_devices.device_location")}
                 rules={[
                   {

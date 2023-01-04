@@ -201,6 +201,33 @@
     "placeholder_purpose": "Fill purpose",
     "placeholder_note": "Fill note (if necessary)"
   },
+  "modal_add_device": {
+    "notifi_success": "Add device success",
+    "notifi_error_exists": "Device code already exists",
+    "title_modal": "Add device type",
+    "device_type_code": "Device type code",
+    "placeholder_device_type_code": "Fill device type code",
+    "device_type_name": "Device type name",
+    "placeholder_device_type_name": "Fill device type name",
+    "submit_btn": "Create type",
+    "cancel_btn": "Cancel"
+  },
+  "check_device": {
+    "notifi_success": "Find device successfully",
+    "notifi_error": "Device not found",
+    "title_header": "Device check",
+    "placeholder_search": "Fill device code or scan by camera",
+    "device_name": "Device name",
+    "device_code": "Device code",
+    "device_location": "Device location",
+    "device_type": "Device type",
+    "import_date": "Import date",
+    "status": "Status",
+    "status_borrow": "Borrowed",
+    "status_not_borrow": "Not yet borowed",
+    "btn_lend": "Lend",
+    "btn_eviction": "Eviction"
+  },
   "ults": {
     "student": "Student",
     "admin": "Admin",
