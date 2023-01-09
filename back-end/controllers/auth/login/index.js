@@ -4,25 +4,27 @@ const bcrypt = require("bcrypt");
 
 export const loginAuthen = async (req, res) => {
   try {
-    const passwordHash = await User.findOne(
+    const { email, password } = req.body;
+    const userInfo = await User.findOne(
       {
-        email: req.body.email,
+        email,
       },
-      "-_id password"
+      "password"
     );
-    if (!passwordHash) {
-      return res.status(401).send({ message: "User not exist" });
+    if (!userInfo) {
+      return res.status(404).send({ message: "User not exist" });
     }
-    const samePassword = bcrypt.compareSync(
-      req.body.password,
-      passwordHash.password
-    );
+    const samePassword = bcrypt.compareSync(password, userInfo.password);
     if (!samePassword) {
-      return res.status(401).send({ message: "Email or password is wrong" });
+      return res.status(404).send({ message: "Email or password is wrong" });
+    }
+    const checkUser = await User.findOne({ email });
+    if (!checkUser.isActive && checkUser.role != 0) {
+      return res.status(401).send({ message: "Not active from admin" });
     }
     const user = await User.findOne(
       {
-        email: req.body.email,
+        email,
       },
       "_id firstName lastName studentCode role isChangePassword"
     );

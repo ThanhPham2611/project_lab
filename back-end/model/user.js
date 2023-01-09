@@ -48,6 +48,10 @@ const userSchema = mongoose.Schema(
       type: String,
       require: true,
     },
+    isActive: {
+      type: Boolean,
+      require: true,
+    },
     avatarUrl: String,
     facebook: String,
     tiktok: String,

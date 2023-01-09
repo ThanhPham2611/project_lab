@@ -13,7 +13,7 @@ export const createSigDevice = async (req, res) => {
     const { role } = jwt.decode(token, { complete: true }).payload;
     if (role !== 0) res.status(401).send({ message: `You're not admin` });
     const { signatureDevice } = req.body;
-    const checkExist = DeviceSig.findOne({ signatureDevice });
+    const checkExist = await DeviceSig.findOne({ signatureDevice });
     if (checkExist) {
       return res.status(409).send({ message: "Exist" });
     }

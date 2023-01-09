@@ -68,7 +68,7 @@ const App = (props) => {
           </Header>
         )}
         <Content>
-          <div style={{ padding: "15px" }}>{renderRouter()}</div>
+          <div style={{ padding: displayMenu ? 15 : 0 }}>{renderRouter()}</div>
         </Content>
       </Layout>
     </Spin>

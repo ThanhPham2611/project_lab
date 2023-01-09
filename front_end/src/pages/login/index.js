@@ -143,6 +143,11 @@ const Login = () => {
                 {t("login.btn_login")}
               </Button>
             </Form.Item>
+            <div>
+              <a className={styles.textLink} href="/register-user">
+                {t("login.link_register")}
+              </a>
+            </div>
           </Form>
         </Spin>
       </div>

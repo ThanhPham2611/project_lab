@@ -1,3 +1,12 @@
+### Evironment app
+
+- Node version 16.14.x
+- Yarn version 1.22.xx
+- Antd version 5.1.x
+- Axios version 1.1.x
+- React version 18.2.x
+- Router version 5.x
+
 ### Front_end project react app
 
 - This is a project written in react app

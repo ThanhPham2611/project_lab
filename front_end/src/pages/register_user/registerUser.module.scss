@@ -1,0 +1,32 @@
+.wrapperBG {
+  background: url("../../assets/images/img/bg_register_user.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
+
+.titleHeaderPage {
+  font-size: 40px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.wrapperForm {
+  width: 500px;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 15px;
+  background: linear-gradient(to top, #3366cc 18%, #cc0066 100%);
+  box-shadow: 20px 20px 10px #333;
+}
+
+.wrapperRowLink {
+  margin-top: 15px;
+  .textLink {
+    color: whitesmoke;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

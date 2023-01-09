@@ -9,6 +9,9 @@ import {
   Space,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+//local
 import { allUsers } from "../../../store/modules/usersSlices";
 import ButtonPrimary from "../../button/buttonPrimary";
 import ButtonCancel from "../../button/buttonCancel";
@@ -20,6 +23,7 @@ const ModalBorrowDevice = ({ isModal, setIsModal, dataValue }) => {
   const { listAllUser } = useSelector((state) => state.userInfo);
 
   const [form] = Form.useForm();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(allUsers());
@@ -31,9 +35,11 @@ const ModalBorrowDevice = ({ isModal, setIsModal, dataValue }) => {
   };
 
   const onFinish = (value) =>
-    patch(`editDevice/${dataValue._id}`, value)
+    patch(`editDevice/${dataValue._id}`, { ...value, status: 1 })
       .then(() => {
         notification.success({ message: "Cho mượn thành công" });
+        setIsModal(false);
+        history.push("management-devices");
       })
       .catch(() => {
         notification.error({ message: "Lỗi server" });

@@ -77,10 +77,11 @@ const AddDevice = () => {
     postCreate,
     {
       onSuccess: (data) => {
-        notification.success({ message: "Thêm thành công thiết bị" });
+        form.resetFields();
+        notification.success({ message: t("add_devices.notifi_success") });
       },
       onError: (error) => {
-        notification.error({ message: error.response.data.message });
+        notification.error({ message: t("add_devices.notifi_err") });
         console.log(error);
       },
     }
@@ -101,7 +102,7 @@ const AddDevice = () => {
             className="colorBtn"
             onClick={() => setIsModalAdd(true)}
           >
-            Thêm loại thiết bị
+            {t("add_devices.btn_device_modal")}
           </Button>
         </Row>
         <Form

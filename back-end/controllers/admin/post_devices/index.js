@@ -12,12 +12,12 @@ export const CreateDevices = async (req, res) => {
   )
     token = req.headers.authorization.split(" ")[1];
   try {
-    const uid = new ShortUniqueId({ dictionary: "number", length: 5 });
+    const uid = new ShortUniqueId({ length: 9 });
     //check admin
     const { role } = jwt.decode(token, { complete: true }).payload;
     if (role !== 0) res.status(401).send({ message: `You're not admin` });
 
-    const { deviceName, deviceType, manager } = req.body;
+    const { deviceType, manager } = req.body;
 
     const managerDevice = await User.findOne(
       { _id: manager },
@@ -28,9 +28,7 @@ export const CreateDevices = async (req, res) => {
 
     await Device.create({
       ...req.body,
-      deviceCode: `${deviceName
-        .slice(0, 2)
-        .toUpperCase()}${deviceType}${uid()}`,
+      deviceCode: uid().toUpperCase(),
       manager: `${managerDevice.firstName} ${managerDevice.lastName}`,
       deviceType: deviceObj.nameDevice,
     });

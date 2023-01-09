@@ -199,7 +199,10 @@
     "placeholder_import_date": "Ngày nhập thiết bị",
     "placeholder_manager": "Người quản lý",
     "placeholder_purpose": "Lý do",
-    "placeholder_note": "Ghi chú (nếu cần) "
+    "placeholder_note": "Ghi chú (nếu cần)",
+    "notifi_success": "Tạo thiết bị thành công",
+    "notifi_err": "Tạo thiết bị lỗi",
+    "btn_device_modal": "Thêm loại thiết bị"
   },
   "modal_add_device": {
     "notifi_success": "Tạo thành công loại thiết bị",
@@ -226,7 +229,9 @@
     "status_borrow": "Đã được mượn",
     "status_not_borrow": "Chưa được mượn",
     "btn_lend": "Cho mượn",
-    "btn_eviction": "Thu hồi"
+    "btn_eviction": "Thu hồi",
+    "borrower": "Người mượn",
+    "student_code": "Mã sinh viên"
   },
   "ults": {
     "student": "Sinh viên",
