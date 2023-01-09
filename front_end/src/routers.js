@@ -22,6 +22,7 @@ import DeviceRegister from "./pages/user/device_regsiter";
 import ListDeviceRegister from "./pages/user/list_device_register";
 import DevicesResList from "./pages/admin/devices_request_list";
 import CheckDevice from "./pages/admin/check_device";
+import RegisterUser from "./pages/register_user";
 
 export const BlankPage = () => {
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
@@ -63,6 +64,17 @@ export const appRouter = [
     name: "Forget-password",
     path: "/forget-password",
     component: ForgotPassword,
+    meta: {
+      role: "*",
+      isPrivate: false,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "Register-user",
+    path: "/register-user",
+    component: RegisterUser,
     meta: {
       role: "*",
       isPrivate: false,
@@ -228,7 +240,12 @@ const PrivateRoute = (props) => {
 };
 
 const WhiteListRoute = (props) => {
-  const whiteList = ["/login", "/register", "/forget-password"];
+  const whiteList = [
+    "/login",
+    "/register",
+    "/forget-password",
+    "/register-user",
+  ];
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
   const isWhiteList = (path) =>
     !cookies[STORAGEKEY.ACCESS_TOKEN] && whiteList.indexOf(path) >= 0;
@@ -277,7 +294,7 @@ const renderRouter = (routes) => {
 };
 
 const routes = () => {
-  const whiteList = ["/login", "/forget-password"];
+  const whiteList = ["/login", "/forget-password", "/register-user"];
   const path = window.location.pathname;
   const isWhiteList = whiteList.includes(path);
   return (

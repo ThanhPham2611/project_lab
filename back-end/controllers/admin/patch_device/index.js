@@ -1,4 +1,6 @@
 import Device from "../../../model/devices";
+import BorrowLog from "../../../model/borrowLogs";
+import Users from "../../../model/user";
 import jwt from "jsonwebtoken";
 
 export const patchDevice = async (req, res) => {
@@ -13,15 +15,30 @@ export const patchDevice = async (req, res) => {
     const { role } = jwt.decode(token, { complete: true }).payload;
     if (role !== 0) res.status(401).send({ message: `You're not admin` });
     const { id } = req.params;
-    const { idUser } = req.body;
+    const { idUser, borrowDate, status } = req.body;
     const checkexist = await Device.findOne({ _id: id }, "-__v");
     if (!checkexist) {
       return res.status(404).send({ message: "Id not found" });
     }
-    await Device.findByIdAndUpdate(id, {
-      idUser,
-      status: 1,
+    const userInfo = await Users.findOne({ _id: idUser }, "-__v");
+    await BorrowLog.create({
+      deviceCode: checkexist.deviceCode,
+      borrowDate: borrowDate,
+      studentCode: userInfo.studentCode,
+      borrowerName: `${userInfo.firstName} ${userInfo.lastName}`,
+      status: status,
     });
+    if (status === 1) {
+      await Device.findByIdAndUpdate(id, {
+        idUser,
+        status: status,
+      });
+    } else {
+      await Device.findByIdAndUpdate(id, {
+        $unset: { idUser: 1 },
+        status: status,
+      });
+    }
     return res.status(201).send({ message: "Ok" });
   } catch (err) {
     console.log(err);

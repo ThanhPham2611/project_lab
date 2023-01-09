@@ -21,7 +21,7 @@ export const getInfoDevice = async (req, res) => {
     const nameUser = await Users.findOne({ _id: dataInfo.idUser }, "-__v");
 
     return res.status(200).send({
-      data: dataInfo,
+      data: { dataInfo, nameUser },
       message: "Ok",
     });
   } catch (err) {

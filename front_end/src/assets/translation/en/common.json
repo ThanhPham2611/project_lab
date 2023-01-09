@@ -199,7 +199,10 @@
     "placeholder_import_date": "Fill import date",
     "placeholder_manager": "Fill manager",
     "placeholder_purpose": "Fill purpose",
-    "placeholder_note": "Fill note (if necessary)"
+    "placeholder_note": "Fill note (if necessary)",
+    "notifi_success": "Device create success",
+    "notifi_err": "Device create failed",
+    "btn_device_modal": "Add device type"
   },
   "modal_add_device": {
     "notifi_success": "Add device success",
@@ -226,7 +229,9 @@
     "status_borrow": "Borrowed",
     "status_not_borrow": "Not yet borowed",
     "btn_lend": "Lend",
-    "btn_eviction": "Eviction"
+    "btn_eviction": "Eviction",
+    "borrower": "Borrower",
+    "student_code": "Student code"
   },
   "ults": {
     "student": "Student",

@@ -1,25 +1,33 @@
-import { Col, Divider, Input, notification, Row, Spin } from "antd";
+import { Col, Divider, Input, Modal, notification, Row, Spin } from "antd";
 import React, { useState } from "react";
-import { CameraOutlined, CloseOutlined } from "@ant-design/icons";
+import {
+  CameraOutlined,
+  CloseOutlined,
+  ExclamationCircleFilled,
+} from "@ant-design/icons";
 import QrReader from "react-qr-scanner";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 
 //local
-import { get } from "../../../services/axios/baseAPI";
+import { get, patch } from "../../../services/axios/baseAPI";
 import { detailLocationDevice, formatDate } from "../../../utils";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 
 //scss
 import styles from "./checkDevice.module.scss";
 import ModalBorrowDevice from "../../../components/modal/modalBorrowDevice";
+import { useHistory } from "react-router-dom";
 
 const { Search } = Input;
+
+const { confirm } = Modal;
 
 const CheckDevice = () => {
   //translation
   const { t } = useTranslation("common");
   //state
+  const history = useHistory();
   const [onCamera, setOnCamera] = useState(false);
   const [dataValue, setDataValue] = useState({});
   const [textValue, setTextValue] = useState("");
@@ -29,6 +37,31 @@ const CheckDevice = () => {
   const handleCamera = () => {
     setTextValue("");
     setOnCamera(true);
+  };
+
+  const showConfirm = () => {
+    confirm({
+      title: "Do you Want to delete these items?",
+      icon: <ExclamationCircleFilled />,
+
+      onOk() {
+        patch(`editDevice/${dataValue.dataInfo._id}`, {
+          idUser: dataValue.dataInfo.idUser,
+          borrowDate: moment().format(),
+          status: 0,
+        })
+          .then(() => {
+            notification.success({ message: "Thu hồi thành công" });
+            history.push("management-devices");
+          })
+          .catch(() => {
+            notification.error({ message: "Lỗi server" });
+          });
+      },
+      onCancel() {
+        return;
+      },
+    });
   };
 
   const handlePostCode = (code) => {
@@ -124,7 +157,7 @@ const CheckDevice = () => {
                 <label>{t("check_device.device_name")}: </label>
               </Col>
               <Col>
-                <span>{dataValue.deviceName}</span>
+                <span>{dataValue.dataInfo.deviceName}</span>
               </Col>
             </Row>
 
@@ -133,7 +166,7 @@ const CheckDevice = () => {
                 <label>{t("check_device.device_code")}: </label>
               </Col>
               <Col>
-                <span>{dataValue.deviceCode}</span>
+                <span>{dataValue.dataInfo.deviceCode}</span>
               </Col>
             </Row>
 
@@ -143,10 +176,10 @@ const CheckDevice = () => {
               </Col>
               <Col>
                 <span>
-                  {dataValue.deviceLocation
+                  {dataValue.dataInfo.deviceLocation
                     ? detailLocationDevice(
-                        dataValue.deviceLocation[0],
-                        dataValue.deviceLocation[1]
+                        dataValue.dataInfo.deviceLocation[0],
+                        dataValue.dataInfo.deviceLocation[1]
                       )
                     : ""}
                 </span>
@@ -157,7 +190,7 @@ const CheckDevice = () => {
                 <label>{t("check_device.device_type")}: </label>
               </Col>
               <Col>
-                <span>{dataValue.deviceType}</span>
+                <span>{dataValue.dataInfo.deviceType}</span>
               </Col>
             </Row>
             <Row className={styles.rowInfo}>
@@ -165,7 +198,9 @@ const CheckDevice = () => {
                 <label>{t("check_device.import_date")}: </label>
               </Col>
               <Col>
-                <span>{moment(dataValue.importDate).format(formatDate)}</span>
+                <span>
+                  {moment(dataValue.dataInfo.importDate).format(formatDate)}
+                </span>
               </Col>
             </Row>
             <Row className={styles.rowInfo}>
@@ -174,20 +209,46 @@ const CheckDevice = () => {
               </Col>
               <Col>
                 <span>
-                  {dataValue.status === 0
+                  {dataValue.dataInfo.status === 0
                     ? t("check_device.status_not_borrow")
                     : t("check_device.status_borrow")}
                 </span>
               </Col>
             </Row>
+            {dataValue.dataInfo.status === 1 && (
+              <>
+                <Row className={styles.rowInfo}>
+                  <Col xl={5} xxl={10}>
+                    <label>{t("check_device.borrower")}: </label>
+                  </Col>
+                  <Col>
+                    <span>
+                      {`${dataValue.nameUser.firstName} ${dataValue.nameUser.lastName}`}
+                    </span>
+                  </Col>
+                </Row>
+                <Row className={styles.rowInfo}>
+                  <Col xl={5} xxl={10}>
+                    <label>{t("check_device.student_code")}: </label>
+                  </Col>
+                  <Col>
+                    <span>{dataValue.nameUser.studentCode}</span>
+                  </Col>
+                </Row>
+              </>
+            )}
+
             <Row justify="center" className={styles.rowBtn}>
-              {dataValue.status === 0 ? (
+              {dataValue.dataInfo.status === 0 ? (
                 <ButtonPrimary
                   nameBtn={t("check_device.btn_lend")}
                   onClickBtn={() => setOpenModalBorrow(true)}
                 />
               ) : (
-                <ButtonPrimary nameBtn={t("check_device.btn_eviction")} />
+                <ButtonPrimary
+                  nameBtn={t("check_device.btn_eviction")}
+                  onClickBtn={showConfirm}
+                />
               )}
             </Row>
           </div>
@@ -196,7 +257,7 @@ const CheckDevice = () => {
       <ModalBorrowDevice
         isModal={openModalBorrow}
         setIsModal={setOpenModalBorrow}
-        dataValue={dataValue}
+        dataValue={dataValue.dataInfo}
       />
     </Spin>
   );

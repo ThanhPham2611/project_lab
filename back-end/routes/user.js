@@ -7,6 +7,7 @@ import { loginAuthen } from "../controllers/auth/login";
 import { updatePassword } from "../controllers/user/update_password";
 import { getMyInfo } from "../controllers/user/get_info";
 import { updateInfo } from "../controllers/user/update_info";
+import { postUserRegister } from "../controllers/user/user_register";
 
 //verifyToken
 import { verifyToken } from "../config/middleware/tokenMiddle";
@@ -18,6 +19,7 @@ router.get("/myInfo", verifyToken, getMyInfo);
 
 //post
 router.post("/login", loginAuthen);
+router.post("/registerUser", postUserRegister);
 
 //patch
 router.patch("/updatePassword", updatePassword);
