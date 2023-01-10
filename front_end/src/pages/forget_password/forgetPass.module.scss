@@ -31,4 +31,13 @@
 .btnSend {
   height: 44px !important;
   border-radius: 20px !important;
+  min-width: 300px;
+}
+
+.textLink {
+  color: #060a52;
+  &:hover {
+    color: #03052b;
+    opacity: 0.9;
+  }
 }

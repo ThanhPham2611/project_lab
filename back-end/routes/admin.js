@@ -11,6 +11,7 @@ import { getDevice } from "../controllers/admin/get_device";
 import { getDeviceSignature } from "../controllers/admin/get_device_signature";
 import { getInfoDevice } from "../controllers/admin/get_info_device";
 import { getBorrowLog } from "../controllers/admin/get_borrow_log";
+import { getRequestAccount } from "../controllers/admin/get_request_account";
 
 //post
 import { registerAuthen } from "../controllers/admin/register";
@@ -23,6 +24,7 @@ import { createSigDevice } from "../controllers/admin/post_sig_device";
 //patch
 import { patchRequestList } from "../controllers/admin/patch_request_devices";
 import { patchDevice } from "../controllers/admin/patch_device";
+import { patchRequestAccount } from "../controllers/admin/patch_request_account";
 
 const router = express.Router();
 
@@ -32,6 +34,7 @@ router.get("/getDevice", getDevice);
 router.get("/getDeviceSig", getDeviceSignature);
 router.get("/getInfoDevice", getInfoDevice);
 router.get("/getBorrowLog", getBorrowLog);
+router.get("/getRequestAccount", getRequestAccount);
 
 router.post("/register", registerAuthen);
 router.post("/resetPassword", resetPassword);
@@ -43,5 +46,6 @@ router.post("/addDeviceSig", createSigDevice);
 
 router.patch("/request_device/:id", patchRequestList);
 router.patch("/editDevice/:id", patchDevice);
+router.patch("/editRequestAccount/:id", patchRequestAccount);
 
 export default router;

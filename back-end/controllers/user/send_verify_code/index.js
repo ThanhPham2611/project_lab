@@ -2,6 +2,8 @@ const User = require("../../../model/user");
 const bcrypt = require("bcrypt");
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
+import moment from "moment";
+
 const saltRounds = 10;
 
 export const sendCodeVerify = async (req, res) => {
@@ -11,39 +13,51 @@ export const sendCodeVerify = async (req, res) => {
       {
         email: emailVerify,
       },
-      "codeResetPass"
+      "codeResetPass expiredTime isActive"
     );
+    if (!checkEmail.isActive) {
+      return res.status(404).send({ message: "Not active" });
+    }
+
     if (!checkEmail) {
-      return res.status(401).send({ message: "Email not exist !" });
+      return res.status(404).send({ message: "Email not exist !" });
     }
     if (checkEmail.codeResetPass === codeVerify) {
-      //codeRandom
-      const passwordRandom = randomstring.generate(8);
-      await User.updateOne(
-        { email: emailVerify },
-        {
-          password: bcrypt.hashSync(passwordRandom, saltRounds),
-          isChangePassword: false,
-        }
-      );
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "thanh.pt2611@gmail.com",
-          pass: process.env.PASSWORD_MAIL_SECRET,
-        },
-      });
+      if (moment(checkEmail.expiredTime).format() >= moment().format()) {
+        //codeRandom
+        const passwordRandom = randomstring.generate(8);
+        await User.updateOne(
+          { email: emailVerify },
+          {
+            password: bcrypt.hashSync(passwordRandom, saltRounds),
+            isChangePassword: false,
+          }
+        );
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: "thanh.pt2611@gmail.com",
+            pass: process.env.PASSWORD_MAIL_SECRET,
+          },
+        });
 
-      await transporter.sendMail({
-        from: "adminTLU@gmail.com",
-        to: `thanhpt@relipasoft.com`,
-        subject: "Password reset notification",
-        text: "Testing send email",
-        html: `Account <b>${emailVerify},</b> Password: <b>${passwordRandom}</b>, password will expire within 24 hours from the time of sending this letter, thank you.`,
-      });
-      return res.json({
-        message: "New password has been sent to your email",
-      });
+        await transporter.sendMail({
+          from: "adminTLU@gmail.com",
+          to: `thanhpt@relipasoft.com`,
+          subject: "Password reset notification",
+          text: "Testing send email",
+          html: `Account <b>${emailVerify},</b> Password: <b>${passwordRandom}</b>, password will expire within 5 minutes from the time of sending this letter, thank you.`,
+        });
+        await User.updateOne(
+          { email: emailVerify },
+          { $unset: { codeResetPass: 1, expiredTime: 1 } }
+        );
+        return res.json({
+          message: "New password has been sent to your email",
+        });
+      } else {
+        return res.status(404).send({ message: `Expired time` });
+      }
     } else {
       return res.status(401).json({
         message: "Check the verification code again",

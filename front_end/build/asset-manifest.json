@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.1221c48d.css",
-    "main.js": "/static/js/main.2baf2fcd.js",
+    "main.css": "/static/css/main.c07aece4.css",
+    "main.js": "/static/js/main.4b8ae20b.js",
     "static/media/coming_soon_mobile.jpg": "/static/media/coming_soon_mobile.d4dedc3450eb078a7ad0.jpg",
     "static/media/bg_tlu_login.jpg": "/static/media/bg_tlu_login.1a738e65aabcbb4ad051.jpg",
     "static/media/coming_soon.jpg": "/static/media/coming_soon.84195a022d091b588984.jpg",
@@ -11,11 +11,11 @@
     "static/media/vietnam.png": "/static/media/vietnam.a7a251f3ce4a10a7fd18.png",
     "static/media/logoVertical.png": "/static/media/logoVertical.3301896206d5b35e7cd2.png",
     "index.html": "/index.html",
-    "main.1221c48d.css.map": "/static/css/main.1221c48d.css.map",
-    "main.2baf2fcd.js.map": "/static/js/main.2baf2fcd.js.map"
+    "main.c07aece4.css.map": "/static/css/main.c07aece4.css.map",
+    "main.4b8ae20b.js.map": "/static/js/main.4b8ae20b.js.map"
   },
   "entrypoints": [
-    "static/css/main.1221c48d.css",
-    "static/js/main.2baf2fcd.js"
+    "static/css/main.c07aece4.css",
+    "static/js/main.4b8ae20b.js"
   ]
 }
