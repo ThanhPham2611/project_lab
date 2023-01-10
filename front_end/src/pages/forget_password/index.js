@@ -1,20 +1,22 @@
-import React, { useState } from "react";
-import { Alert, Button, Form, Input, Spin } from "antd";
+import React, { useEffect, useState } from "react";
+import { Alert, Button, Form, Input, Modal, Result, Spin } from "antd";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
 
 //local
 import { post } from "../../services/axios/baseAPI";
-
-//icon
 import iconLogo from "../../assets/images/img/logoVertical.png";
 
 //scss
 import styles from "./forgetPass.module.scss";
-import axios from "axios";
+import ModalCountDown from "../../components/modal/modalCountDown";
+import { useTranslation } from "react-i18next";
 
 const ForgotPassword = () => {
+  //translation
+  const { t } = useTranslation("common");
+
   //form
   const [form] = Form.useForm();
 
@@ -27,34 +29,33 @@ const ForgotPassword = () => {
     message: "",
   });
   const [displayMessage, setDisplayMessage] = useState(false);
-  const [displayInputCode, setDisplayInputCode] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
   const [captcha, setCaptcha] = useState();
+  const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
-  const onFinish = (values) => {
+  const onFinish = (value) => {
     if (disabledInput) {
-      console.log(values);
-      postCodeVerify(values);
+      postCodeVerify(value);
     } else {
-      axios
-        .post(`http://localhost:8080/api/resetPassword`, {
-          emailVerify: values.emailVerify,
-        })
-        .then((res) => {
-          const { data } = res;
+      setLoading(true);
+      post(`resetPassword`, value)
+        .then(() => {
           setAlert({
             status: "success",
-            message: data.message,
+            message: t("forget_password.alert_success_send_email"),
           });
           setDisplayMessage(true);
           setDisabledInput(true);
+          setLoading(false);
         })
         .catch((err) => {
           setAlert({
             status: "error",
-            message: err.response.data.message,
+            message: t("forget_password.alert_error_exist"),
           });
           setDisplayMessage(true);
+          setLoading(false);
         });
     }
   };
@@ -65,14 +66,11 @@ const ForgotPassword = () => {
     postEmail,
     {
       onSuccess: (data) => {
-        setAlert({
-          status: "success",
-          message: `${data.message}, after 3 second change page login`,
-        });
+        setOpenModal(true);
         setDisplayMessage(true);
         setTimeout(() => {
           history.push(`/login`);
-        }, 3000);
+        }, 5000);
       },
       onError: (error) => {
         setAlert({
@@ -87,52 +85,72 @@ const ForgotPassword = () => {
   const onChangeCapt = (value) => {
     setCaptcha(value);
   };
+
   return (
-    <Spin spinning={isPostingReset}>
+    <>
       <div className={styles.wrapperResetPass}>
         <div>
           <img className={styles.logo} src={iconLogo} alt="Logo TLU" />
         </div>
         <div>
-          <h1 className={styles.title}>Reset your password</h1>
+          <h1 className={styles.title}>{t("forget_password.title_header")}</h1>
         </div>
         <div className={styles.wrapperForm}>
           <Form form={form} layout="vertical" onFinish={onFinish}>
-            <Form.Item label="Email verify" name="emailVerify">
-              <Input
-                placeholder="Enter your email address"
-                className={styles.inputItem}
-                disabled={disabledInput}
-              />
-            </Form.Item>
-            {disabledInput && (
-              <Form.Item label="Code verify" name="codeVerify">
-                <Input placeholder="Code verify" className={styles.inputItem} />
-              </Form.Item>
-            )}
-            <Form.Item>
-              <ReCAPTCHA
-                sitekey={process.env.REACT_APP_GG_CAPTCHA_KEY}
-                onChange={onChangeCapt}
-              />
-            </Form.Item>
-            <Form.Item style={{ textAlign: "center" }}>
-              <Button
-                className={styles.btnSend}
-                type="primary"
-                htmlType="submit"
-                disabled={!captcha}
+            <Spin spinning={isPostingReset || loading}>
+              <Form.Item
+                label={t("forget_password.label_email_verify")}
+                name="emailVerify"
               >
-                {disabledInput ? "Send code" : "Send password reset email"}
-              </Button>
-            </Form.Item>
-            {displayMessage && (
-              <Alert message={alert.message} type={alert.status} />
-            )}
+                <Input
+                  placeholder={t("forget_password.placeholder_email")}
+                  className={styles.inputItem}
+                  disabled={disabledInput}
+                />
+              </Form.Item>
+              {disabledInput && (
+                <Form.Item
+                  label={t("forget_password.label_code_verify")}
+                  name="codeVerify"
+                >
+                  <Input
+                    placeholder={t("forget_password.placeholder_code")}
+                    className={styles.inputItem}
+                  />
+                </Form.Item>
+              )}
+              <Form.Item>
+                <ReCAPTCHA
+                  sitekey={process.env.REACT_APP_GG_CAPTCHA_KEY}
+                  onChange={onChangeCapt}
+                />
+              </Form.Item>
+              <Form.Item style={{ textAlign: "center" }}>
+                <Button
+                  className={styles.btnSend}
+                  type="primary"
+                  htmlType="submit"
+                  disabled={!captcha}
+                >
+                  {disabledInput
+                    ? t("forget_password.btn_send_code")
+                    : t("forget_password.btn_reset_email")}
+                </Button>
+              </Form.Item>
+              <div style={{ textAlign: "center" }}>
+                <a href="/login" className={styles.textLink}>
+                  {t("forget_password.text_link_to_login")}
+                </a>
+              </div>
+              {displayMessage && (
+                <Alert message={alert.message} type={alert.status} />
+              )}
+            </Spin>
           </Form>
         </div>
       </div>
-    </Spin>
+      {openModal && <ModalCountDown isModal={openModal} />}
+    </>
   );
 };
 

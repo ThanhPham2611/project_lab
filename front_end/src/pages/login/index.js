@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Spin, Input, Checkbox, Button, notification } from "antd";
+import { Form, Spin, Input, Checkbox, Button, notification, Row } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
@@ -128,11 +128,7 @@ const Login = () => {
                 <Form.Item name="remember" valuePropName="checked" noStyle>
                   <Checkbox>{t("login.checkbox_remember")}</Checkbox>
                 </Form.Item>
-                <a
-                  href="/forget-password"
-                  target="_blank"
-                  className={styles.textLink}
-                >
+                <a href="/forget-password" className={styles.textLink}>
                   {t("login.forget_password")}
                 </a>
               </div>

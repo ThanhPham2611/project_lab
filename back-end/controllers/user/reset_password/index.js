@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const User = require("../../../model/user");
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
@@ -8,16 +10,19 @@ export const resetPassword = async (req, res) => {
       {
         email: req.body.emailVerify,
       },
-      "_id email"
+      "_id email isActive"
     );
+    if (!existEmail.isActive) {
+      return res.status(404).send({ message: "Not active" });
+    }
     if (!existEmail) {
-      return res.status(401).send({ message: "Email not exist !" });
+      return res.status(404).send({ message: "Email not exist !" });
     }
     //codeRandom
-    const passwordRandom = randomstring.generate(8);
+    const codeRandom = randomstring.generate(8);
     await User.updateOne(
       { email: existEmail.email },
-      { codeResetPass: passwordRandom }
+      { codeResetPass: codeRandom, expiredTime: moment().add(5, "minutes") }
     );
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -30,9 +35,8 @@ export const resetPassword = async (req, res) => {
     await transporter.sendMail({
       from: "adminTLU@gmail.com",
       to: `thanhpt@relipasoft.com`,
-      subject: "Password reset notification",
-      text: "Testing send email",
-      html: `Account <b>${req.body.emailVerify},</b> code reset password: <b>${passwordRandom}</b> will be change after 24h`,
+      subject: "Code reset password notification",
+      html: `Account <b>${req.body.emailVerify},</b> code reset password: <b>${codeRandom}</b> will be expired after 5 minutes`,
     });
     return res.json({
       message: "Successfully sent the password to your email",

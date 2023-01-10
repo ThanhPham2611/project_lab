@@ -39,12 +39,12 @@
   box-shadow: 10px 10px 10px #666;
   background-color: whitesmoke;
   height: 65vh;
-  width: 35vw;
+  width: 500px;
   border-radius: 20px;
 }
 
 .form_item {
-  width: 25vw;
+  width: 400px;
 }
 
 .title_form {
@@ -75,7 +75,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 20vw;
+  width: 300px;
 }
 
 .wrapperLoading {
@@ -96,6 +96,22 @@
 }
 
 //responsive
+
+@media screen and (max-width: 900px) {
+  .form_login {
+    height: 70vh;
+    width: 60%;
+  }
+
+  .form_item {
+    width: 80%;
+  }
+
+  .selectOption {
+    width: 300px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .form_login {
     height: 70vh;

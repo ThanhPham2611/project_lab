@@ -233,6 +233,20 @@
     "borrower": "Người mượn",
     "student_code": "Mã sinh viên"
   },
+  "forget_password": {
+    "alert_error_exist": "Email không tồn tại",
+    "alert_success_send_email": "Gửi thành công mã đến email của bạn",
+    "alert_error_fail_code": "Kiểm tra lại mã xác thực của bạn",
+    "alert_expired_time": "Mã xác thực hết hạn",
+    "btn_send_code": "Gửi mã",
+    "btn_reset_email": "Làm mới mật khẩu",
+    "label_email_verify": "Email xác thực",
+    "label_code_verify": "Mã xác thực",
+    "placeholder_email": "Nhập email xác thực",
+    "placeholder_code": "Nhập mã xác thực",
+    "text_link_to_login": "Chuyển đến trang đăng nhập",
+    "title_header": "Làm mới mật khẩu"
+  },
   "ults": {
     "student": "Sinh viên",
     "admin": "Quản trị viên",

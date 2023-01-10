@@ -56,11 +56,10 @@
 .btnLogin {
   border-radius: $borderRadiusBtn;
   height: $heighBtn;
-  width: 10vw;
   color: $color1stTLU;
   border: 1px solid $color1stTLU;
+  min-width: 250px;
   &:hover {
-    width: 24vw;
     background-color: $color1stTLU;
     color: whitesmoke !important;
     font-weight: bold;
@@ -135,15 +134,18 @@
 }
 
 ////------ RESPONSIVE ----------
+@media screen and (min-width: 601px) {
+}
+
 @media screen and (max-width: 600px) {
-  .btnLogin {
-    width: 230px;
-    &:focus,
-    &:active {
-      width: 230px;
-      background-color: $color1stTLU;
-    }
-  }
+  // .btnLogin {
+  //   width: 230px;
+  //   &:focus,
+  //   &:active {
+  //     width: 230px;
+  //     background-color: $color1stTLU;
+  //   }
+  // }
 
   .titleHeaderPage {
     font-size: 25px;

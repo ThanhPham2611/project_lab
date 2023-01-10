@@ -233,6 +233,20 @@
     "borrower": "Borrower",
     "student_code": "Student code"
   },
+  "forget_password": {
+    "alert_error_exist": "Email not exists",
+    "alert_success_send_email": "Successfully sent the code to your email",
+    "alert_error_fail_code": "Check the verification code again",
+    "alert_expired_time": "The code has expired",
+    "btn_send_code": "Send code",
+    "btn_reset_email": "Reset password",
+    "label_email_verify": "Email verify",
+    "label_code_verify": "Code verify",
+    "placeholder_email": "Fill your email",
+    "placeholder_code": "Fill code verify",
+    "text_link_to_login": "Go to login page",
+    "title_header": "Reset your password"
+  },
   "ults": {
     "student": "Student",
     "admin": "Admin",

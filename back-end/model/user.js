@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import moment from "moment";
 
 const userSchema = mongoose.Schema(
   {
@@ -41,8 +42,9 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    codeResetPass: {
-      type: String,
+    codeResetPass: String,
+    expiredTime: {
+      type: Date,
     },
     birthday: {
       type: String,
