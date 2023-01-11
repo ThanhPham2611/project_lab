@@ -14,21 +14,17 @@ export const getAllUser = async (req, res) => {
       return res.status(401).send({ message: "You not admin!" });
     }
     const { inputSearch, office } = req.query;
-    const condition = {};
+    const condition = { isActive: true };
     if (Number(office) === 0 || office) {
       condition.office = Number(office);
     }
-    if (inputSearch)
-      Object.assign(condition, {
-        $or: [
-          {
-            studentCode: inputSearch,
-          },
-          {
-            email: inputSearch,
-          },
-        ],
-      });
+    if (inputSearch) {
+      condition.studentCode = {
+        $regex: `.*${inputSearch.trim()}.*`,
+        $options: "i",
+      };
+    }
+
     const listUsers = await User.find(condition, "-__v");
     return res.json({
       listUsers,

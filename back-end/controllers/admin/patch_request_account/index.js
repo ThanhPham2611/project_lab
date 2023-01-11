@@ -22,6 +22,6 @@ export const patchRequestAccount = async (req, res) => {
     return res.status(200).send({ message: "Ok" });
   } catch (err) {
     console.log(err);
-    return res.status(401).send({ message: "Faild" });
+    return res.status(404).send({ message: "Faild" });
   }
 };

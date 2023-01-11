@@ -12,6 +12,7 @@ import {
   DeliveredProcedureOutlined,
   UserOutlined,
   UserAddOutlined,
+  BarsOutlined,
 } from "@ant-design/icons";
 
 const getItem = (label, key, icon, children) => {
@@ -52,6 +53,11 @@ const MenuAdmin = () => {
         <NavLink to="/list-users">{t("sidebar.user_list")}</NavLink>,
         "/list-users",
         <TeamOutlined />
+      ),
+      getItem(
+        <NavLink to="/request-users">{`Request account`}</NavLink>,
+        "/request-users",
+        <BarsOutlined />
       ),
     ]),
     getItem(t("sidebar.devices"), "devices", <DeliveredProcedureOutlined />, [
