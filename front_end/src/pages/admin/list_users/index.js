@@ -5,6 +5,7 @@ import {
   Divider,
   Form,
   Input,
+  notification,
   Popconfirm,
   Row,
   Select,
@@ -23,7 +24,7 @@ import { InfoCircleOutlined, UserSwitchOutlined } from "@ant-design/icons";
 //local
 import { allUsers, getDetailUser } from "../../../store/modules/usersSlices";
 import ButtonCancel from "../../../components/button/buttonCancel";
-import { post } from "../../../services/axios/baseAPI";
+import { patch, post } from "../../../services/axios/baseAPI";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 import { getCookie, STORAGEKEY } from "../../../services/cookies";
 import ModalViewPassword from "../../../components/modal/modalViewPassword";
@@ -90,18 +91,21 @@ const ListUsers = () => {
               title={t("list_user.pop_conf_title")}
               okText={t("list_user.pop_btn_ok")}
               cancelText={t("list_user.pop_btn_cancel")}
-              disabled={key.office === 0}
+              disabled={key.role === 0}
               onConfirm={() => confirmReset(key.email)}
             >
-              <Button
-                className={`btn primary ${key.office === 0 && "disabled"}`}
-              >
+              <Button className={`btn primary ${key.role === 0 && "disabled"}`}>
                 {t("list_user.btn_resetpass")}
               </Button>
             </Popconfirm>
             <ButtonCancel
               nameBtn={t("list_user.btn_detail")}
               onClickBtn={() => handleDetail(key.key)}
+            />
+            <ButtonCancel
+              disabled={key.role === 0}
+              nameBtn="Ban"
+              onClickBtn={() => refuseAccount(key.key)}
             />
           </Space>
         );
@@ -121,6 +125,7 @@ const ListUsers = () => {
       studentCode: item.studentCode,
       phone: `0${item.phone}`,
       office: item.office,
+      role: item.role,
       birthday: moment(item.birthday).format(formatDate),
     };
   });
@@ -173,6 +178,21 @@ const ListUsers = () => {
       })
       .catch(() => {
         return;
+      });
+  };
+
+  const refuseAccount = (id) => {
+    patch(`editRequestAccount/${id}`, { isActive: false })
+      .then(() => {
+        notification.success({ message: "Banned user successfully" });
+        dispatch(allUsers());
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          notification.error({ message: "Not found user id" });
+        } else {
+          notification.error({ message: "Error server" });
+        }
       });
   };
 
@@ -279,7 +299,7 @@ const ListUsers = () => {
       ) : (
         <Table
           rowClassName={(record) =>
-            record.office === EOffice.admin ? `${styles.rowAdmin}` : ""
+            record.role === EOffice.admin ? `${styles.rowAdmin}` : ""
           }
           columns={columns}
           dataSource={dataList}

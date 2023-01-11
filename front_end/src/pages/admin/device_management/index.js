@@ -8,54 +8,55 @@ import ButtonPrimary from "../../../components/button/buttonPrimary";
 import ButtonCancel from "../../../components/button/buttonCancel";
 import { formatDate } from "../../../utils";
 import { getlistDevice } from "../../../store/modules/deviceRegisterSlices";
-
-// scss
-import styles from "./deviceManagement.module.scss";
 import ModalQrCode from "../../../components/modal/modalQrCode";
 import ModalBorrowLog from "../../../components/modal/modalBorrowLog";
+import { useTranslation } from "react-i18next";
 
 const { Search } = Input;
 
 const DeviceManagement = () => {
+  //translation
+  const { t } = useTranslation("common");
+
   const column = [
     {
-      title: "Device name",
+      title: t("device_management.column_device_name"),
       dataIndex: "deviceName",
       key: "deviceName",
       render: (data) => <span>{data}</span>,
     },
     {
-      title: "Device code",
+      title: t("device_management.column_device_code"),
       dataIndex: "deviceCode",
       key: "deviceCode",
     },
     {
-      title: "Device type",
+      title: t("device_management.column_device_type"),
       dataIndex: "deviceType",
       key: "deviceType",
     },
     {
-      title: "Import date",
+      title: t("device_management.column_import_date"),
       dataIndex: "importDate",
       key: "importDate",
       render: (data) => <span>{moment(data).format(formatDate)}</span>,
     },
     {
-      title: "Manager",
+      title: t("device_management.column_manager"),
       dataIndex: "manager",
       key: "manager",
     },
     {
-      title: "Action",
+      title: t("device_management.column_action"),
       width: 300,
       render: (key) => (
         <Space>
           <ButtonPrimary
-            nameBtn="Borrow logs"
+            nameBtn={t("device_management.btn_action_borrow_log")}
             onClickBtn={() => handleModalLog(key.deviceCode)}
           />
           <ButtonPrimary
-            nameBtn="Qr code"
+            nameBtn={t("device_management.btn_action_qr_code")}
             onClickBtn={() => handleOpenModal(key.deviceCode)}
           />
         </Space>
@@ -94,20 +95,20 @@ const DeviceManagement = () => {
 
   return (
     <div>
-      <h1 className="titleHeaderPage">List device</h1>
+      <h1 className="titleHeaderPage">{t("device_management.title_header")}</h1>
       <Divider />
       <Form form={form} onFinish={onFinish} className="fullWidth">
         <Row gutter={[16, 16]}>
           <Col xxl={4}>
             <Form.Item name="deviceCode">
-              <Search placeholder="Fill device code" />
+              <Search placeholder={t("device_management.placeholder_search")} />
             </Form.Item>
           </Col>
 
           <Col xxl={3}>
             <Form.Item name="deviceType">
               <Select
-                placeholder="Device type"
+                placeholder={t("device_management.placeholder_device_type")}
                 options={[
                   {
                     value: "AC",
@@ -132,7 +133,7 @@ const DeviceManagement = () => {
               <Select
                 showSearch
                 className="fullWidth"
-                placeholder="manager"
+                placeholder={t("device_management.placeholder_manager")}
                 filterOption={(input, option) =>
                   (option?.label.toLowerCase() ?? "").includes(
                     input.toLowerCase()
@@ -157,10 +158,13 @@ const DeviceManagement = () => {
             <Space>
               <ButtonPrimary
                 classNameBtn="btnSearchTable"
-                nameBtn="Search"
+                nameBtn={t("device_management.btn_search")}
                 htmlType="submit"
               />
-              <ButtonCancel classNameBtn="btnSearchTable" nameBtn="Reset" />
+              <ButtonCancel
+                classNameBtn="btnSearchTable"
+                nameBtn={t("device_management.btn_reset")}
+              />
             </Space>
           </Col>
         </Row>

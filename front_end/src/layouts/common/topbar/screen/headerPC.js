@@ -108,6 +108,7 @@ const HeaderPC = () => {
               <Avatar
                 src={userData.avatarUrl}
                 icon={!userData.avatarUrl && <UserOutlined />}
+                style={{ cursor: "pointer" }}
               ></Avatar>
             </Dropdown>
           </Space>

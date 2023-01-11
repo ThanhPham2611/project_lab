@@ -247,6 +247,22 @@
     "text_link_to_login": "Go to login page",
     "title_header": "Reset your password"
   },
+  "device_management": {
+    "column_device_name": "Device name",
+    "column_device_code": "Device code",
+    "column_device_type": "Device type",
+    "column_import_date": "Import date",
+    "column_manager": "Manager",
+    "column_action": "Action",
+    "btn_action_borrow_log": "Borrowed logs",
+    "btn_action_qr_code": "Qr code",
+    "title_header": "List device",
+    "placeholder_search": "Fill device code",
+    "placeholder_device_type": "Device type",
+    "placeholder_manager": "Manager",
+    "btn_search": "Search",
+    "btn_reset": "Reset"
+  },
   "ults": {
     "student": "Student",
     "admin": "Admin",
