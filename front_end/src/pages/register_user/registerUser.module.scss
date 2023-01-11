@@ -1,10 +1,48 @@
 .wrapperBG {
-  background: url("../../assets/images/img/bg_register_user.jpg");
+  background: url("../../assets/images/img/background_sign_up.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   height: 100vh;
-  padding: 20px 0;
+}
+
+.overlay {
+  background-color: rgba(230, 234, 237, 0.2);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.signUpContent {
+  display: flex;
+  background-color: #fff;
+  // max-height: 640px;
+  min-width: 800;
+  width: 80%;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.formImg {
+  width: 50%;
+  height: auto;
+  margin-right: 20px;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+
+.formSignUp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  padding: 20px 0 20px 20px;
 }
 
 .titleHeaderPage {
@@ -13,13 +51,17 @@
   text-align: center;
 }
 
+
 .wrapperForm {
-  width: 500px;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  padding: 15px;
-  background: whitesmoke;
-  box-shadow: 20px 20px 10px #333;
+  //   max-width: 500px;
+  //   border: 1px solid;
+  //   border-radius: 10px;
+  //   padding: 15px;
+  //   background: whitesmoke;
+  //   box-shadow: 20px 20px 10px #333;
+  input {
+    line-height: 30px;
+  }
 }
 
 .wrapperRowLink {

@@ -1,7 +1,6 @@
 import {
   Col,
   DatePicker,
-  Divider,
   Form,
   notification,
   Row,
@@ -20,6 +19,8 @@ import ButtonCancel from "../../components/button/buttonCancel";
 import { listMajor } from "../../utils";
 import { listOffice } from "../../utils/role";
 import { post } from "../../services/axios/baseAPI";
+import imgSignUp from "../../assets/images/img/image_sign_up.jpg";
+
 //scss
 import styles from "./registerUser.module.scss";
 import { useTranslation } from "react-i18next";
@@ -67,219 +68,134 @@ const RegisterUser = () => {
   return (
     <Spin spinning={false}>
       <div className={styles.wrapperBG}>
-        <h1 className={styles.titleHeaderPage}>
-          {t("register_user.title_header")}
-        </h1>
-        <Divider />
-        <Row justify="center">
-          <Form
-            form={form}
-            onFinish={onFinish}
-            layout="vertical"
-            className={styles.wrapperForm}
-          >
-            <Row gutter={[16, 16]}>
-              <Col span={12}>
-                <Form.Item
-                  name="email"
-                  label={t("register_user.label_email")}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("register_user.error_text_email"),
-                    },
-                    {
-                      pattern: REG_EMAIL,
-                      message: t("register_user.error_regex_email"),
-                    },
-                  ]}
+        <div className={styles.overlay}>
+          <div className={styles.signUpContent}>
+            <div className={styles.formImg}>
+              <img src={imgSignUp} />
+            </div>
+            <div className={styles.formSignUp}>
+              <h1 className={styles.titleHeaderPage}>Sign Up</h1>
+              <Row justify="center">
+                <Form
+                  form={form}
+                  onFinish={onFinish}
+                  layout="vertical"
+                  style={{
+                    width: 1000,
+                  }}
+                  className={`${styles.wrapperForm} formSigUp`}
+                  autoComplete="off"
                 >
-                  <Input placeholder={t("register_user.placeholder_email")} />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="password"
-                  label={t("register_user.label_password")}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("register_user.error_text_password"),
-                    },
-                    {
-                      pattern: REG_PASSWORD,
-                      message: t("register_user.error_regex_password"),
-                    },
-                  ]}
-                >
-                  <Input.Password
-                    placeholder={t("register_user.placeholder_password")}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
+                  <Row gutter={[16, 16]}>
+                    <Col span={12}>
+                      <Form.Item
+                        name="email"
+                        label="Email"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Fail",
+                          },
+                          {
+                            pattern: REG_EMAIL,
+                            message: "Fail regex mail",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Fill your email " />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="password"
+                        label="Password"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Fail",
+                          },
+                          {
+                            pattern: REG_PASSWORD,
+                            message: "Fail regex password",
+                          },
+                        ]}
+                      >
+                        <Input.Password placeholder="Fill your password" />
+                      </Form.Item>
+                    </Col>
+                  </Row>
 
-            <Row justify="space-around" gutter={[16, 16]}>
-              <Col span={12}>
-                <Form.Item
-                  name="firstName"
-                  label={t("register_user.label_first_name")}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("register_user.error_text_first_name"),
-                    },
-                    {
-                      pattern: /[\S\s]+[\S]+/,
-                      message: t("register_user.error_regex_not_empty"),
-                    },
-                  ]}
-                >
-                  <Input
-                    placeholder={t("register_user.placeholder_first_name")}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="lastName"
-                  label={t("register_user.label_last_name")}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("register_user.error_text_last_name"),
-                    },
-                    {
-                      pattern: /[\S\s]+[\S]+/,
-                      message: t("register_user.error_regex_not_empty"),
-                    },
-                  ]}
-                >
-                  <Input
-                    placeholder={t("register_user.placeholder_last_name")}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
+                  <Row justify="space-around" gutter={[16, 16]}>
+                    <Col span={12}>
+                      <Form.Item name="firstName" label="Fisrt name">
+                        <Input placeholder="Fill your first name" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item name="lastName" label="Last name">
+                        <Input placeholder="Fill your last name" />
+                      </Form.Item>
+                    </Col>
+                  </Row>
 
-            <Row justify="space-around" gutter={[16, 16]}>
-              <Col span={12}>
-                <Form.Item
-                  name="studentCode"
-                  label={t("register_user.label_student_code")}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("register_user.error_text_student_code"),
-                    },
-                    {
-                      pattern: /[\S\s]+[\S]+/,
-                      message: t("register_user.error_regex_not_empty"),
-                    },
-                  ]}
-                >
-                  <Input
-                    placeholder={t("register_user.placeholder_student_code")}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="phone"
-                  label={t("register_user.label_phone")}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("register_user.error_text_phone"),
-                    },
-                    {
-                      pattern: /[\S\s]+[\S]+/,
-                      message: t("register_user.error_regex_not_empty"),
-                    },
-                  ]}
-                >
-                  <Input placeholder={t("register_user.placeholder_phone")} />
-                </Form.Item>
-              </Col>
-            </Row>
+                  <Row justify="space-around" gutter={[16, 16]}>
+                    <Col span={12}>
+                      <Form.Item name="studentCode" label="Student code">
+                        <Input placeholder="Fill your student code" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item name="phone" label="Phone">
+                        <Input placeholder="Fill your phone" />
+                      </Form.Item>
+                    </Col>
+                  </Row>
 
-            <Row justify="space-around" gutter={[16, 16]}>
-              <Col span={12}>
-                <Form.Item
-                  name="majors"
-                  label={t("register_user.label_major")}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("register_user.error_choose_major"),
-                    },
-                  ]}
-                >
-                  <Select
-                    placeholder={t("register_user.placeholder_major")}
-                    options={listMajor}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="office"
-                  label={t("register_user.label_office")}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("register_user.error_choose_office"),
-                    },
-                  ]}
-                >
-                  <Select
-                    placeholder={t("register_user.placeholder_office")}
-                    options={listOffice}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
+                  <Row justify="space-around" gutter={[16, 16]}>
+                    <Col span={12}>
+                      <Form.Item name="majors" label="Major">
+                        <Select
+                          placeholder="Choose your major"
+                          options={listMajor}
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item name="office" label="Office">
+                        <Select
+                          placeholder="Choose your office"
+                          options={listOffice}
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
 
-            <Row justify="center">
-              <Col span={14}>
-                <Form.Item
-                  name="birthday"
-                  label={t("register_user.label_birthday")}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("register_user.error_choose_birthday"),
-                    },
-                  ]}
-                >
-                  <DatePicker
-                    placeholder={t("register_user.placeholder_birthday")}
-                    className="fullWidth"
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
+                  <Row justify="center">
+                    <Form.Item name="birthday" label="Birthday">
+                      <DatePicker />
+                    </Form.Item>
+                  </Row>
 
-            <Row justify="center">
-              <Space>
-                <ButtonPrimary
-                  nameBtn={t("register_user.btn_submit")}
-                  htmlType="submmit"
-                />
-                <ButtonCancel
-                  nameBtn={t("register_user.btn_reset")}
-                  onClickBtn={resetForm}
-                />
-              </Space>
-            </Row>
+                  <Row justify="center">
+                    <Space>
+                      <ButtonPrimary nameBtn="Submit" htmlType="submmit" />
+                      <ButtonCancel
+                        nameBtn="Reset form"
+                        onClickBtn={resetForm}
+                      />
+                    </Space>
+                  </Row>
 
-            <Row justify="center" className={styles.wrapperRowLink}>
-              <a href="/login" className={styles.textLink}>
-                {t("register_user.text_link_to_login")}
-              </a>
-            </Row>
-          </Form>
-        </Row>
+                  <Row justify="center" className={styles.wrapperRowLink}>
+                    <a href="/login" className={styles.textLink}>
+                      Sign in, I already have an account
+                    </a>
+                  </Row>
+                </Form>
+              </Row>
+            </div>
+          </div>
+        </div>
       </div>
     </Spin>
   );

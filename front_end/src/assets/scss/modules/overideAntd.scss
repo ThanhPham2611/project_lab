@@ -116,6 +116,18 @@
   }
 }
 
+// select sign up
+.formSigUp {
+  .ant-select-selector {
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  .ant-picker {
+    height: 37px !important;
+  }
+}
+
 @media screen and (max-width: 525px) {
   .view_user {
     .ant-modal-content {
