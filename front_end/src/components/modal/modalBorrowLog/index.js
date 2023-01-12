@@ -40,7 +40,7 @@ const ModalBorrowLog = ({ isModal, setIsModal, deviceCode }) => {
               justify="space-between"
               className={styles.wrapperRowLog}
             >
-              <Col span={10}>{moment(item.borrowDate).format("LLL")}</Col>
+              <Col span={10}>{moment(item.createdAt).format("LLL")}</Col>
               <Col span={9} className={styles.title}>
                 {item.borrowerName}
               </Col>

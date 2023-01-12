@@ -46,7 +46,7 @@ const CheckDevice = () => {
 
       onOk() {
         patch(`editDevice/${dataValue.dataInfo._id}`, {
-          idUser: dataValue.dataInfo.idUser,
+          userId: dataValue.dataInfo.userId,
           borrowDate: moment().format(),
           status: 0,
         })
