@@ -55,7 +55,7 @@ const MenuAdmin = () => {
         <TeamOutlined />
       ),
       getItem(
-        <NavLink to="/request-users">{`Request account`}</NavLink>,
+        <NavLink to="/request-users">{t("sidebar.request_account")}</NavLink>,
         "/request-users",
         <BarsOutlined />
       ),

@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
 import { Avatar, Form, Input, message, Modal, Space, Spin, Upload } from "antd";
 import { useMutation } from "@tanstack/react-query";
@@ -164,7 +165,10 @@ const ModalEditProfile = ({
               {imgPrev ? (
                 <img src={imgPrev} alt="img_edit" className={styles.img_edit} />
               ) : (
-                <Avatar size={80} icon={<UserOutlined />} />
+                <Avatar
+                  size={screen.width <= 1110 ? 80 : 120}
+                  icon={<UserOutlined />}
+                />
               )}
             </Upload>
           </ImgCrop>

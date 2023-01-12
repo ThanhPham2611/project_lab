@@ -24,6 +24,6 @@ export const postUserRegister = async (req, res) => {
     return res.status(201).send({ message: "OK" });
   } catch (err) {
     console.log(err);
-    return res.status(401).send({ message: "Fail" });
+    return res.status(400).send({ message: "Fail" });
   }
 };

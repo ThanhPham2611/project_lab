@@ -54,7 +54,7 @@ const ModalBorrowDevice = ({ isModal, setIsModal, dataValue }) => {
     >
       <Form form={form} onFinish={onFinish} labelCol={{ span: 5 }}>
         <Form.Item
-          name="idUser"
+          name="userId"
           label="Người mượn"
           rules={[{ required: true, message: "Bạn cần chọn trường này" }]}
         >
@@ -76,14 +76,6 @@ const ModalBorrowDevice = ({ isModal, setIsModal, dataValue }) => {
               };
             })}
           />
-        </Form.Item>
-
-        <Form.Item
-          name="borrowDate"
-          label="Ngày mượn"
-          rules={[{ required: true, message: "Bạn cần chọn trường này" }]}
-        >
-          <DatePicker />
         </Form.Item>
 
         <Row justify="center">

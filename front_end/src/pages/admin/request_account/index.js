@@ -6,49 +6,58 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRequestAccount } from "../../../store/modules/requestAccount";
 import { EOffice, ERole } from "../../../utils/role";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
-import ButtonCancel from "../../../components/button/buttonCancel";
 import { patch } from "../../../services/axios/baseAPI";
+import { useTranslation } from "react-i18next";
 
 const { Search } = Input;
 
 const RequestAccount = () => {
+  //translation
+  const { t } = useTranslation("common");
+
   const column = [
     {
-      title: "Email",
+      title: t("request_account.label_email"),
       dataIndex: "email",
     },
     {
-      title: "Student code",
+      title: t("request_account.label_student_code"),
       dataIndex: "studentCode",
       render: (studentCode) => <span>{studentCode.toUpperCase()}</span>,
     },
     {
-      title: "Major",
+      title: t("request_account.label_major"),
       dataIndex: "majors",
     },
     {
-      title: "Role",
+      title: t("request_account.label_role"),
       dataIndex: "role",
-      render: (role) => <span>{role === ERole.admin ? "Admin" : "User"}</span>,
-    },
-    {
-      title: "Office",
-      dataIndex: "office",
-      render: (office) => (
+      render: (role) => (
         <span>
-          {office === EOffice.admin
-            ? "Admin"
-            : office === EOffice.student
-            ? "Student"
-            : "Teacher"}
+          {role === ERole.admin
+            ? t("request_account.role_admin")
+            : t("request_account.role_user")}
         </span>
       ),
     },
     {
-      title: "Action",
+      title: t("request_account.label_office"),
+      dataIndex: "office",
+      render: (office) => (
+        <span>
+          {office === EOffice.admin
+            ? t("request_account.office_admin")
+            : office === EOffice.student
+            ? t("request_account.office_student")
+            : t("request_account.office_teacher")}
+        </span>
+      ),
+    },
+    {
+      title: t("request_account.label_action"),
       render: (data) => (
         <ButtonPrimary
-          nameBtn="Accept"
+          nameBtn={t("request_account.btn_accept")}
           onClickBtn={() => acceptAccount(data._id)}
         />
       ),
@@ -65,7 +74,7 @@ const RequestAccount = () => {
 
   useEffect(() => {
     dispatch(getRequestAccount());
-  }, []);
+  }, [dispatch]);
 
   const onSearch = (value) => {
     dispatch(getRequestAccount({ search: value }));
@@ -74,26 +83,32 @@ const RequestAccount = () => {
   const acceptAccount = (id) => {
     patch(`editRequestAccount/${id}`, { isActive: true })
       .then(() => {
-        notification.success({ message: "accept success user" });
+        notification.success({
+          message: t("request_account.notify_success_accept"),
+        });
         dispatch(getRequestAccount());
       })
       .catch((err) => {
         if (err.response.status === 404) {
-          notification.error({ message: "Not found id user" });
+          notification.error({
+            message: t("request_account.notify_error_found_id"),
+          });
         } else {
-          notification.error({ message: "Error server" });
+          notification.error({
+            message: t("request_account.notify_error_server"),
+          });
         }
       });
   };
 
   return (
     <div>
-      <h1 className="titleHeaderPage">List request account</h1>
+      <h1 className="titleHeaderPage">{t("request_account.title_header")}</h1>
       <Divider />
       <Row className="rowContent">
         <Col xxl={4}>
           <Search
-            placeholder="Fill student code"
+            placeholder={t("request_account.placeholder_student_code")}
             onSearch={onSearch}
             allowClear
           />

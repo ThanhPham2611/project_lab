@@ -6,8 +6,11 @@ import moment from "moment";
 //local
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 import ButtonCancel from "../../../components/button/buttonCancel";
-import { formatDate } from "../../../utils";
-import { getlistDevice } from "../../../store/modules/deviceRegisterSlices";
+import { formatDateHour } from "../../../utils";
+import {
+  getlistDevice,
+  getlistDeviceType,
+} from "../../../store/modules/deviceRegisterSlices";
 import ModalQrCode from "../../../components/modal/modalQrCode";
 import ModalBorrowLog from "../../../components/modal/modalBorrowLog";
 import { useTranslation } from "react-i18next";
@@ -37,14 +40,17 @@ const DeviceManagement = () => {
     },
     {
       title: t("device_management.column_import_date"),
-      dataIndex: "importDate",
-      key: "importDate",
-      render: (data) => <span>{moment(data).format(formatDate)}</span>,
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (data) => <span>{moment(data).format(formatDateHour)}</span>,
     },
     {
       title: t("device_management.column_manager"),
       dataIndex: "manager",
       key: "manager",
+      render: (data) => (
+        <span style={{ textTransform: "capitalize" }}>{data}</span>
+      ),
     },
     {
       title: t("device_management.column_action"),
@@ -67,7 +73,9 @@ const DeviceManagement = () => {
   //redux
   const dispatch = useDispatch();
   const { listAllUser } = useSelector((state) => state.userInfo);
-  const { listDevice } = useSelector((state) => state.deviceRegister);
+  const { listDevice, listDeviceType } = useSelector(
+    (state) => state.deviceRegister
+  );
 
   // state
   const [form] = Form.useForm();
@@ -77,6 +85,7 @@ const DeviceManagement = () => {
 
   useEffect(() => {
     dispatch(getlistDevice());
+    dispatch(getlistDeviceType());
   }, []);
 
   const handleOpenModal = (value) => {
@@ -90,7 +99,11 @@ const DeviceManagement = () => {
   };
 
   const onFinish = (value) => {
-    console.log(value);
+    dispatch(getlistDevice(value));
+  };
+
+  const onCancel = () => {
+    dispatch(getlistDevice());
   };
 
   return (
@@ -109,21 +122,24 @@ const DeviceManagement = () => {
             <Form.Item name="deviceType">
               <Select
                 placeholder={t("device_management.placeholder_device_type")}
-                options={[
-                  {
-                    value: "AC",
-                    label: "Accessories",
-                  },
-                  {
-                    value: "LE",
-                    label: "Led",
-                  },
-                  {
-                    value: "BA",
-                    label: "Battery",
-                  },
-                ]}
+                showSearch
                 className="fullWidth"
+                filterOption={(input, option) =>
+                  (option?.label.toLowerCase() ?? "").includes(
+                    input.toLowerCase()
+                  )
+                }
+                filterSort={(optionA, optionB) =>
+                  (optionA?.label ?? "")
+                    .toLowerCase()
+                    .localeCompare((optionB?.label ?? "").toLowerCase())
+                }
+                options={listDeviceType.map((item) => {
+                  return {
+                    value: item.signatureDevice,
+                    label: item.nameDevice,
+                  };
+                })}
               />
             </Form.Item>
           </Col>
@@ -164,6 +180,7 @@ const DeviceManagement = () => {
               <ButtonCancel
                 classNameBtn="btnSearchTable"
                 nameBtn={t("device_management.btn_reset")}
+                onClickBtn={onCancel}
               />
             </Space>
           </Col>

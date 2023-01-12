@@ -1,5 +1,6 @@
 import Device from "../../../model/devices";
 import Users from "../../../model/user";
+import InventoryDevice from "../../../model/inventoryDevice";
 import jwt from "jsonwebtoken";
 
 export const getInfoDevice = async (req, res) => {
@@ -18,10 +19,16 @@ export const getInfoDevice = async (req, res) => {
     if (!dataInfo) {
       return res.status(404).send({ message: "Not Exists" });
     }
-    const nameUser = await Users.findOne({ _id: dataInfo.idUser }, "-__v");
+    const getDeviceType = await InventoryDevice.findOne(
+      { signatureDevice: dataInfo.deviceType },
+      "nameDevice"
+    );
+    dataInfo.deviceType = getDeviceType.nameDevice;
+
+    const nameUser = await Users.findOne({ _id: dataInfo.userId }, "-__v");
 
     return res.status(200).send({
-      data: { dataInfo, nameUser },
+      data: { dataInfo: dataInfo, nameUser },
       message: "Ok",
     });
   } catch (err) {

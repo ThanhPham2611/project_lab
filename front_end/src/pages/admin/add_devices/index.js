@@ -20,7 +20,6 @@ import { useMutation } from "@tanstack/react-query";
 //local
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 import ButtonCancel from "../../../components/button/buttonCancel";
-import { formatDate } from "../../../utils";
 import { allUsers } from "../../../store/modules/usersSlices";
 import { post } from "../../../services/axios/baseAPI";
 import ModalAddDevice from "../../../components/modal/modalAddDevice";
@@ -180,26 +179,6 @@ const AddDevice = () => {
                 />
               </Form.Item>
             </Col>
-          </Row>
-          <Row className={styles.formRow}>
-            <Col xs={24} xl={10}>
-              <Form.Item
-                name="importDate"
-                label={t("add_devices.import_date")}
-                rules={[
-                  {
-                    required: true,
-                    message: t("add_devices.error_required_import_date"),
-                  },
-                ]}
-              >
-                <DatePicker
-                  className={styles.formInput}
-                  format={formatDate}
-                  placeholder={t("add_devices.placeholder_import_date")}
-                />
-              </Form.Item>
-            </Col>
             <Col xs={24} xl={10}>
               <Form.Item
                 name="manager"
@@ -228,7 +207,7 @@ const AddDevice = () => {
                   options={listAllUser.map((item) => {
                     return {
                       value: item._id,
-                      label: `${item.firstName} ${item.lastName}`,
+                      label: `${item.firstName} ${item.lastName}-${item.studentCode}`,
                     };
                   })}
                 />

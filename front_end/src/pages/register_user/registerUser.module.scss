@@ -4,6 +4,7 @@
   background-position: center;
   background-size: cover;
   height: 100vh;
+  padding: 20px 0;
 }
 
 .titleHeaderPage {
@@ -14,19 +15,20 @@
 
 .wrapperForm {
   width: 500px;
-  border: 1px solid;
+  border: 1px solid transparent;
   border-radius: 10px;
   padding: 15px;
-  background: linear-gradient(to top, #3366cc 18%, #cc0066 100%);
+  background: whitesmoke;
   box-shadow: 20px 20px 10px #333;
 }
 
 .wrapperRowLink {
   margin-top: 15px;
   .textLink {
-    color: whitesmoke;
+    color: #060a52;
     &:hover {
-      opacity: 0.8;
+      color: #03052b;
+      opacity: 0.9;
     }
   }
 }
