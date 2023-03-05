@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 //icon
 import {
   DesktopOutlined,
-  FileOutlined,
   PieChartOutlined,
   TeamOutlined,
   DeliveredProcedureOutlined,
@@ -84,11 +83,6 @@ const MenuAdmin = () => {
         "/list-request-devices"
       ),
     ]),
-    getItem(
-      <NavLink to="/file">{t("sidebar.file")}</NavLink>,
-      "/file",
-      <FileOutlined />
-    ),
   ];
 
   return (

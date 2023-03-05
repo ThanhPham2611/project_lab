@@ -14,6 +14,7 @@ import ButtonPrimary from "../../button/buttonPrimary";
 //scss
 import styles from "./reason.module.scss";
 import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 
@@ -23,10 +24,14 @@ const socket = io(process.env.REACT_APP_SOCKET_URL, {
 });
 
 const ModalReason = ({ isModal, setIsModal, id }) => {
+  //language
+  const { t } = useTranslation("common");
+
   //redux
   const dispatch = useDispatch();
 
   const [valueReason, setValueReason] = useState();
+
   const handleCancel = () => {
     setIsModal(false);
   };
@@ -66,27 +71,28 @@ const ModalReason = ({ isModal, setIsModal, id }) => {
 
   return (
     <Modal
-      title="Modal refuse"
+      title={t("devices_request.modal_title_reason")}
       open={isModal}
       onCancel={handleCancel}
       footer={false}
     >
       <Row className={styles.rowContent}>
         <Col xxl={4}>
-          <label>Reason: </label>
+          <label>{t("devices_request.modal_label_reason")}:</label>
         </Col>
         <Col xxl={20}>
           <TextArea
             value={valueReason}
             onChange={(e) => setValueReason(e.target.value)}
             rows={4}
+            placeholder={t("devices_request.modal_placeholder_reason")}
           />
         </Col>
       </Row>
       <Row justify="center">
         <Space>
-          <ButtonPrimary nameBtn="submit" onClickBtn={handleSubmit} />
-          <ButtonCancel nameBtn="Cancel" />
+          <ButtonPrimary nameBtn="Gửi đơn" onClickBtn={handleSubmit} />
+          <ButtonCancel nameBtn="Hủy" onClickBtn={handleCancel} />
         </Space>
       </Row>
     </Modal>
