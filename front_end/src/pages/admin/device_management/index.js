@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Col, Divider, Form, Input, Row, Select, Space, Table } from "antd";
+import {
+  Col,
+  Divider,
+  Form,
+  Input,
+  Row,
+  Select,
+  Space,
+  Table,
+  Tag,
+} from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
+import { CameraOutlined } from "@ant-design/icons";
 
 //local
 import ButtonPrimary from "../../../components/button/buttonPrimary";
@@ -13,7 +25,7 @@ import {
 } from "../../../store/modules/deviceRegisterSlices";
 import ModalQrCode from "../../../components/modal/modalQrCode";
 import ModalBorrowLog from "../../../components/modal/modalBorrowLog";
-import { useTranslation } from "react-i18next";
+import { EBorrow } from "../../../utils/role";
 
 const { Search } = Input;
 
@@ -53,6 +65,18 @@ const DeviceManagement = () => {
       ),
     },
     {
+      title: t("device_management.column_status"),
+      dataIndex: "status",
+      key: "status",
+      render: (data) => (
+        <Tag color={EBorrow.borrowed === data ? "green" : "blue"}>
+          {EBorrow.borrowed === data
+            ? t("device_management.status_borrow")
+            : t("device_management.status_not_borrow")}
+        </Tag>
+      ),
+    },
+    {
       title: t("device_management.column_action"),
       width: 300,
       render: (key) => (
@@ -82,6 +106,7 @@ const DeviceManagement = () => {
   const [openModalQr, setOpenModalQr] = useState(false);
   const [valueQr, setValueQr] = useState("");
   const [openModalLog, setOpenModalLog] = useState(false);
+  const [onCamera, setOnCamera] = useState(false);
 
   useEffect(() => {
     dispatch(getlistDevice());
@@ -104,6 +129,11 @@ const DeviceManagement = () => {
 
   const onCancel = () => {
     dispatch(getlistDevice());
+    form.resetFields();
+  };
+
+  const handleCamera = () => {
+    setOnCamera(true)
   };
 
   return (
@@ -114,7 +144,15 @@ const DeviceManagement = () => {
         <Row gutter={[16, 16]}>
           <Col xxl={4}>
             <Form.Item name="deviceCode">
-              <Search placeholder={t("device_management.placeholder_search")} />
+              <Search
+                placeholder={t("device_management.placeholder_search")}
+                suffix={
+                  <CameraOutlined
+                    style={{ fontSize: 18 }}
+                    onClick={handleCamera}
+                  />
+                }
+              />
             </Form.Item>
           </Col>
 

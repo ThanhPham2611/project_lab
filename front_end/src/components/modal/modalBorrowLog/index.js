@@ -31,7 +31,12 @@ const ModalBorrowLog = ({ isModal, setIsModal, deviceCode }) => {
   };
 
   return (
-    <Modal title="Borrow logs" open={isModal} onCancel={onClose} footer={false}>
+    <Modal
+      title="Lịch sử mượn"
+      open={isModal}
+      onCancel={onClose}
+      footer={false}
+    >
       {dataLog.length > 0 ? (
         <div>
           {dataLog.map((item) => (
@@ -49,9 +54,9 @@ const ModalBorrowLog = ({ isModal, setIsModal, deviceCode }) => {
               </Col>
               <Col span={2}>
                 {item.status === borrowStatus.borrowed ? (
-                  <ArrowRightOutlined />
+                  <ArrowRightOutlined style={{ color: "green" }} />
                 ) : (
-                  <ArrowLeftOutlined />
+                  <ArrowLeftOutlined style={{ color: "blue" }} />
                 )}
               </Col>
             </Row>

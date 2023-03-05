@@ -254,6 +254,7 @@
     "column_device_type": "Loại thiết bị",
     "column_import_date": "Ngày nhập",
     "column_manager": "Người quản lý",
+    "column_status": "Trạng thái",
     "column_action": "Thực thi",
     "btn_action_borrow_log": "Lịch sử mượn",
     "btn_action_qr_code": "Mã QR",
@@ -262,7 +263,9 @@
     "placeholder_device_type": "Loại thiết bị",
     "placeholder_manager": "Người quản lý",
     "btn_search": "Tìm kiếm",
-    "btn_reset": "Làm mới"
+    "btn_reset": "Làm mới",
+    "status_borrow": "Đã được mượn",
+    "status_not_borrow": "Chưa được mượn"
   },
   "register_user": {
     "title_header": "Đăng ký người dùng",

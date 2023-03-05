@@ -11,17 +11,14 @@ export const updateInfo = async (req, res) => {
 
   try {
     const { _id } = jwt.decode(token, { complete: true }).payload;
-    const { avatarUrl, facebook, tiktok, instagram } = req.body;
-    const update = await User.findByIdAndUpdate(
+    const { phone } = req.body;
+    await User.findByIdAndUpdate(
       { _id },
       {
-        avatarUrl,
-        facebook,
-        tiktok,
-        instagram,
+        phone,
       }
     );
-    return res.json({
+    return res.status(200).json({
       message: "Change info success",
     });
   } catch (err) {

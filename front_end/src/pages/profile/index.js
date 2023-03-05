@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import { Avatar, Descriptions, Image, Row, Spin } from "antd";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 //local
 import ButtonPrimary from "../../components/button/buttonPrimary";
 import ModalEditProfile from "../../components/modal/modalEditProfile";
+import { formatDate } from "../../utils";
 
 //icon
 import { UserOutlined } from "@ant-design/icons";
@@ -76,7 +78,7 @@ const Profile = () => {
                 0{userData.phone}
               </Descriptions.Item>
               <Descriptions.Item label={t("my_profile.class")}>
-                TC31
+                {userData.majors}
               </Descriptions.Item>
               <Descriptions.Item label={t("my_profile.role")}>
                 {role}
@@ -84,20 +86,14 @@ const Profile = () => {
               <Descriptions.Item label={t("my_profile.office")}>
                 {office}
               </Descriptions.Item>
-            </Descriptions>
-
-            <Descriptions
-              title={t("my_profile.info_social")}
-              className={styles.description}
-            >
-              <Descriptions.Item label={t("my_profile.facebook")}>
-                {userData.facebook || "Empty"}
+              <Descriptions.Item label="Ngày sinh">
+                {moment(userData.birthday).format(formatDate)}
               </Descriptions.Item>
-              <Descriptions.Item label={t("my_profile.tiktok")}>
-                {userData.tiktok || "Empty"}
+              <Descriptions.Item label="Ngày tạo tài khoản">
+                {moment(userData.createdAt).format(formatDate)}
               </Descriptions.Item>
-              <Descriptions.Item label={t("my_profile.instagram")}>
-                {userData.instagram || "Empty"}
+              <Descriptions.Item label="Ngày cập nhật">
+                {moment(userData.updatedAt).format(formatDate)}
               </Descriptions.Item>
             </Descriptions>
           </Row>

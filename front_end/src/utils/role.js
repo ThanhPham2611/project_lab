@@ -9,6 +9,11 @@ export const EOffice = {
   teacher: 2,
 };
 
+export const EBorrow = {
+  notBorrow: 0,
+  borrowed: 1,
+};
+
 export const listOffice = [
   {
     value: EOffice.admin,
