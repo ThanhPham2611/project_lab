@@ -140,7 +140,10 @@
     "name_status_approved": "Approved",
     "name_status_not_approve": "Not approve",
     "name_status_refused": "Refused",
-    "err_noti_reason_field": "You need to fill in the reason field"
+    "err_noti_reason_field": "You need to fill in the reason field",
+    "modal_title_reason": "Reason for refusal",
+    "modal_label_reason": "Reason",
+    "modal_placeholder_reason": "Enter the reason for the refusal"
   },
   "devices_request_user": {
     "placeholder_date": "Select search",

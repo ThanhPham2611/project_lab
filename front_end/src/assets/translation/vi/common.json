@@ -140,7 +140,10 @@
     "name_status_approved": "Đã được duyệt",
     "name_status_not_approve": "Chưa được duyệt",
     "name_status_refused": "Đã từ chối",
-    "err_noti_reason_field": "Bạn cần điền trường lý do"
+    "err_noti_reason_field": "Bạn cần điền trường lý do",
+    "modal_title_reason": "Lý do từ chối",
+    "modal_label_reason": "Lý do",
+    "modal_placeholder_reason": "Nhập lý do từ chối"
   },
   "devices_request_user": {
     "placeholder_date": "Chọn ngày",

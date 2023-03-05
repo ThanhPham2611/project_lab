@@ -26,6 +26,7 @@ import {
 import ModalQrCode from "../../../components/modal/modalQrCode";
 import ModalBorrowLog from "../../../components/modal/modalBorrowLog";
 import { EBorrow } from "../../../utils/role";
+import ModalCamera from "../../../components/modal/modalCamera";
 
 const { Search } = Input;
 
@@ -79,6 +80,7 @@ const DeviceManagement = () => {
     {
       title: t("device_management.column_action"),
       width: 300,
+      key: "action",
       render: (key) => (
         <Space>
           <ButtonPrimary
@@ -133,7 +135,7 @@ const DeviceManagement = () => {
   };
 
   const handleCamera = () => {
-    setOnCamera(true)
+    setOnCamera(true);
   };
 
   return (
@@ -236,6 +238,7 @@ const DeviceManagement = () => {
         setIsModal={setOpenModalLog}
         deviceCode={valueQr}
       />
+      <ModalCamera visiable={onCamera} setVisiable={setOnCamera} />
     </div>
   );
 };
