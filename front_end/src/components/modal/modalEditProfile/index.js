@@ -43,9 +43,7 @@ const ModalEditProfile = ({
   useEffect(() => {
     if (userData) {
       form.setFieldsValue({
-        facebook: userData.facebook,
-        tiktok: userData.tiktok,
-        instagram: userData.instagram,
+        phone: `0${userData.phone}`,
       });
     }
   }, [userData]);
@@ -175,16 +173,12 @@ const ModalEditProfile = ({
         </div>
 
         <Form onFinish={onFinish} form={form} layout="vertical">
-          <Form.Item label="Facebook" name="facebook">
-            <Input className={styles.form_input} placeholder="Link facebook" />
+          <Form.Item label="Số điện thoại" name="phone">
+            <Input
+              className={styles.form_input}
+              placeholder="Nhập số điện thoại"
+            />
           </Form.Item>
-          <Form.Item label="Tiktok" name="tiktok">
-            <Input className={styles.form_input} placeholder="Link tiktok" />
-          </Form.Item>
-          <Form.Item label="Instagram" name="instagram">
-            <Input className={styles.form_input} placeholder="Link instagram" />
-          </Form.Item>
-
           <Form.Item>
             <Space className={styles.btnGroup}>
               <ButtonPrimary
