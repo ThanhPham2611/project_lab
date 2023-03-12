@@ -33,7 +33,10 @@ const DeviceRegister = () => {
   const history = useHistory();
 
   const onFinish = (value) => {
-    deviceRegister(value);
+    deviceRegister({
+      ...value,
+      studentCode: value.studentCode.toLowerCase()
+    });
   };
 
   const postDeviceRegister = (data) => post(`deviceRegister`, data);

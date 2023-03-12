@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
   DatePicker,
   Form,
+  Modal,
+  notification,
   Row,
   Select,
   Space,
@@ -25,11 +27,16 @@ import { deviceRegister } from "../../../store/modules/deviceRegisterSlices";
 
 //scss
 import styles from "./list_device.module.scss";
+import { del } from "../../../services/axios/baseAPI";
+import { ExclamationCircleFilled } from "@ant-design/icons";
+import ModalExtend from "../../../components/modal/modalExtend";
 
 // socket
 const socket = io(process.env.REACT_APP_SOCKET_URL, {
   transports: ["websocket"],
 });
+
+const { confirm } = Modal;
 
 const ListDeviceRegister = () => {
   //translation
@@ -74,9 +81,9 @@ const ListDeviceRegister = () => {
           }
         >
           {data === EStatusRegister.notApprove
-            ? t("devices_request_user.name_status_approved")
-            : data === EStatusRegister.approve
             ? t("devices_request_user.name_status_not_approve")
+            : data === EStatusRegister.approve
+            ? t("devices_request_user.name_status_approved")
             : t("devices_request_user.name_status_refused")}
         </Tag>
       ),
@@ -84,13 +91,25 @@ const ListDeviceRegister = () => {
     {
       title: t("devices_request_user.column_action"),
       render: (key) => (
-        <ButtonPrimary
-          classNameBtn={`${
-            moment(key.borrowDate).format() <= moment().format() && "disabled"
-          }`}
-          nameBtn={t("devices_request_user.btn_edit")}
-        />
+        <Space>
+          <ButtonPrimary
+            classNameBtn={`${
+              moment(key.returnDate).format() > moment().format() && "disabled"
+            }`}
+            nameBtn="Gia hạn"
+            onClickBtn={() => showExtendConfirm(key._id)}
+          />
+          <ButtonPrimary
+            classNameBtn={`${
+              moment(key.returnDate).format() <= moment().format() && "disabled"
+            }`}
+            nameBtn="Xóa đơn"
+            styleBtn={{ backgroundColor: "red" }}
+            onClickBtn={() => showDeleteConfirm(key._id)}
+          />
+        </Space>
       ),
+      width: 200,
     },
   ];
 
@@ -99,6 +118,8 @@ const ListDeviceRegister = () => {
   const { listDeviceRegister, loading } = useSelector(
     (state) => state.deviceRegister
   );
+  const [modalVisialbe, setModalVisiable] = useState(false);
+  const [id, setId] = useState("");
 
   useEffect(() => {
     dispatch(deviceRegister());
@@ -117,6 +138,27 @@ const ListDeviceRegister = () => {
   const handleReset = () => {
     form.resetFields();
     dispatch(deviceRegister());
+  };
+
+  const showDeleteConfirm = (id) => {
+    confirm({
+      title: "Bạn có muốn xóa đơn này không ?",
+      icon: <ExclamationCircleFilled />,
+      onOk() {
+        del(`deleteRegister/${id}`)
+          .then((result) => {
+            dispatch(deviceRegister());
+            notification.success({ message: "Xóa thành công" });
+          })
+          .catch((err) => notification.error({ message: "Đơn không tồn tại" }));
+      },
+      onCancel() {},
+    });
+  };
+
+  const showExtendConfirm = (id) => {
+    setId(id);
+    setModalVisiable(true);
   };
 
   return (
@@ -162,6 +204,11 @@ const ListDeviceRegister = () => {
         columns={column}
         loading={loading}
         dataSource={listDeviceRegister}
+      />
+      <ModalExtend
+        visiable={modalVisialbe}
+        setVisiale={setModalVisiable}
+        id={id}
       />
     </div>
   );

@@ -12,8 +12,7 @@ import iconVietNam from "../../../../assets/images/icon/vietnam.png";
 import iconEngland from "../../../../assets/images/icon/united-kingdom.png";
 import {
   UserOutlined,
-  GlobalOutlined,
-  KeyOutlined,
+  LockOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
 
@@ -21,12 +20,6 @@ import {
 import styles from "../topbar.module.scss";
 import ModalLanguage from "../../../../components/modal/modalLanguage";
 import ModalChangePassword from "../../../../components/modal/modalChangePass";
-import { io } from "socket.io-client";
-
-// socket
-const socket = io(process.env.REACT_APP_SOCKET_URL, {
-  transports: ["websocket"],
-});
 
 const HeaderPC = () => {
   //redux
@@ -39,10 +32,6 @@ const HeaderPC = () => {
   //state
   const [modalLanguage, setModalLanguage] = useState(false);
   const [modalChangePass, setModalChangePass] = useState(false);
-
-  const handleModalLg = () => {
-    setModalLanguage(true);
-  };
 
   const handleModalChangePass = () => {
     setModalChangePass(true);
@@ -60,18 +49,13 @@ const HeaderPC = () => {
     <Menu
       items={[
         {
-          label: <span onClick={handleModalLg}>{t("topbar.language")}</span>,
-          key: 0,
-          icon: <GlobalOutlined />,
-        },
-        {
           label: (
             <span onClick={handleModalChangePass}>
               {t("topbar.change_password")}
             </span>
           ),
           key: 1,
-          icon: <KeyOutlined />,
+          icon: <LockOutlined />,
         },
         {
           label: <span onClick={handleLogout}>{t("topbar.logout")}</span>,
