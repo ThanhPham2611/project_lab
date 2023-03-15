@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Alert, Button, Form, Input, Modal, Result, Spin } from "antd";
+import React, { useState } from "react";
+import { Alert, Button, Form, Input, Spin } from "antd";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";

@@ -2,6 +2,8 @@ import React from "react";
 import { Form, Spin, Input, Checkbox, Button, notification, Row } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import isOnline from "is-online";
+import { io } from "socket.io-client";
 
 //local
 import { post } from "../../services/axios/baseAPI";
@@ -9,12 +11,11 @@ import { setCookie, STORAGEKEY } from "../../services/cookies";
 import { REG_EMAIL } from "../../utils/regex";
 
 //icon
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, UserOutlined, WifiOutlined } from "@ant-design/icons";
 import iconLogo from "../../assets/images/img/logoVertical.png";
 
 //scss
 import styles from "./login.module.scss";
-import { io } from "socket.io-client";
 
 // socket
 const socket = io(process.env.REACT_APP_SOCKET_URL, {
@@ -25,8 +26,17 @@ const Login = () => {
   //translation
   const { t } = useTranslation("common");
 
-  const onFinish = (value) => {
-    loginUser(value);
+  const [api, contextHolder] = notification.useNotification();
+
+  const onFinish = async (value) => {
+    if (await isOnline()) {
+      loginUser(value);
+    } else {
+      api.open({
+        message: "Mất kết nối mạng",
+        icon: <WifiOutlined style={{ color: "#ff0000" }} />,
+      });
+    }
   };
 
   const postUser = (data) => post(`login`, data);
@@ -63,6 +73,7 @@ const Login = () => {
 
   return (
     <div style={{ position: "relative" }}>
+      {contextHolder}
       <div className={styles.wrapperLogin}>
         <div className={styles.bg_img_login}></div>
         <Spin

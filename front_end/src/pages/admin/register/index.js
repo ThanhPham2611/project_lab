@@ -23,12 +23,12 @@ import { useTranslation } from "react-i18next";
 import { post } from "../../../services/axios/baseAPI";
 import { REG_EMAIL } from "../../../utils/regex";
 import { getAccountUser } from "../../../store/modules/usersSlices";
-
-//scss
-import styles from "./register.module.scss";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 import { EOffice, ERole } from "../../../utils/role";
 import { listMajor } from "../../../utils";
+
+//scss
+import styles from "./register.module.scss";
 
 const Register = () => {
   //redux
@@ -83,7 +83,7 @@ const Register = () => {
 
   return (
     <Spin tip={t("user_regsiter.creating_user")} spinning={isCreatingUser}>
-      <h1 className={styles.titlePage}>{t("user_regsiter.title_register")}</h1>
+      <h1 className={styles.titlePage}>Tạo người dùng</h1>
       <Divider />
       <Form
         form={form}
@@ -97,20 +97,6 @@ const Register = () => {
         <Row gutter={[16, 16]} justify="space-between">
           <Col xxl={10}>
             <Form.Item
-              label={t("user_regsiter.last_name")}
-              name="lastName"
-              rules={[
-                {
-                  required: true,
-                  message: t("user_regsiter.error_input_lastName"),
-                },
-              ]}
-            >
-              <Input className={styles.inputRegister} />
-            </Form.Item>
-          </Col>
-          <Col xxl={10}>
-            <Form.Item
               label={t("user_regsiter.first_name")}
               name="firstName"
               rules={[
@@ -120,7 +106,27 @@ const Register = () => {
                 },
               ]}
             >
-              <Input className={styles.inputRegister} />
+              <Input
+                className={styles.inputRegister}
+                placeholder="Điền họ của người dùng"
+              />
+            </Form.Item>
+          </Col>
+          <Col xxl={10}>
+            <Form.Item
+              label={t("user_regsiter.last_name")}
+              name="lastName"
+              rules={[
+                {
+                  required: true,
+                  message: t("user_regsiter.error_input_lastName"),
+                },
+              ]}
+            >
+              <Input
+                className={styles.inputRegister}
+                placeholder="Điền tên của người dùng"
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -141,7 +147,10 @@ const Register = () => {
                 },
               ]}
             >
-              <Input className={styles.inputRegister} />
+              <Input
+                className={styles.inputRegister}
+                placeholder="Điền email của người dùng"
+              />
             </Form.Item>
           </Col>
 
@@ -156,7 +165,10 @@ const Register = () => {
                 },
               ]}
             >
-              <Input className={styles.inputRegister} />
+              <Input
+                className={styles.inputRegister}
+                placeholder="Điền mã sinh viên của người dùng"
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -173,7 +185,10 @@ const Register = () => {
                 },
               ]}
             >
-              <Input className={styles.inputRegister} />
+              <Input
+                className={styles.inputRegister}
+                placeholder="Điền số điện thoại của người dùng"
+              />
             </Form.Item>
           </Col>
 
@@ -195,6 +210,7 @@ const Register = () => {
                 disabledDate={(current) => {
                   return moment().subtract("18", "years") < current;
                 }}
+                placeholder="Chọn ngày sinh của người dùng"
               />
             </Form.Item>
           </Col>
@@ -250,10 +266,7 @@ const Register = () => {
               <Select
                 className="selectRegister"
                 onChange={handleRole}
-                options={[
-                  { value: ERole.user, label: t("ults.user") },
-                  { value: ERole.admin, label: t("ults.admin") },
-                ]}
+                options={[{ value: ERole.user, label: t("ults.user") }]}
               />
             </Form.Item>
           </Col>
