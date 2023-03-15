@@ -13,12 +13,10 @@ const RegisterSuccess = () => {
   return (
     <Result
       status="success"
-      title="You have successfully registered an account"
-      subTitle={`Email: ${accountUser.email} Password: ${accountUser.password}, password needs to be changed when created`}
+      title="Bạn tạo thành công tài khoản người dùng"
+      subTitle={`Email: ${accountUser.email} Mật khẩu: ${accountUser.password}`}
       extra={[
-        <Button onClick={() => history.push("/register-users")}>
-          Finished
-        </Button>,
+        <Button onClick={() => history.push("/register-users")}>Trở về</Button>,
       ]}
     />
   );

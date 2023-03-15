@@ -1,9 +1,11 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
-import { Layout, Spin } from "antd";
+import { Layout, notification, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import i18n from "i18next";
 import { useLocation } from "react-router-dom";
+import isOnline from "is-online";
+import { WifiOutlined } from "@ant-design/icons";
 
 //local
 import { getCookie, STORAGEKEY } from "../services/cookies";
@@ -38,6 +40,7 @@ const App = (props) => {
   //state
   const [collapsed, setCollapsed] = useState(false);
   const [displayMenu, setDisplayMenu] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
 
   //cookies
   const cookies = getCookie(STORAGEKEY.ACCESS_TOKEN);
@@ -59,8 +62,20 @@ const App = (props) => {
     }
   }, [cookies, pathname]);
 
+  useEffect(() => {
+    (async () => {
+      if ((await isOnline()) === false) {
+        api.open({
+          message: "Mất kết nối mạng",
+          icon: <WifiOutlined style={{ color: "#ff0000" }} />,
+        });
+      }
+    })();
+  }, [pathname]);
+
   return screen.width <= 1110 ? (
     <Spin spinning={loading} tip={t("ults.spin_loading")}>
+      {contextHolder}
       <Layout className="site_layout">
         {displayMenu && (
           <Header className="header">
@@ -74,6 +89,7 @@ const App = (props) => {
     </Spin>
   ) : (
     <Spin spinning={loading} tip={t("ults.spin_loading")}>
+      {contextHolder}
       <Layout
         style={{
           minHeight: "100vh",

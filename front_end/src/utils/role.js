@@ -1,6 +1,7 @@
 export const ERole = {
   admin: 0,
   user: 1,
+  root: 2,
 };
 
 export const EOffice = {

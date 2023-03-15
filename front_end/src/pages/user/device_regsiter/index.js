@@ -13,13 +13,13 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
 import { io } from "socket.io-client";
+import moment from "moment";
 
 //local
 import { listDevices, listMajor } from "../../../utils";
 import ButtonPrimary from "../../../components/button/buttonPrimary";
 import ButtonCancel from "../../../components/button/buttonCancel";
 import { post } from "../../../services/axios/baseAPI";
-import moment from "moment";
 
 // socket
 const socket = io(process.env.REACT_APP_SOCKET_URL, {
@@ -35,7 +35,7 @@ const DeviceRegister = () => {
   const onFinish = (value) => {
     deviceRegister({
       ...value,
-      studentCode: value.studentCode.toLowerCase()
+      studentCode: value.studentCode.toLowerCase(),
     });
   };
 
@@ -52,7 +52,7 @@ const DeviceRegister = () => {
       onError: (error) => {
         if (error.response.status === 400) {
           notification.error({
-            message: `User not exist `,
+            message: `Người dùng không tồn tại`,
           });
         }
       },
@@ -60,31 +60,31 @@ const DeviceRegister = () => {
   );
 
   return (
-    <Spin tip="Loading ....." spinning={isPostingInfo}>
+    <Spin tip="Đang tải....." spinning={isPostingInfo}>
       <Form form={form} onFinish={onFinish} layout="vertical">
         <Row justify="space-between">
           <Col xs={24} xxl={10}>
             <Form.Item
               name="firstName"
-              label="First name"
-              rules={[{ required: true, message: "You need fill require" }]}
+              label="Họ"
+              rules={[{ required: true, message: "Trường này cần điền" }]}
             >
-              <Input placeholder="Fill first name" />
+              <Input placeholder="Điền họ của bạn" />
             </Form.Item>
           </Col>
 
           <Col xs={24} xxl={10}>
             <Form.Item
               name="lastName"
-              label="Last name"
+              label="Và Tên"
               rules={[
                 {
                   required: true,
-                  message: "You need fill required",
+                  message: "Trường này cần điền",
                 },
               ]}
             >
-              <Input placeholder="Fill last name" />
+              <Input placeholder="Điền tên của bạn" />
             </Form.Item>
           </Col>
         </Row>
@@ -93,32 +93,32 @@ const DeviceRegister = () => {
           <Col xs={24} xxl={10}>
             <Form.Item
               name="majors"
-              label="Major"
+              label="Ngành"
               rules={[
                 {
                   required: true,
-                  message: "You need fill required",
+                  message: "Bạn cần điền trường này",
                 },
               ]}
             >
-              <Select placeholder="Majors" options={listMajor} />
+              <Select placeholder="Ngành học" options={listMajor} />
             </Form.Item>
           </Col>
 
           <Col xs={24} xxl={10}>
             <Form.Item
               name="devices"
-              label="Devices"
+              label="Thiết bị"
               rules={[
                 {
                   required: true,
-                  message: "You need fill required",
+                  message: "Bạn cần điền trường này",
                 },
               ]}
             >
               <Select
                 mode="multiple"
-                placeholder="Chosse devices"
+                placeholder="Chọn thiết bị"
                 options={listDevices.map((item) => {
                   return {
                     value: item.code,
@@ -134,11 +134,11 @@ const DeviceRegister = () => {
           <Col xs={24} xxl={10}>
             <Form.Item
               name="borrowDate"
-              label="Borrow date"
+              label="Ngày mượn"
               rules={[
                 {
                   required: true,
-                  message: "You need fill required",
+                  message: "Bạn cần điền trường này",
                 },
               ]}
             >
@@ -154,11 +154,11 @@ const DeviceRegister = () => {
           <Col xs={24} xxl={10}>
             <Form.Item
               name="returnDate"
-              label="Return date"
+              label="Ngày trả"
               rules={[
                 {
                   required: true,
-                  message: "You need fill required",
+                  message: "Bạn cần điền trường này",
                 },
               ]}
             >
@@ -176,39 +176,39 @@ const DeviceRegister = () => {
           <Col xs={24} xxl={10}>
             <Form.Item
               name="studentCode"
-              label="Student code"
+              label="Mã sinh viên"
               rules={[
                 {
                   required: true,
-                  message: "You need fill required",
+                  message: "Bạn cần điền trường này",
                 },
               ]}
             >
-              <Input placeholder="You fill student code" />
+              <Input placeholder="Điền mã sinh viên của bạn" />
             </Form.Item>
           </Col>
 
           <Col xs={24} xxl={10}>
             <Form.Item
               name="purpose"
-              label="Purpose"
+              label="Lý do"
               rules={[
                 {
                   required: true,
-                  message: "You need fill required",
+                  message: "Bạn cần điền trường này",
                 },
               ]}
             >
-              <TextArea rows={4} placeholder="You fill purpose " />
+              <TextArea rows={4} placeholder="Điền lý do" />
             </Form.Item>
           </Col>
         </Row>
 
         <Row justify="center">
           <Space>
-            <ButtonPrimary nameBtn="Submit" htmlType="submit" />
+            <ButtonPrimary nameBtn="Tạo người dùng" htmlType="submit" />
             <ButtonCancel
-              nameBtn="Reset form"
+              nameBtn="Nhập lại"
               onClickBtn={() => form.resetFields()}
             />
           </Space>
