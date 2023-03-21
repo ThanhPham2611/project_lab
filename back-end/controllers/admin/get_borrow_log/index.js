@@ -12,7 +12,7 @@ export const getBorrowLog = async (req, res) => {
     //check admin
     const { role } = jwt.decode(token, { complete: true }).payload;
     if (role !== 0) res.status(401).send({ message: `You're not admin` });
-    const { deviceCode, size = 5, pagination = 0 } = req.query;
+    const { deviceCode, size = 10, pagination = 0 } = req.query;
     const data = await BorrowLog.find({ deviceCode }, "-__v")
       .limit(size)
       .skip(pagination * size);

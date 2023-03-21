@@ -13,7 +13,9 @@ export const getDevice = async (req, res) => {
   try {
     //check admin
     const { role } = jwt.decode(token, { complete: true }).payload;
-    if (role !== 0) res.status(401).send({ message: `You're not admin` });
+    if (role !== 0) {
+      return res.status(401).send({ message: `You're not admin` });
+    }
 
     const condition = {};
     const { deviceCode, deviceType, manager } = req.query;

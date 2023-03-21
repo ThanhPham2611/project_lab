@@ -12,6 +12,7 @@ import {
   UserOutlined,
   UserAddOutlined,
   BarsOutlined,
+  BugOutlined,
 } from "@ant-design/icons";
 
 const getItem = (label, key, icon, children) => {
@@ -27,6 +28,7 @@ const MenuAdmin = () => {
   // translation
   const { t } = useTranslation("common");
 
+  //state
   const { pathname } = useLocation();
 
   const subPathname = pathname.substring(pathname.indexOf("-") + 1);
@@ -88,6 +90,7 @@ const MenuAdmin = () => {
   return (
     <>
       <Menu
+        selectedKeys={[pathname]}
         defaultSelectedKeys={[pathname]}
         defaultOpenKeys={[subPathname]}
         mode="inline"

@@ -27,6 +27,7 @@ import ModalQrCode from "../../../components/modal/modalQrCode";
 import ModalBorrowLog from "../../../components/modal/modalBorrowLog";
 import { EBorrow } from "../../../utils/role";
 import ModalCamera from "../../../components/modal/modalCamera";
+import ModalInfoDevice from "../../../components/modal/modalInfoDevice";
 
 const { Search } = Input;
 
@@ -109,6 +110,8 @@ const DeviceManagement = () => {
   const [valueQr, setValueQr] = useState("");
   const [openModalLog, setOpenModalLog] = useState(false);
   const [onCamera, setOnCamera] = useState(false);
+  const [modalInfo, setModalInfo] = useState(false)
+  const [valueDevice, setValueDevice] = useState('')
 
   useEffect(() => {
     dispatch(getlistDevice());
@@ -227,7 +230,18 @@ const DeviceManagement = () => {
         </Row>
       </Form>
 
-      <Table columns={column} dataSource={listDevice} />
+      <Table
+        columns={column}
+        dataSource={listDevice}
+        onRow={(record) => {
+          return {
+            onDoubleClick: () => {
+              setModalInfo(true)
+              setValueDevice(record.deviceCode)
+            }
+          }
+        }}
+      />
       <ModalQrCode
         valueCode={valueQr}
         setIsModal={setOpenModalQr}
@@ -238,6 +252,7 @@ const DeviceManagement = () => {
         setIsModal={setOpenModalLog}
         deviceCode={valueQr}
       />
+      <ModalInfoDevice visiable={modalInfo} deviceCode={valueDevice} setVisiable={setModalInfo} />
       <ModalCamera visiable={onCamera} setVisiable={setOnCamera} />
     </div>
   );

@@ -54,8 +54,8 @@ const MenuUser = () => {
       ),
     ]),
     getItem(
-      <NavLink to="/file">{t("sidebar.file")}</NavLink>,
-      "/file",
+      <NavLink to="/bug">{t("sidebar.bug")}</NavLink>,
+      "/bug",
       <FileOutlined />
     ),
   ];

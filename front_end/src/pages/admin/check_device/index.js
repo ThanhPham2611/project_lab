@@ -113,7 +113,6 @@ const CheckDevice = () => {
               onClick={() => setOnCamera(false)}
             />
             <QrReader
-              facingMode="front"
               onScan={(data) => {
                 if (data) {
                   setTextValue(data.text);
@@ -122,6 +121,13 @@ const CheckDevice = () => {
                   return;
                 }
               }}
+              onError={() => {
+                notification.error({
+                  message: "Error device or not device support camera",
+                });
+                setOnCamera(false);
+              }}
+              facingMode="front"
             />
           </Row>
 
@@ -135,7 +141,7 @@ const CheckDevice = () => {
               onClick={() => setOnCamera(false)}
             />
             <QrReader
-              facingMode="rear"
+              constraints={{ facingMode: "environment" }}
               onScan={(data) => {
                 if (data) {
                   setTextValue(data.text);
@@ -178,9 +184,9 @@ const CheckDevice = () => {
                 <span>
                   {dataValue.dataInfo.deviceLocation
                     ? detailLocationDevice(
-                        dataValue.dataInfo.deviceLocation[0],
-                        dataValue.dataInfo.deviceLocation[1]
-                      )
+                      dataValue.dataInfo.deviceLocation[0],
+                      dataValue.dataInfo.deviceLocation[1]
+                    )
                     : ""}
                 </span>
               </Col>

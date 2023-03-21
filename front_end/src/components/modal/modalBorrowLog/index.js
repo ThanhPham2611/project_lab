@@ -24,7 +24,7 @@ const ModalBorrowLog = ({ isModal, setIsModal, deviceCode }) => {
         setDataLog(logs.data);
       }
     })();
-  }, [deviceCode]);
+  }, [isModal]);
 
   const onClose = () => {
     setIsModal(false);
@@ -54,9 +54,9 @@ const ModalBorrowLog = ({ isModal, setIsModal, deviceCode }) => {
               </Col>
               <Col span={2}>
                 {item.status === borrowStatus.borrowed ? (
-                  <ArrowRightOutlined style={{ color: "green" }} />
+                  <ArrowRightOutlined style={{ color: "#ff0000" }} />
                 ) : (
-                  <ArrowLeftOutlined style={{ color: "blue" }} />
+                  <ArrowLeftOutlined style={{ color: "#3399ff" }} />
                 )}
               </Col>
             </Row>
