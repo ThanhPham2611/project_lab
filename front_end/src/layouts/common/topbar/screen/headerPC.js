@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 
 //local
 import { removeCookie, STORAGEKEY } from "../../../../services/cookies";
+import ModalLanguage from "../../../../components/modal/modalLanguage";
+import ModalChangePassword from "../../../../components/modal/modalChangePass";
 
 //icon
 import iconVietNam from "../../../../assets/images/icon/vietnam.png";
@@ -18,8 +20,12 @@ import {
 
 //scss
 import styles from "../topbar.module.scss";
-import ModalLanguage from "../../../../components/modal/modalLanguage";
-import ModalChangePassword from "../../../../components/modal/modalChangePass";
+// import { io } from "socket.io-client";
+
+// // socket
+// const socket = io(process.env.REACT_APP_SOCKET_URL, {
+//   transports: ["websocket"],
+// });
 
 const HeaderPC = () => {
   //redux
@@ -70,10 +76,12 @@ const HeaderPC = () => {
     <>
       <Row justify="space-between" className={styles.wrapperTop}>
         <Col>
-          <span>
-            {t("topbar.welcome")},{" "}
-            <b>{userData.firstName + userData.lastName}</b>
-          </span>
+          <div>
+            <span>{t("topbar.welcome")},</span>
+            <span className={styles.textNameUser}>
+              {userData.firstName + userData.lastName}
+            </span>
+          </div>
         </Col>
         <Col>
           <Space>

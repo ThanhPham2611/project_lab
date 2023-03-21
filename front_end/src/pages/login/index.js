@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Spin, Input, Checkbox, Button, notification, Row } from "antd";
+import { Form, Spin, Input, Checkbox, Button, notification } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import isOnline from "is-online";
@@ -60,13 +60,24 @@ const Login = () => {
           window.location.href = "/new-password";
         }
         notification.success({
-          message,
+          message: t("login.success_login"),
         });
       },
       onError: (error) => {
-        notification.error({
-          message: `${error.response.data.message}`,
-        });
+        if (error.response.status === 401) {
+          notification.error({
+            message: t("login.error_not_active"),
+          });
+        }
+        if (error.response.status === 404) {
+          notification.error({
+            message: t("login.error_login_wrong"),
+          });
+        } else {
+          notification.error({
+            message: t("login.error_server"),
+          });
+        }
       },
     }
   );

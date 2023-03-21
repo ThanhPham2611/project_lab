@@ -45,15 +45,15 @@ export const EStatusRegister = {
 export const listStatusRegister = [
   {
     value: EStatusRegister.notApprove,
-    label: "Not approve",
+    label: "Đang chờ",
   },
   {
     value: EStatusRegister.approve,
-    label: "Approve",
+    label: "Chấp nhận",
   },
   {
     value: EStatusRegister.refuse,
-    label: "Refuse",
+    label: "Từ chối",
   },
 ];
 
@@ -62,25 +62,33 @@ export const detailLocationDevice = (value1, value2) => {
   let nameRow;
   switch (value1) {
     case 1:
-      nameCabinet = "Cabinet 1";
+      nameCabinet = "Tủ 1";
       break;
     case 2:
-      nameCabinet = "Cabinet 2";
+      nameCabinet = "Tủ 2";
       break;
     default:
-      nameCabinet = "Cabinet 1";
+      nameCabinet = "Tủ 1";
       break;
   }
   switch (value2) {
     case 1:
-      nameRow = "Row 1";
+      nameRow = "Hàng 1";
       break;
     case 2:
-      nameRow = "Row 2";
+      nameRow = "Hàng 2";
       break;
     default:
-      nameRow = "Row 1";
+      nameRow = "Hàng 1";
       break;
   }
   return `${nameCabinet}-${nameRow}`;
 };
+
+export const deviceStatus = (status) => {
+  if (status === 0) {
+    return 'Chưa được mượn'
+  } else {
+    return 'Đã được mượn'
+  }
+}

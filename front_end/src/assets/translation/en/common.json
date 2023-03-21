@@ -18,7 +18,7 @@
     "devices_add_new_one": "Add devices",
     "devices_inventory": "Inventory",
     "devices_list_register": "List request",
-    "file": "File",
+    "bug": "Report bug",
     "request_account": "Request account"
   },
   "my_profile": {
@@ -64,7 +64,11 @@
     "link_register": "Register, don't have account !",
     "error_input_email": "Please input your email!",
     "error_input_password": "Please input your password!",
-    "error_format_email": "Malformed @thanglong.edu.vn"
+    "error_format_email": "Malformed @thanglong.edu.vn",
+    "error_not_active": "Account has not been activated",
+    "error_server": "Error server",
+    "error_login_wrong": "Wrong email or password",
+    "success_login": "Login success"
   },
   "user_regsiter": {
     "title_register": "User register",
@@ -325,6 +329,29 @@
     "office_student": "Student",
     "office_teacher": "Teacher"
   },
+  "device_register": {
+    "title_header": "Register device",
+    "label_first_name": "First name",
+    "label_last_name": "Last name",
+    "label_major": "Major",
+    "label_devices": "Devices",
+    "label_borrow_date": "Borrow date",
+    "label_return_date": "Return date",
+    "label_student_code": "Student code",
+    "label_purpose": "Purpose",
+    "placeholder_first_name": "Fill first name",
+    "placeholder_last_name": "Fill last name",
+    "placeholder_major": "Choose major",
+    "placeholder_devices": "Choose device",
+    "placeholder_borrow_date": "Fill borrow date",
+    "placeholder_return_date": "Fill return date",
+    "placeholder_student_code": "Fill student code",
+    "placeholder_purpose": "Fill purpose",
+    "btn_submit": "Submit",
+    "btn_reset": "Reset form",
+    "notify_register_success": "Successful application registration",
+    "notify_error_user_exist": "Student code does not exist"
+  },
   "ults": {
     "student": "Student",
     "admin": "Admin",
@@ -333,6 +360,8 @@
     "question_prompt": "Please enter your admin code ?",
     "confirm_login_fail": "Login admin failed",
     "spin_loading": "Loading....",
-    "regex_number": "You need fill number this field"
+    "regex_number": "You need fill number this field",
+    "rules_form_field": "You need to fill in this field",
+    "notify_server_err": "Server error"
   }
 }

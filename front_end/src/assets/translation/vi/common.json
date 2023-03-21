@@ -18,7 +18,7 @@
     "devices_add_new_one": "Thêm thiết bị",
     "devices_inventory": "Kiểm kê",
     "devices_list_register": "Danh sách yêu cầu",
-    "file": "Tệp",
+    "bug": "Báo lỗi",
     "request_account": "Duyệt tài khoản"
   },
   "my_profile": {
@@ -64,7 +64,11 @@
     "link_register": "Đăng ký, chưa có tài khoản",
     "error_input_email": "Bạn cần nhập email của bạn",
     "error_input_password": "Bạn cần nhập mật khẩu của bạn",
-    "error_format_email": "Định dạng email cần @thanglong.edu.vn"
+    "error_format_email": "Định dạng email cần @thanglong.edu.vn",
+    "error_not_active": "Tài khoản chưa được kích hoạt",
+    "error_server": "Lỗi server",
+    "error_login_wrong": "Email hoặc mật khẩu sai",
+    "success_login": "Đăng nhập thành công"
   },
   "user_regsiter": {
     "title_register": "Đăng ký người dùng",
@@ -328,6 +332,29 @@
     "office_student": "Sinh viên",
     "office_teacher": "Giáo viên"
   },
+  "device_register": {
+    "title_header": "Đơn đăng ký mượn thiết bị",
+    "label_first_name": "Họ",
+    "label_last_name": "Tên",
+    "label_major": "Ngành",
+    "label_devices": "Thiết bị",
+    "label_borrow_date": "Ngày mượn",
+    "label_return_date": "Ngày trả",
+    "label_student_code": "Mã sinh viên",
+    "label_purpose": "Lý do",
+    "placeholder_first_name": "Điền họ",
+    "placeholder_last_name": "Điền tên",
+    "placeholder_major": "Chọn ngành",
+    "placeholder_devices": "Chọn thiết bị",
+    "placeholder_borrow_date": "Điền ngày mượn",
+    "placeholder_return_date": "Điền ngày trả",
+    "placeholder_student_code": "Điền mã sinh viên",
+    "placeholder_purpose": "Điền lý do",
+    "btn_submit": "Xác nhận",
+    "btn_reset": "Làm mới đơn",
+    "notify_register_success": "Đăng ký đơn thành công",
+    "notify_error_user_exist": "Mã sinh viên không tồn tại"
+  },
   "ults": {
     "student": "Sinh viên",
     "admin": "Quản trị viên",
@@ -336,6 +363,8 @@
     "question_prompt": "Bạn cần nhập mã code quản trị viên của bạn ?",
     "confirm_login_fail": "Đăng nhập vào quyền quản trị viên lỗi",
     "spin_loading": "Đang tải....",
-    "regex_number": "Bạn cần điền số ở trường này"
+    "regex_number": "Bạn cần điền số ở trường này",
+    "rules_form_field": "Bạn cần điền trường này",
+    "notify_server_err": "Lỗi server"
   }
 }

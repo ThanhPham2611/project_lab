@@ -1,5 +1,5 @@
-import { Modal, notification, Row } from "antd";
-import React, { useState } from "react";
+import React from "react";
+import { Modal, notification } from "antd";
 import QrReader from "react-qr-scanner";
 import { useDispatch } from "react-redux";
 
@@ -18,23 +18,23 @@ const ModalCamera = ({ visiable, setVisiable }) => {
   };
 
   return (
-    <Modal open={visiable} footer={false} onCancel={handleCancel}>
-      <Row>
-        <QrReader
-          facingMode="front"
-          legacyMode={true}
-          onScan={(data) => {
-            if (data) {
-              handleSubmit(data.text);
-              setVisiable(false);
-            }
-          }}
-          onError={(err) => {
-            console.log("err camera:::", err);
-            notification.error({ message: err });
-          }}
-        />
-      </Row>
+    <Modal open={visiable} footer={false} onCancel={handleCancel} destroyOnClose>
+      {visiable && <QrReader
+        facingMode="front"
+        legacyMode={true}
+        onScan={(data) => {
+          console.log('okoekoek', data)
+          if (data) {
+            handleSubmit(data.text);
+            setVisiable(false);
+            return;
+          }
+        }}
+        onError={() => {
+          notification.error({ message: 'Thiết bị không hỗ trợ hoặc không tìm thấy thiết bị' });
+        }}
+        style={{ width: '100%', padding: 20 }}
+      />}
     </Modal>
   );
 };

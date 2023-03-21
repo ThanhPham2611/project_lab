@@ -28,9 +28,9 @@ export const deviceRegister = async (req, res) => {
 
   const user = await User.findOne({ _id }, "-_id email");
 
-  const checkExist = await User.findOne({ studentCode }, "-_id -__v");
+  const checkExist = await User.findOne({ studentCode });
   if (!checkExist) {
-    return res.status(400).send({ message: "User not exist !" });
+    return res.status(404).send({ message: "User not exist !" });
   }
   try {
     await borrowEquiment.create({
@@ -45,7 +45,7 @@ export const deviceRegister = async (req, res) => {
       returnDate: moment(returnDate).format(formatDate),
       purpose,
     });
-    return res.status(200).send({ message: "Register success !" });
+    return res.status(201).send({ message: "Register success !" });
   } catch (err) {
     console.log(err);
     return res.status(400).send({ message: "Something went wrong" });
