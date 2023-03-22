@@ -3,7 +3,6 @@ import {
   Col,
   Form,
   Input,
-  DatePicker,
   Spin,
   Divider,
   Space,
@@ -27,6 +26,7 @@ import { getlistDeviceType } from "../../../store/modules/deviceRegisterSlices";
 
 // scss
 import styles from "./addDevice.module.scss";
+import { optionRoom } from "../../../utils";
 
 const { TextArea } = Input;
 
@@ -38,27 +38,6 @@ const AddDevice = () => {
   const dispatch = useDispatch();
   const { listAllUser } = useSelector((state) => state.userInfo);
   const { listDeviceType } = useSelector((state) => state.deviceRegister);
-
-  const optionRoom = [
-    {
-      value: 1,
-      label: "Cabinet 1",
-      children: [
-        {
-          value: 1,
-          label: "Row 1",
-        },
-        {
-          value: 2,
-          label: "Row 2",
-        },
-        {
-          value: 3,
-          label: "Row 3",
-        },
-      ],
-    },
-  ];
 
   const [form] = Form.useForm();
   const [isModalAdd, setIsModalAdd] = useState(false);

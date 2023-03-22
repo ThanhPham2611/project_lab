@@ -16,7 +16,8 @@ export const getBorrowLog = async (req, res) => {
     const data = await BorrowLog.find({ deviceCode }, "-__v")
       .limit(size)
       .skip(pagination * size);
-    return res.status(200).send({ data });
+    const total = await BorrowLog.find({ deviceCode }, "-v")
+    return res.status(200).send({ data, total: total.length });
   } catch (err) {
     console.log(err);
     return res.status(401).send({ message: "Fail" });

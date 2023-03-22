@@ -36,6 +36,63 @@ export const listDevices = [
   },
 ];
 
+export const optionRoom = [
+  {
+    value: 1,
+    label: "Tủ 1",
+    children: [
+      {
+        value: 1,
+        label: "Hàng 1",
+      },
+      {
+        value: 2,
+        label: "Hàng 2",
+      },
+      {
+        value: 3,
+        label: "Hàng 3",
+      },
+    ],
+  },
+  {
+    value: 2,
+    label: "Tủ 2",
+    children: [
+      {
+        value: 1,
+        label: "Hàng 1",
+      },
+      {
+        value: 2,
+        label: "Hàng 2",
+      },
+      {
+        value: 3,
+        label: "Hàng 3",
+      },
+    ]
+  },
+  {
+    value: 3,
+    label: "Tủ 3",
+    children: [
+      {
+        value: 1,
+        label: "Hàng 1",
+      },
+      {
+        value: 2,
+        label: "Hàng 2",
+      },
+      {
+        value: 3,
+        label: "Hàng 3",
+      },
+    ]
+  }
+];
+
 export const EStatusRegister = {
   notApprove: 1,
   approve: 0,
@@ -90,5 +147,13 @@ export const deviceStatus = (status) => {
     return 'Chưa được mượn'
   } else {
     return 'Đã được mượn'
+  }
+}
+
+export const deviceRequest = (status) => {
+  if (status === 1) {
+    return 'Chưa được duyệt'
+  } else {
+    return 'Đã được duyệt'
   }
 }

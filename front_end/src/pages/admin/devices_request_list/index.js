@@ -27,6 +27,7 @@ import { EStatusRegister, formatDate } from "../../../utils";
 
 //scss
 import styles from "./requestList.module.scss";
+import ModalRequestInfo from "../../../components/modal/modalRequestInfo";
 
 const { Search } = Input;
 
@@ -76,15 +77,15 @@ const DevicesResList = () => {
             data === EStatusRegister.notApprove
               ? "#2db7f5"
               : data === EStatusRegister.approve
-              ? "#87d068"
-              : "#cd201f"
+                ? "#87d068"
+                : "#cd201f"
           }
         >
           {data === EStatusRegister.approve
             ? t("devices_request.name_status_approved")
             : data === EStatusRegister.notApprove
-            ? t("devices_request.name_status_not_approve")
-            : t("devices_request.name_status_refused")}
+              ? t("devices_request.name_status_not_approve")
+              : t("devices_request.name_status_refused")}
         </Tag>
       ),
     },
@@ -126,10 +127,9 @@ const DevicesResList = () => {
             {data.status === EStatusRegister.notApprove ? (
               <>
                 <ButtonPrimary
-                  classNameBtn={`${
-                    moment(data.borrowDate).format() <
-                      moment().format(formatDate) && "disabled"
-                  }`}
+                  classNameBtn={`${moment(data.borrowDate).format() <
+                    moment().format(formatDate) && "disabled"
+                    }`}
                   nameBtn={t("devices_request.btn_confirm")}
                   onClickBtn={() =>
                     handlePost({
@@ -139,20 +139,18 @@ const DevicesResList = () => {
                   }
                 />
                 <ButtonPrimary
-                  classNameBtn={`${
-                    moment(data.borrowDate).format() <
-                      moment().format(formatDate) && "disabled"
-                  } ${styles.btnRefuse}`}
+                  classNameBtn={`${moment(data.borrowDate).format() <
+                    moment().format(formatDate) && "disabled"
+                    } ${styles.btnRefuse}`}
                   nameBtn={t("devices_request.btn_refuse")}
                   onClickBtn={() => openModalRefuse(data._id)}
                 />
               </>
             ) : (
               <ButtonCancel
-                classNameBtn={`${
-                  moment(data.borrowDate).format() <
-                    moment().format(formatDate) && "disabled"
-                }`}
+                classNameBtn={`${moment(data.borrowDate).format() <
+                  moment().format(formatDate) && "disabled"
+                  }`}
                 nameBtn={t("devices_request.btn_refund")}
                 onClickBtn={() =>
                   handlePost({
@@ -172,7 +170,9 @@ const DevicesResList = () => {
   //state
   const [form] = Form.useForm();
   const [openModal, setOpenModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState(false);
   const [idModal, setIdModal] = useState("");
+  const [valueRow, setValueRow] = useState('')
 
   useEffect(() => {
     dispatch(listRequestDevice());
@@ -223,6 +223,11 @@ const DevicesResList = () => {
       .catch((err) => {
         console.log(err);
       });
+
+  const handleCheckInfo = (value) => {
+    setModalInfo(true)
+    setValueRow(value)
+  }
 
   return (
     <>
@@ -281,9 +286,15 @@ const DevicesResList = () => {
           columns={column}
           dataSource={listRequest}
           loading={loading}
+          onRow={(record, rowIndex) => {
+            return {
+              onDoubleClick: () => handleCheckInfo(record)
+            }
+          }}
         />
       </div>
       <ModalReason isModal={openModal} setIsModal={setOpenModal} id={idModal} />
+      <ModalRequestInfo visiable={modalInfo} setVisiable={setModalInfo} data={valueRow} />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Empty, Modal, Row } from "antd";
+import { Col, Empty, Modal, Pagination, Row, Tag } from "antd";
 import moment from "moment";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 
@@ -15,13 +15,17 @@ const borrowStatus = {
 };
 
 const ModalBorrowLog = ({ isModal, setIsModal, deviceCode }) => {
-  const [dataLog, setDataLog] = useState([]);
+  const [dataLog, setDataLog] = useState({});
+  const [pagination, setPagination] = useState({
+    current_page: 1,
+    page_size: 10
+  })
 
   useEffect(() => {
     (async () => {
       const logs = await get(`getBorrowLog`, { deviceCode });
       if (logs) {
-        setDataLog(logs.data);
+        setDataLog(logs);
       }
     })();
   }, [isModal]);
@@ -30,6 +34,18 @@ const ModalBorrowLog = ({ isModal, setIsModal, deviceCode }) => {
     setIsModal(false);
   };
 
+  const handleChangePage = async (page, pageSize) => {
+    setPagination({
+      ...pagination,
+      current_page: page,
+      page_size: pageSize
+    })
+    const logs = await get(`getBorrowLog`, { deviceCode, size: pageSize, pagination: page - 1 })
+    if (logs) {
+      setDataLog(logs);
+    }
+  }
+
   return (
     <Modal
       title="Lịch sử mượn"
@@ -37,30 +53,40 @@ const ModalBorrowLog = ({ isModal, setIsModal, deviceCode }) => {
       onCancel={onClose}
       footer={false}
     >
-      {dataLog.length > 0 ? (
+      {dataLog.total > 0 ? (
         <div>
-          {dataLog.map((item) => (
+          {dataLog?.data.map((item) => (
             <Row
               key={item._id}
               justify="space-between"
               className={styles.wrapperRowLog}
             >
-              <Col span={10}>{moment(item.createdAt).format("LLL")}</Col>
-              <Col span={9} className={styles.title}>
+              <Col span={7}>{moment(item.createdAt).format('DD-MM-YYYY HH:mm')}</Col>
+              <Col span={8} className={styles.title}>
                 {item.borrowerName}
               </Col>
               <Col span={3} className={styles.title}>
                 {item.studentCode}
               </Col>
-              <Col span={2}>
+              <Col span={4}>
                 {item.status === borrowStatus.borrowed ? (
-                  <ArrowRightOutlined style={{ color: "#ff0000" }} />
+                  <Tag color='green'>Cho mượn</Tag>
                 ) : (
-                  <ArrowLeftOutlined style={{ color: "#3399ff" }} />
+                  <Tag color='blue'>Thu hồi</Tag>
                 )}
               </Col>
             </Row>
           ))}
+          <Row justify='center' className={styles.paginationContainer}>
+            <Pagination
+              defaultCurrent={1}
+              total={dataLog.total}
+              pageSize={pagination.page_size}
+              pageSizeOptions={[10, 15, 20]}
+              showSizeChanger
+              onChange={(page, pageSize) => handleChangePage(page, pageSize)}
+            />
+          </Row>
         </div>
       ) : (
         <Empty />
