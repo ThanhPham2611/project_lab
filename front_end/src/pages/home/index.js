@@ -1,6 +1,10 @@
 /* eslint-disable no-restricted-globals */
-import { Image, Progress } from "antd";
+import { Image, Progress, Table } from "antd";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+import HomeAdmin from "./homeAdmin";
+import HomeUser from "./homeUser";
 
 //icon
 import coming_soon from "../../assets/images/img/coming_soon.jpg";
@@ -26,14 +30,17 @@ const Home = () => {
   //   });
   // };
 
+  const userInfo = useSelector((state) => state.userInfo.userData);
+
   return (
-    <div style={{ textAlign: "center" }}>
-      <Image
+    <>
+      {userInfo.role === 1 ? <HomeUser /> : <HomeAdmin />}
+      {/* <Image
         src={screen.width <= 1110 ? coming_soon_mobile : coming_soon}
         alt="Coming soon"
         preview={false}
         height={screen.width <= 1110 ? "89vh" : "70vh"}
-      />
+      /> */}
       {/* <Progress
         type="circle"
         percent={percent}
@@ -42,7 +49,7 @@ const Home = () => {
           "100%": "#87d068",
         }}
       /> */}
-    </div>
+    </>
   );
 };
 
