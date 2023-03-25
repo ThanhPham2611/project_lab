@@ -72,12 +72,12 @@ const MenuAdmin = () => {
         <NavLink to="/add-devices">{t("sidebar.devices_add_new_one")}</NavLink>,
         "/add-devices"
       ),
-      getItem(
-        <NavLink to="/inventory-devices">
-          {t("sidebar.devices_inventory")}
-        </NavLink>,
-        "/inventory-devices"
-      ),
+      // getItem(
+      //   <NavLink to="/inventory-devices">
+      //     {t("sidebar.devices_inventory")}
+      //   </NavLink>,
+      //   "/inventory-devices"
+      // ),
       getItem(
         <NavLink to="/list-request-devices">
           {t("sidebar.devices_list_register")}

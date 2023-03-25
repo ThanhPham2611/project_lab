@@ -35,8 +35,9 @@ const deviceSchema = mongoose.Schema(
       type: Number,
     },
     userId: String,
-    borrowDate: String,
+    borrowDate: Date,
     note: String,
+    returnDate: Date,
   },
   {
     timestamps: true,

@@ -1,7 +1,9 @@
 import Device from "../../../model/devices";
 import BorrowLog from "../../../model/borrowLogs";
 import Users from "../../../model/user";
+import BorrowEquiment from "../../../model/borrowEquipment";
 import jwt from "jsonwebtoken";
+import moment from "moment";
 
 export const patchDevice = async (req, res) => {
   let token = null;
@@ -15,7 +17,7 @@ export const patchDevice = async (req, res) => {
     const { role } = jwt.decode(token, { complete: true }).payload;
     if (role !== 0) res.status(401).send({ message: `You're not admin` });
     const { id } = req.params;
-    const { userId, status } = req.body;
+    const { userId, status, returnDate } = req.body;
     const checkexist = await Device.findOne({ _id: id }, "-__v");
     if (!checkexist) {
       return res.status(404).send({ message: "Id not found" });
@@ -31,10 +33,12 @@ export const patchDevice = async (req, res) => {
       await Device.findByIdAndUpdate(id, {
         userId,
         status: status,
+        borrowDate: moment().format("YYYY-MM-DD"),
+        returnDate: moment(returnDate).format("YYYY-MM-DD"),
       });
     } else {
       await Device.findByIdAndUpdate(id, {
-        $unset: { userId: 1 },
+        $unset: { userId: 1, borrowDate: 1, returnDate: 1 },
         status: status,
       });
     }
