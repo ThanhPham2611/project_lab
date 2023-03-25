@@ -71,8 +71,8 @@ const ListUsers = () => {
           {key === EOffice.admin
             ? t("list_user.table_admin")
             : key === EOffice.student
-              ? t("list_user.table_student")
-              : t("list_user.table_teacher")}
+            ? t("list_user.table_student")
+            : t("list_user.table_teacher")}
         </span>
       ),
     },
@@ -101,11 +101,6 @@ const ListUsers = () => {
             <ButtonCancel
               nameBtn={t("list_user.btn_detail")}
               onClickBtn={() => handleDetail(key.key)}
-            />
-            <ButtonCancel
-              disabled={key.role === 0}
-              nameBtn="Chặn người dùng"
-              onClickBtn={() => refuseAccount(key.key)}
             />
           </Space>
         );
@@ -189,9 +184,13 @@ const ListUsers = () => {
       })
       .catch((err) => {
         if (err.response.status === 404) {
-          notification.error({ message: "Mã người dùng không tồn tại hoặc đã bị thay đổi" });
+          notification.error({
+            message: "Mã người dùng không tồn tại hoặc đã bị thay đổi",
+          });
         } else {
-          notification.error({ message: "Lỗi kết nối, vui lòng kiểm tra lại server" });
+          notification.error({
+            message: "Lỗi kết nối, vui lòng kiểm tra lại server",
+          });
         }
       });
   };

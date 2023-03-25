@@ -9,6 +9,7 @@ import {
   Space,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
 //local
 import { allUsers } from "../../../store/modules/usersSlices";
@@ -75,6 +76,20 @@ const ModalBorrowDevice = ({ isModal, setIsModal, dataValue }) => {
                 label: `${item.firstName} ${item.lastName} - ${item.studentCode}`,
               };
             })}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="returnDate"
+          label="Ngày trả"
+          rules={[{ required: true, message: "Bạn cần chọn trường này" }]}
+        >
+          <DatePicker
+            placeholder="Chọn ngày trả"
+            style={{ width: "100%" }}
+            disabledDate={(current) => {
+              return moment().subtract(1, "days") > current;
+            }}
           />
         </Form.Item>
 
