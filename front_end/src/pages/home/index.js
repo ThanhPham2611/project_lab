@@ -31,10 +31,11 @@ const Home = () => {
   // };
 
   const userInfo = useSelector((state) => state.userInfo.userData);
+  console.log(userInfo)
 
   return (
     <>
-      {userInfo.role === 1 ? <HomeUser /> : <HomeAdmin />}
+      {userInfo.role === 1 ? <HomeUser /> : userInfo.role === 0 ? <HomeAdmin /> : <p>Something was wrong...</p>} 
       {/* <Image
         src={screen.width <= 1110 ? coming_soon_mobile : coming_soon}
         alt="Coming soon"
