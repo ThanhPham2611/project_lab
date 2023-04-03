@@ -95,7 +95,7 @@ const Register = () => {
         }}
       >
         <Row gutter={[16, 16]} justify="space-between">
-          <Col xxl={10}>
+          <Col xxl={10} xl={10} lg={10} md={10}>
             <Form.Item
               label={t("user_regsiter.first_name")}
               name="firstName"
@@ -112,7 +112,7 @@ const Register = () => {
               />
             </Form.Item>
           </Col>
-          <Col xxl={10}>
+          <Col xxl={10} xl={10} lg={10} md={10}>
             <Form.Item
               label={t("user_regsiter.last_name")}
               name="lastName"
@@ -132,7 +132,7 @@ const Register = () => {
         </Row>
 
         <Row gutter={[16, 16]} justify="space-between">
-          <Col xxl={10}>
+          <Col xxl={10} xl={10} lg={10} md={10}>
             <Form.Item
               label={t("user_regsiter.email")}
               name="email"
@@ -154,7 +154,7 @@ const Register = () => {
             </Form.Item>
           </Col>
 
-          <Col xxl={10}>
+          <Col xxl={10} xl={10} lg={10} md={10}>
             <Form.Item
               label={t("user_regsiter.student_code")}
               name="studentCode"
@@ -174,7 +174,7 @@ const Register = () => {
         </Row>
 
         <Row gutter={[16, 16]} justify="space-between">
-          <Col xxl={10}>
+          <Col xxl={10} xl={10} lg={10} md={10}>
             <Form.Item
               label={t("user_regsiter.phone")}
               name="phone"
@@ -192,7 +192,7 @@ const Register = () => {
             </Form.Item>
           </Col>
 
-          <Col xxl={10}>
+          <Col xxl={10} xl={10} lg={10} md={10}>
             <Form.Item
               className="selectRegister"
               label={t("user_regsiter.birthday")}
@@ -217,7 +217,7 @@ const Register = () => {
         </Row>
 
         <Row gutter={[16, 16]} justify="space-between">
-          <Col xxl={10}>
+          <Col xxl={10} xl={10} lg={10} md={10}>
             <Form.Item
               label={t("user_regsiter.majors")}
               name="majors"
@@ -246,7 +246,7 @@ const Register = () => {
             </Form.Item>
           </Col>
 
-          <Col xxl={10}>
+          <Col xxl={10} xl={10} lg={10} md={10}>
             <Form.Item label={t("user_regsiter.office")} name="office">
               <Select
                 className="selectRegister"
