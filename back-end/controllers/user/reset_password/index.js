@@ -34,7 +34,7 @@ export const resetPassword = async (req, res) => {
 
     await transporter.sendMail({
       from: "adminTLU@gmail.com",
-      to: `thanhpt@relipasoft.com`,
+      to: `${req.body.emailVerify}`,
       subject: "Code reset password notification",
       html: `Account <b>${req.body.emailVerify},</b> code reset password: <b>${codeRandom}</b> will be expired after 5 minutes`,
     });
