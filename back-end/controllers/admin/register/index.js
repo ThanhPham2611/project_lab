@@ -37,6 +37,7 @@ export const registerAuthen = async (req, res) => {
       office,
       birthday,
       isChangePassword: false,
+      isActive: true,
     });
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -48,9 +49,9 @@ export const registerAuthen = async (req, res) => {
 
     await transporter.sendMail({
       from: "adminTLU@gmail.com",
-      to: `thanhpt@relipasoft.com`,
+      to: `${email}`,
       subject: "Thông báo tài khoản mật khẩu",
-      text: "Testing send email",
+      text: "Hệ thống Labmanagement",
       html: `<p>Thông tin tài khoản: ${email}</p>
       <p>Mật khẩu: ${passwordRandom}</p>`,
     });

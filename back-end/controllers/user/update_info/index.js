@@ -11,11 +11,12 @@ export const updateInfo = async (req, res) => {
 
   try {
     const { _id } = jwt.decode(token, { complete: true }).payload;
-    const { phone } = req.body;
+    const { phone, avatarUrl } = req.body;
     await User.findByIdAndUpdate(
       { _id },
       {
         phone,
+        avatarUrl
       }
     );
     return res.status(200).json({

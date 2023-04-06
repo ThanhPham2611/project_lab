@@ -43,10 +43,9 @@ export const sendCodeVerify = async (req, res) => {
 
         await transporter.sendMail({
           from: "adminTLU@gmail.com",
-          to: `thanhpt@relipasoft.com`,
-          subject: "Password reset notification",
-          text: "Testing send email",
-          html: `Account <b>${emailVerify},</b> Password: <b>${passwordRandom}</b>, password will expire within 5 minutes from the time of sending this letter, thank you.`,
+          to: `${emailVerify}`,
+          subject: "Thông báo đổi mật khẩu",
+          html: `Tài khoản:  <b>${emailVerify},</b> Mật khẩu: <b>${passwordRandom}</b>, mật khẩu của bạn cần phải thay đổi sau 24h, nếu không thì mật khẩu này sẽ bị vô hiệu lực`,
         });
         await User.updateOne(
           { email: emailVerify },

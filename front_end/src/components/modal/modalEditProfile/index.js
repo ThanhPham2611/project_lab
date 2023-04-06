@@ -1,6 +1,16 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
-import { Avatar, Form, Input, message, Modal, Space, Spin, Upload } from "antd";
+import {
+  Avatar,
+  Form,
+  Input,
+  message,
+  Modal,
+  notification,
+  Space,
+  Spin,
+  Upload,
+} from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import ImgCrop from "antd-img-crop";
@@ -85,6 +95,7 @@ const ModalEditProfile = ({
             ...value,
             avatarUrl: downloadURL,
           };
+          // console.log("new data profile:>>>>", newData);
           changeInfo(newData);
         });
       }
@@ -97,7 +108,7 @@ const ModalEditProfile = ({
     patchChangeInfo,
     {
       onSuccess: (data) => {
-        message.success(data.message);
+        notification.success({ message: "Thay đổi thông tin thành công" });
         setIsModalVisible(false);
         form.resetFields();
         dispatch(userInfo());

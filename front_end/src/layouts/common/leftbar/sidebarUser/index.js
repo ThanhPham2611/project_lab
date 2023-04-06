@@ -25,7 +25,6 @@ const MenuUser = () => {
   const { t } = useTranslation("common");
 
   const { pathname } = useLocation();
-
   const subPathname = pathname.substring(pathname.lastIndexOf("-") + 1);
 
   const itemMenu = [
@@ -53,11 +52,6 @@ const MenuUser = () => {
         "/list-register-devices"
       ),
     ]),
-    getItem(
-      <NavLink to="/bug">{t("sidebar.bug")}</NavLink>,
-      "/bug",
-      <FileOutlined />
-    ),
   ];
 
   return (
