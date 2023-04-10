@@ -90,7 +90,7 @@ const DeviceManagement = () => {
           />
           <ButtonPrimary
             nameBtn={t("device_management.btn_action_qr_code")}
-            onClickBtn={() => handleOpenModal(key.deviceCode)}
+            onClickBtn={() => handleOpenModal(key)}
           />
         </Space>
       ),
@@ -112,6 +112,7 @@ const DeviceManagement = () => {
   const [onCamera, setOnCamera] = useState(false);
   const [modalInfo, setModalInfo] = useState(false)
   const [valueDevice, setValueDevice] = useState('')
+  const [valueName, setValueName] = useState('')
 
   useEffect(() => {
     dispatch(getlistDevice());
@@ -120,7 +121,8 @@ const DeviceManagement = () => {
 
   const handleOpenModal = (value) => {
     setOpenModalQr(true);
-    setValueQr(value);
+    setValueQr(value.deviceCode);
+    setValueName(value.deviceName)
   };
 
   const handleModalLog = (value) => {
@@ -243,6 +245,7 @@ const DeviceManagement = () => {
         }}
       />
       <ModalQrCode
+        valueName={valueName}
         valueCode={valueQr}
         setIsModal={setOpenModalQr}
         isModal={openModalQr}
