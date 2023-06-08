@@ -12,6 +12,7 @@ import { getListDevice } from "../controllers/user/get_list_device";
 
 //verifyToken
 import { verifyToken } from "../config/middleware/tokenMiddle";
+import { paymentMethod } from "../controllers/auth/payment";
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router.get("/getListDevice", verifyToken, getListDevice);
 //post
 router.post("/login", loginAuthen);
 router.post("/registerUser", postUserRegister);
+router.post('/payment', paymentMethod);
 
 //patch
 router.patch("/updatePassword", updatePassword);

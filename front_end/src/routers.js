@@ -24,6 +24,7 @@ import DevicesResList from "./pages/admin/devices_request_list";
 import CheckDevice from "./pages/admin/check_device";
 import RegisterUser from "./pages/register_user";
 import RequestAccount from "./pages/admin/request_account";
+import PaymentScreen from "./pages/payment";
 
 export const BlankPage = () => {
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN]);
@@ -219,6 +220,17 @@ export const appRouter = [
     name: "requestAccount",
     path: "/request-users",
     component: RequestAccount,
+    meta: {
+      role: "admin",
+      isPrivate: true,
+      hidden: false,
+      child: false,
+    },
+  },
+  {
+    name: "payment",
+    path: "/payment",
+    component: PaymentScreen,
     meta: {
       role: "admin",
       isPrivate: true,
